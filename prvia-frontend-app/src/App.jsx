@@ -1,12 +1,10 @@
-// import './App.css';
+import Navbar from "./components/Navbar";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-    <h1> Welcome To PRVIA</h1>
-      </header>
-    </div>
+    <AppRoutes/>
+
   );
 }
 
