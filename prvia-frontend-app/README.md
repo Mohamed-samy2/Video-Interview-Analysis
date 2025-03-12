@@ -1,8 +1,6 @@
-# 🎥 Video Interview Analysis - Frontend  
+# PRVIA - Frontend  
 
 This is the **React.js frontend** for the **PVRIA our Video Interview Analysis** project.  
-It provides an interactive user interface to analyze video interviews using AI-based **speech and facial expression analysis**.  
-
 ---
 
 ## Getting Started  
