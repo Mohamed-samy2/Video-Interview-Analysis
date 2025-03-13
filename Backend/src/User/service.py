@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import Depends, UploadFile, File, HTTPException
-from src.db import models  # Updated import path
-from src.User.schemas import UserCreate  # Updated import path
+from db.Models import UserModel  # Updated import path
+from User.schemas import UserCreate  # Updated import path
 import shutil
 from pathlib import Path
 from fastapi.responses import FileResponse
@@ -12,7 +12,7 @@ UPLOAD_DIR.mkdir(exist_ok=True)  # Ensure the folder exists
 
 class UserService:
     async def create_user(self, request: UserCreate, db: AsyncSession):
-        new_user = models.User(name=request.name, email=request.email, phone=request.phone)
+        new_user = UserModel.User(name=request.name, email=request.email, phone=request.phone)
         db.add(new_user)
         await db.commit()
         await db.refresh(new_user)
@@ -20,7 +20,7 @@ class UserService:
 
     async def upload_video(self, userId: int, file: UploadFile, db: AsyncSession):
         # Check if user exists
-        user = await db.get(models.User, userId)
+        user = await db.get(UserModel.User, userId)
         if not user:
             raise HTTPException(status_code=404, detail="User not found")
 
@@ -30,7 +30,7 @@ class UserService:
             shutil.copyfileobj(file.file, buffer)
 
         # Store path in DB
-        user_video = models.UserVideo(userId=userId, videoPath=str(file_path))
+        user_video = UserModel.UserVideo(userId=userId, videoPath=str(file_path))
         db.add(user_video)
         await db.commit()
         return {"message": "File uploaded successfully", "file_path": str(file_path)}
@@ -38,7 +38,7 @@ class UserService:
     async def get_user_video(self, userId: int, db: AsyncSession):
         # Fetch the latest video for the user
         result = await db.execute(
-            models.UserVideo.__table__.select().where(models.UserVideo.userId == userId)
+            UserModel.UserVideo.__table__.select().where(UserModel.UserVideo.userId == userId)
         )
         user_video = result.fetchone()
 

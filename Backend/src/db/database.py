@@ -3,7 +3,10 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 from typing import Annotated
 from fastapi import Depends
 
-SQLALCHEMY_DATABASE_URL = "postgresql+asyncpg://postgres:0000@localhost:5432/Video-Interview-Analysis"
+## create Database first Video-Interview-Analysis
+## add the host name and password in the url
+## add the database name
+SQLALCHEMY_DATABASE_URL = "postgresql+asyncpg://postgres:0000@172.27.80.1/Video-Interview-Analysis"
 
 engine = create_async_engine(
     SQLALCHEMY_DATABASE_URL

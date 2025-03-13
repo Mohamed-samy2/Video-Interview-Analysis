@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from src.db import models
-from src.db.database import engine, Base
+from User.routes import user_router
+from db.database import engine, Base
 import asyncio
 
 app = FastAPI()
@@ -15,5 +15,5 @@ async def startup_event():
     await create_tables()
 
 # Include routers
-
+app.include_router(user_router)
 # Run with: uvicorn main:app --reload
