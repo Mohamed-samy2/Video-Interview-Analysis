@@ -4,5 +4,5 @@ tests
 DB
 server.js
 db.json
-/node_modules
-.DS_Store
+node_modules
+DS_Store
