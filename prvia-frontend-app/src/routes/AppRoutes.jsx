@@ -1,46 +1,119 @@
-// import { BrowserRouter , Routes, Route } from "react-router-dom";
-import {createBrowserRouter,createRoutesFromElements,BrowserRouter,Routes,RouterProvider,Route, Outlet} from "react-router-dom";
-import Home from "../pages/Homepage";
-import Navbar from "../components/Navbar";
-import Error from "../pages/Error";
+// src/routes/AppRoutes.jsx
+import { createBrowserRouter, createRoutesFromElements, Route,Outlet } from 'react-router-dom';
+import React, { Suspense } from 'react';
+import { useAuth } from '../context/AuthContext';
 
-const AppRoutes = () => {
+import CustomNavbar from '../components/Navbar';
+import LoginSignup from '../pages/LoginSignup';
+import CreateJob from '../pages/CreateJob';
+import Home from '../pages/Homepage';
+import Error from '../pages/Error';
+import About from '../pages/AboutUs';
+import Contact from '../pages/Contact';
+import JobDetails from '../pages/JobDetails';
+import YourProfile from '../pages/YourProfile';
+import ProtectedRoute from '../components/ProtectedRoute';
+
+// Simple layout component to include the Navbar
+const RootLayout = () => {
+    const { isLoggedIn } = useAuth();
+    console.log(isLoggedIn)
     return (
-    <BrowserRouter>
-         <Navbar /> 
-         <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="*" element={<Error />} />
- 
-        </Routes>
-    </BrowserRouter>
+      <>
+        <CustomNavbar isLoggedIn={isLoggedIn} />
+        <div className="container mt-3">
+          <Outlet /> {/* Renders child routes */}
+        </div>
+      </>
+    );
+  };
+
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <>
+       <Route path="/login" element={<LoginSignup initialAction="Login" />} />
+      <Route
+        path="/create"
+        element={
+          <Suspense fallback={<div>Loading...</div>}>
+            <LoginSignup initialAction="Sign Up" />
+          </Suspense>
+        }
+      />
+   
+      <Route path="/" element={<RootLayout />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute>
+              <Suspense fallback={<div>Loading...</div>}>
+                <Home />
+              </Suspense>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="about"
+          element={
+            <ProtectedRoute>
+              <Suspense fallback={<div>Loading...</div>}>
+                <About />
+              </Suspense>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="contact"
+          element={
+            <ProtectedRoute>
+              <Suspense fallback={<div>Loading...</div>}>
+                <Contact />
+              </Suspense>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="jobs/new"
+          element={
+            <ProtectedRoute>
+              <Suspense fallback={<div>Loading...</div>}>
+                <CreateJob />
+              </Suspense>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="jobs/:id"
+          element={
+            <ProtectedRoute>
+              <Suspense fallback={<div>Loading...</div>}>
+                <JobDetails />
+              </Suspense>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="profile"
+          element={
+            <ProtectedRoute>
+              <Suspense fallback={<div>Loading...</div>}>
+                <YourProfile />
+              </Suspense>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <Error />
+            </Suspense>
+          }
+        />
+      </Route>
+
+      </>
     )
-
-}
-export default AppRoutes;
-
-// const router = createBrowserRouter(
-//     createRoutesFromElements(
-//       <Route path="/" element={<RootLayout />}>
-//         {/* Use index route for the default landing page */}
-//         <Route index element={<Home />} />
-//         <Route path="about" element={<About />} />
-//         <Route path="contact" element={<Contact />} />
-//         <Route path="cart" element={<CartPageWrapper />} />
-//         <Route path="login" element={<Login />} />
-//         <Route path="*" element={<Error />} />
-//         <Route path="post/:id/" element={<Post />} />
-//         <Route path="dashboard" 
-//         element={ 
-//           <ProtectedRoute user={user}>
-//               <DashboardLayout />
-//           </ProtectedRoute>
-//          }
-//          >
-//         <Route index element={<Dashboard />} />
-//           <Route path="users" element={<Users />} />
-//           <Route path="posts" element={<Posts />} />
-//           </Route>
-//       </Route>
-//     )
-//    );
+  );
+  
+  export default router;
