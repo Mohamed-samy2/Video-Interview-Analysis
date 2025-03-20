@@ -4,5 +4,4 @@ tests
 DB
 server.js
 db.json
-tailwind.config.js
-postcss.config.js
+/node_modules
