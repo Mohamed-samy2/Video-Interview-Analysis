@@ -55,7 +55,8 @@ const LoginSignup = ({ initialAction = "Login" }) => {
             name: values.name,
             email: values.email
           }));
-          navigate("/");
+          toast.success("Please Login in again using your cerated account");
+          navigate("/login");
         }
       }
        else {
