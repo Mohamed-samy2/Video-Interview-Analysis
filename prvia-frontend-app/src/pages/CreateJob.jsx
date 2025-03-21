@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { addJob } from '../services/api'; // Use addJob from api.js
+import { useAuth } from '../context/AuthContext'; // Import Auth Context
+import { toast } from 'react-toastify';
+// import { useNavigate } from 'react-router-dom';
 import { Container, Form, Button } from "react-bootstrap";
 
 const CreateJob = () => {
-  const [jobTitle, setJobTitle] = useState("");
+  const [title, setJobTitle] = useState("");
   const [description, setDescription] = useState("");
   const [salary, setSalary] = useState("");
   const [company, setCompany] = useState("");
@@ -13,6 +16,8 @@ const CreateJob = () => {
   const [location, setLocation] = useState("");
   const [questions, setQuestions] = useState([{ id: 1, question: "" }]);
   const [loading, setLoading] = useState(false);
+  const { hrId } = useAuth();
+  // const navigate = useNavigate();
 
   const handleAddQuestion = () => {
     setQuestions([...questions, { id: questions.length + 1, question: "" }]);
@@ -29,19 +34,22 @@ const CreateJob = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post("https://api.example.com/jobs", {
-        title: jobTitle,
+      const jobData = {
+        title: title,
         description,
-        salary,
-        company,
+        salary: Number(salary), // Ensure salary is a number
+        company_name: company, // Match backend field name
         skills,
         type,
         requirements,
         location,
         questions,
-      });
-      alert("Job created successfully!");
+        hrId
+      };
+      const response = await addJob(jobData);
+      toast.success("Job created successfully!");
       console.log(response.data);
+      
       setJobTitle("");
       setDescription("");
       setSalary("");
@@ -51,10 +59,12 @@ const CreateJob = () => {
       setRequirements("");
       setLocation("");
       setQuestions([{ id: 1, question: "" }]);
-    } catch (error) {
-      alert("Error creating job");
-      console.error(error);
-    } finally {
+    } 
+    catch (error) {
+      console.error('Error creating job:', error);
+      toast.error("Error creating job. Please try again.");
+    } 
+    finally {
       setLoading(false);
     }
   };
@@ -67,7 +77,7 @@ const CreateJob = () => {
           <Form.Label>Job Title</Form.Label>
           <Form.Control
             type="text"
-            value={jobTitle}
+            value={title}
             onChange={(e) => setJobTitle(e.target.value)}
             required
           />

@@ -16,22 +16,21 @@ import ProtectedRoute from '../components/ProtectedRoute';
 
 // Simple layout component to include the Navbar
 const RootLayout = () => {
-    const { isLoggedIn } = useAuth();
-    console.log(isLoggedIn)
-    return (
-      <>
-        <CustomNavbar isLoggedIn={isLoggedIn} />
-        <div className="container mt-3">
-          <Outlet /> {/* Renders child routes */}
-        </div>
-      </>
-    );
-  };
-
+  const { isLoggedIn } = useAuth();
+  console.log(isLoggedIn);
+  return (
+    <>
+      <CustomNavbar isLoggedIn={isLoggedIn} />
+      <div className="container mt-3">
+        <Outlet />
+      </div>
+    </>
+  );
+};
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
-       <Route path="/login" element={<LoginSignup initialAction="Login" />} />
+      <Route path="/login" element={<LoginSignup initialAction="Login" />} />
       <Route
         path="/create"
         element={

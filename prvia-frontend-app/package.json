@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^14.6.1",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
+    "concurrently": "^9.1.2",
     "formik": "^2.4.6",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.9",
@@ -26,7 +27,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "node server.js"
+    "server": "node server.js",
+    "dev": "concurrently \"npm start\" \"npm run server\""
   },
   "eslintConfig": {
     "extends": [

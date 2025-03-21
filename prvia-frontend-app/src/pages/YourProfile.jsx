@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Card, Button, ListGroup, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { getHRJobs, getHRDetails } from '../services/api'; // Add API function
+import { getHRJobs } from '../services/api'; // Add API function
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
 
@@ -14,39 +14,43 @@ const YourProfile = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!hrId) {
-      toast.error('Please log in to view your profile.');
-      navigate('/login');
-      return;
-    }
+    const storedHrDetails = JSON.parse(localStorage.getItem('hrDetails'));
+    setHrDetails(storedHrDetails);
 
-    // Fetch HR details (name, email)
-    const fetchHRDetails = async () => {
-      try {
-        const response = await getHRDetails(hrId); // Fetch user details using ID
-        setHrDetails(response.data);
-      } catch (error) {
-        console.error('Error fetching HR details:', error);
-        toast.error('Failed to load profile details.');
-      }
-    };
+    // // Fetch HR details (name, email)
+    // const fetchHRDetails = async () => {
+    //   try {
+    //     const response = await getHRDetails(hrId); // Fetch user details using ID
+    //     setHrDetails(response.data);
+    //   } catch (error) {
+    //     console.error('Error fetching HR details:', error);
+    //     toast.error('Failed to load profile details.');
+    //   }
+    // };
 
-    // Fetch created jobs
+    // Fetch hr jobs
     const fetchJobs = async () => {
       try {
         const response = await getHRJobs(hrId);
-        setCreatedJobs(response.data);
-      } catch (error) {
+        setCreatedJobs(response.data.data || response.data);
+      }
+       catch (error) {
         console.error('Error fetching jobs:', error);
         toast.error('Failed to load jobs.');
-      } finally {
+      } 
+      finally {
         setLoading(false);
       }
     };
 
-    fetchHRDetails();
+    // fetchHRDetails();
     fetchJobs();
-  }, [navigate, hrId]);
+  }, [hrId]);
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   if (loading) return <div className="text-center"><Spinner animation="border" /></div>;
 
@@ -64,7 +68,7 @@ const YourProfile = () => {
           <Card.Text>
             <strong>Email:</strong> {hrDetails?.email || "Not Available"}
           </Card.Text>
-          <Button variant="danger" onClick={logout} className="mt-3">
+          <Button variant="danger" onClick={handleLogout} className="mt-3">
             Logout
           </Button>
           <Card.Title className="mt-4">Jobs You Created</Card.Title>
@@ -93,8 +97,6 @@ const YourProfile = () => {
 };
 
 export default YourProfile;
-
-
 
 
 

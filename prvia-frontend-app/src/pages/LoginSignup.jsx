@@ -6,7 +6,6 @@ import email_icon from "../assets/email.png";
 import password_icon from "../assets/password.png";
 import { toast } from "react-toastify";
 import { addHr, loginHr } from "../services/api";
-// import { postSignup, postLogin } from "../services/api";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -42,25 +41,37 @@ const LoginSignup = ({ initialAction = "Login" }) => {
 
       if (action === "Sign Up") {
         const response = await addHr(values);
-        if (response.data === false) {
+        const success = response.data.data !== undefined ? response.data.data : response.data;
+       
+        if (success === false) {
           toast.error("Email already exists. Please try another email.");
-        } 
+        }
+        
         else {
           toast.success("Sign-up successful!");
-          setHrId(response.data.id);  // Store HR ID
-          localStorage.setItem("hrId", response.data.id);
+          setHrId(success); // Backend returns the hrId
+          localStorage.setItem('hrDetails', JSON.stringify({
+            id: success,
+            name: values.name,
+            email: values.email
+          }));
           navigate("/");
         }
       }
        else {
         const response = await loginHr(values);
-        if (response.data.id === 0) {
+        const hrId = response.data.data !== undefined ? response.data.data.id : response.data.id;
+        if (hrId === 0) {
           toast.error("Invalid email or password.");
         } 
         else {
           toast.success("Login successful!");
-          setHrId(response.data.id);  // Store HR ID
+          setHrId(hrId);  // Store HR ID
           localStorage.setItem("hrId", response.data.id);
+          localStorage.setItem('hrDetails', JSON.stringify({
+            id: hrId,
+            email: values.email
+          }));
           navigate("/");
         }
       }
@@ -78,7 +89,6 @@ const LoginSignup = ({ initialAction = "Login" }) => {
         <div className="text">{action}</div>
         <div className="underline"></div>
       </div>
-
       <Formik
         initialValues={{ name: "", email: "", password: "" }}
         validationSchema={action === "Sign Up" ? validationSchema : loginValidationSchema}

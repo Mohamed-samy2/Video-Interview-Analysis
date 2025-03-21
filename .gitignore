@@ -5,4 +5,4 @@ DB
 server.js
 db.json
 node_modules
-DS_Store
+.DS_Store

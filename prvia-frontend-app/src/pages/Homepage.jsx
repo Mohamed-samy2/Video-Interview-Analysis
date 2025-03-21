@@ -1,28 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { getHRJobs } from '../services/api';
+import { getJobs } from '../services/api'; // Use getJobs instead of getHRJobs
 import { Button } from 'react-bootstrap';
-import { toast } from 'react-toastify'; 
+import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import JobCard from '../components/JobCard';
 import Spinner from 'react-bootstrap/Spinner';
-import { useAuth } from '../context/AuthContext'; // Import Auth Context
+import { useAuth } from '../context/AuthContext';
 
 const Home = () => {
-  const { hrId, logout } = useAuth(); // Get hrId and logout from context
+  const { hrId, logout } = useAuth();
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!hrId) {
-      navigate('/login'); // Redirect if not authenticated
-      return;
-    }
-
     const fetchJobs = async () => {
       try {
-        const response = await getHRJobs(hrId); // Use hrId in API call
-        setJobs(response.data);
+        const response = await getJobs(hrId);
+        setJobs(response.data.data || response.data); // Handle wrapped/unwrapped response
         console.log('Fetched jobs:', response.data);
       } catch (error) {
         console.error('Error fetching jobs:', error);
@@ -33,7 +28,7 @@ const Home = () => {
     };
 
     fetchJobs();
-  }, [navigate, hrId]);
+  }, [hrId]);
 
   if (loading) return <div className="text-center"><Spinner animation="border" /></div>;
 
@@ -42,7 +37,12 @@ const Home = () => {
     navigate(`/jobs/${job.id}`);
   };
 
-  return (  
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
+  return (
     <div className="container mt-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2>Available Jobs</h2>
@@ -50,7 +50,7 @@ const Home = () => {
           <Button as={Link} to="/jobs/new" variant="primary" className="me-3">
             Create New Job
           </Button>
-          <Button variant="danger" onClick={logout}>Logout</Button> {/* Logout Button */}
+          <Button variant="danger" onClick={handleLogout}>Logout</Button>
         </div>
       </div>
       <div className="row">
