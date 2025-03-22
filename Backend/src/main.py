@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from User.routes import user_router
+from Hr.routes import hr_router
 from db.database import engine, Base
 import asyncio
 
@@ -16,4 +17,5 @@ async def startup_event():
 
 # Include routers
 app.include_router(user_router)
+app.include_router(hr_router)
 # Run with: uvicorn main:app --reload
