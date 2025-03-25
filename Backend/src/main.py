@@ -18,4 +18,6 @@ async def startup_event():
 # Include routers
 app.include_router(user_router)
 app.include_router(hr_router)
+app.include_router(job_router, prefix="/job", tags=["Job"])
 # Run with: uvicorn main:app --reload
+
