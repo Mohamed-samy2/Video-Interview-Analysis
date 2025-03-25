@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from User.routes import user_router
+from src.User.routes import user_router
 from src.Job.routes import job_router
-from db.database import engine, Base
+from src.db.database import engine, Base
 import asyncio
 
 app = FastAPI()

@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import Depends, UploadFile, File, HTTPException
-from db.Models import UserModel  # Updated import path
-from User.schemas import UserCreate  # Updated import path
+from src.db.Models import UserModel # Updated import path
+from src.User.schemas import UserCreate  # Updated import path
 import shutil
 from pathlib import Path
 from fastapi.responses import FileResponse
