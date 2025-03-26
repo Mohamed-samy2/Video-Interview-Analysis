@@ -5,6 +5,9 @@ from src.User.schemas import UserCreate  # Updated import path
 import shutil
 from pathlib import Path
 from fastapi.responses import FileResponse
+from src.utils import Status
+from sqlalchemy.future import select
+from typing import List, Optional
 
 
 UPLOAD_DIR = Path("uploads")  # Define upload directory
@@ -12,20 +15,50 @@ UPLOAD_DIR.mkdir(exist_ok=True)  # Ensure the folder exists
 
 class UserService:
     async def create_user(self, request: UserCreate, db: AsyncSession):
-        new_user = UserModel.User(name=request.name, email=request.email, phone=request.phone)
+        new_user = UserModel.User(first_name=request.first_name,
+                                  last_name=request.last_name,
+                                   email=request.email, 
+                                   phone=request.phone,
+                                   jobId=request.jobId,
+                                   gender=request.gender,
+                                   degree=request.degree,
+                                   status=Status.PENDING.value)
         db.add(new_user)
         await db.commit()
         await db.refresh(new_user)
         return new_user
+    
+    async def get_users_by_jobid_status(job_id: int, status: Optional[str], db: AsyncSession):
+        query = select(UserModel.User).where(UserModel.User.jobId == job_id)
+        if status is None:
+            query = query.where(UserModel.User.status == Status.PENDING.value)
+        else:
+            query = query.where(UserModel.User.status == status)
+        result = await db.execute(query)
+        return result.scalars().all()
 
-    async def upload_video(self, userId: int, file: UploadFile, db: AsyncSession):
+    async def update_user_status(user_id: int, job_id: int, new_status: str, db: AsyncSession):
+        query = select(UserModel.User).where(UserModel.User.id == user_id, UserModel.User.jobId == job_id)
+        result = await db.execute(query)
+        user = result.scalars().first()
+        if user:
+            user.status = new_status
+            await db.commit()
+            await db.refresh(user)
+        return user
+
+    async def upload_video(userId: int, jobId: int, questionId: int, file: UploadFile, db: AsyncSession):
         # Check if user exists
         user = await db.get(UserModel.User, userId)
         if not user:
             raise HTTPException(status_code=404, detail="User not found")
 
+        # Define upload path
+        user_dir = UPLOAD_DIR / str(jobId) / str(userId) / "videos"
+        user_dir.mkdir(parents=True, exist_ok=True)
+        file_path = user_dir / f"{questionId}.mp4"
+
         # Save the file
-        file_path = UPLOAD_DIR / file.filename
         with file_path.open("wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
 
