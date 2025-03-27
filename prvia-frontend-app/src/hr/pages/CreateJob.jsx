@@ -1,9 +1,10 @@
+// src/hr/pages/CreateJob.jsx
 import React, { useState } from "react";
-import { addJob } from '../services/api'; // Use addJob from api.js
-import { useAuth } from '../context/AuthContext'; // Import Auth Context
+import { addJob } from '../../services/api';
+import { useAuth } from '../../context/AuthContext';
 import { toast } from 'react-toastify';
-// import { useNavigate } from 'react-router-dom';
-import { Container, Form, Button } from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';
+import { Container, Form, Button, InputGroup } from "react-bootstrap";
 
 const CreateJob = () => {
   const [title, setJobTitle] = useState("");
@@ -17,7 +18,7 @@ const CreateJob = () => {
   const [questions, setQuestions] = useState([{ id: 1, question: "" }]);
   const [loading, setLoading] = useState(false);
   const { hrId } = useAuth();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleAddQuestion = () => {
     setQuestions([...questions, { id: questions.length + 1, question: "" }]);
@@ -32,24 +33,38 @@ const CreateJob = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check if HR is logged in
+    if (!hrId) {
+      toast.error('Please log in to create a job.');
+      navigate('/hr/login');
+      return;
+    }
+
     setLoading(true);
     try {
       const jobData = {
         title: title,
         description,
-        salary: Number(salary), // Ensure salary is a number
-        company_name: company, // Match backend field name
-        skills,
+        salary: Number(salary),
+        company_name: company,
+        skills: skills.split(',').map(skill => skill.trim()), // Convert string to array
         type,
-        requirements,
+        requirements: requirements.split(',').map(req => req.trim()), // Convert string to array
         location,
         questions,
         hrId
       };
       const response = await addJob(jobData);
-      toast.success("Job created successfully!");
-      console.log(response.data);
       
+      if (response.data.response !== "success") {
+        toast.error('Failed to create job');
+        return;
+      }
+      toast.success("Job created successfully!");
+      console.log("New Job created:",response.data);
+
+      // Reset form fields
       setJobTitle("");
       setDescription("");
       setSalary("");
@@ -59,6 +74,9 @@ const CreateJob = () => {
       setRequirements("");
       setLocation("");
       setQuestions([{ id: 1, question: "" }]);
+
+      // Navigate back to homepage
+      navigate('/hr');
     } 
     catch (error) {
       console.error('Error creating job:', error);
@@ -67,6 +85,10 @@ const CreateJob = () => {
     finally {
       setLoading(false);
     }
+  };
+
+  const handleCancel = () => {
+    navigate('/hr');
   };
 
   return (
@@ -115,7 +137,7 @@ const CreateJob = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Skills</Form.Label>
+          <Form.Label>Skills (comma-separated, e.g., JavaScript, React)</Form.Label>
           <Form.Control
             type="text"
             value={skills}
@@ -135,7 +157,7 @@ const CreateJob = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Requirements</Form.Label>
+          <Form.Label>Requirements (comma-separated, e.g., Bachelor’s degree, 3+ years)</Form.Label>
           <Form.Control
             as="textarea"
             rows={2}
@@ -159,22 +181,34 @@ const CreateJob = () => {
         {questions.map((q, index) => (
           <Form.Group className="mb-3" key={q.id}>
             <Form.Label>Question {index + 1}</Form.Label>
-            <Form.Control
-              type="text"
-              value={q.question}
-              onChange={(e) => handleQuestionChange(index, e.target.value)}
-              required
-            />
+            <InputGroup>
+              <Form.Control
+                type="text"
+                value={q.question}
+                onChange={(e) => handleQuestionChange(index, e.target.value)}
+                required
+              />
+              {index === questions.length - 1 && (
+                <Button
+                  variant="outline-primary"
+                  onClick={handleAddQuestion}
+                  className="ms-2"
+                >
+                  +
+                </Button>
+              )}
+            </InputGroup>
           </Form.Group>
         ))}
 
-        <Button variant="secondary" onClick={handleAddQuestion} className="mb-3">
-          Add Question
-        </Button>
-
-        <Button variant="primary" type="submit" disabled={loading}>
-          {loading ? "Creating..." : "Create Job"}
-        </Button>
+        <div className="text-center">
+          <Button variant="primary" type="submit" disabled={loading} className="me-2">
+            {loading ? "Creating..." : "Create Job"}
+          </Button>
+          <Button variant="danger" onClick={handleCancel}>
+            Cancel
+          </Button>
+        </div>
       </Form>
     </Container>
   );

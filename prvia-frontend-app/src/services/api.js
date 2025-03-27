@@ -1,11 +1,10 @@
-// src/services/api.js
 import axios from 'axios';
 
-const api =  axios.create({
-  baseURL: process.env.BACKEND_API_URL, 
+const api = axios.create({
+  baseURL: 'http://localhost:3001', // Update to FastAPI port (default is 8000)
 });
 
-// Add response interceptor for error handling
+console.log('API baseURL:', api.defaults.baseURL);
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -16,43 +15,116 @@ api.interceptors.response.use(
   }
 );
 
-// Fetch Jobs (using hrId)
-export const getJobs = (hrId) => {
-  return api.get(`/jobs/`, { params: { hrId } });
+// User APIs:
+
+export const getAllJobs = () => {
+  return api.get('/jobs');
 };
 
-// Fetch Job by ID
+export const submitApplication = async (applicationData) => {
+  // Step 1: Create the user
+  const userData = {
+    first_name: applicationData.firstName,
+    last_name: applicationData.lastName,
+    jobId: applicationData.jobId,
+    email: applicationData.email,
+    phone: applicationData.phoneNumber,
+    gender: applicationData.gender,
+    degree: applicationData.education,
+  };
+
+  console.log('Submitting user data to /user/create-user:', userData);
+  const userResponse = await api.post('/user/create-user', userData);
+  console.log('Response from /user/create-user:', userResponse.data);
+
+  const userId = userResponse.data.response;
+  if (userId === '0') {
+    throw new Error('User creation failed');
+  }
+
+  // Step 2: Upload the CV
+  const formData = new FormData();
+  formData.append('user_id', userId);
+  formData.append('cv', applicationData.cv);
+
+  console.log('Submitting CV to /user/upload-CV for userId:', userId);
+  const cvResponse = await api.put('/user/upload-CV', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  console.log('Response from /user/upload-CV:', cvResponse.data);
+
+  return { userId, cvResponse };
+};
+
+export const uploadVideo = (videoResponseData, videoFile) => {
+  const formData = new FormData();
+  formData.append('userId', videoResponseData.userId);
+  formData.append('questionId', videoResponseData.questionId);
+  formData.append('jobId', videoResponseData.jobId);
+  formData.append('video', videoFile);
+
+  console.log('Submitting video to /user/upload-video:', videoResponseData);
+  return api.post('/user/upload-video', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+};
+
+export const computeScores = (data) => {
+  console.log('Submitting compute-scores request:', data);
+  return api.post('/compute-scores', data);
+};
+
 export const getJobById = (id) => {
+  console.log('Fetching job by ID:', id);
   return api.get(`/jobs/${id}`);
 };
 
-//  Create a New Job
+// HR APIs:
+
+export const getJobs = (hrId) => {
+  console.log('Fetching jobs for hrId:', hrId);
+  return api.get(`/jobs/`, { params: { hrId } });
+};
+
 export const addJob = (jobData) => {
+  console.log('Creating new job:', jobData);
   return api.post('/jobs', jobData);
 };
 
-//  Add a New User (Sign up)
 export const addHr = (userData) => {
+  console.log('Creating new HR:', userData);
   return api.post('/create', userData);
 };
 
-// Send user data for login check
 export const loginHr = (credentials) => {
-  return api.post('/login', credentials); // Add login endpoint for FastAPI
+  console.log('Logging in HR:', credentials);
+  return api.post('/login', credentials);
 };
 
-// Get Jobs for logged in HR
-export const getHRJobs = (hrId) => {
-  // const hrId = localStorage.getItem('hrId');
-  return api.get(`/jobs`, { params: { hrId } });
+export const getUsersByJobId = (jobId) => {
+  console.log('Fetching users for jobId:', jobId);
+  return api.get('/user/', { params: { jobId } });
 };
 
-// Get Hr info 
-export const getHRDetails = (hrId) => {
-  return api.get(`/hr/${hrId}`); // Confirm endpoint with backend
+export const updateStatus = (data) => {
+  const { userId, jobId, status } = data;
+  console.log('Updating status for userId:', userId, 'jobId:', jobId, 'status:', status);
+  return api.put(`/user/${userId}/status`, { jobId, status });
+};
+
+export const getVideosByUserAndJob = (userId, jobId) => {
+  console.log('Fetching videos for userId:', userId, 'jobId:', jobId);
+  return api.get('/videos', { params: { userId, jobId } });
 };
 
 
-
+// export const getHRJobs = (hrId) => {
+//   console.log('Fetching HR jobs for hrId:', hrId);
+//   return api.get(`/jobs`, { params: { hrId } });
+// };
 
 

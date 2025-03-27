@@ -1,13 +1,15 @@
-import React ,{useState}from "react";
+import React, { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import user_icon from "../assets/person.png";
-import email_icon from "../assets/email.png";
-import password_icon from "../assets/password.png";
+import { useAuth } from "../../context/AuthContext";
+import user_icon from "../../assets/person.png";
+import email_icon from "../../assets/email.png";
+import password_icon from "../../assets/password.png";
 import { toast } from "react-toastify";
-import { addHr, loginHr } from "../services/api";
+import { addHr, loginHr } from "../../services/api";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import '../../styles/LoginSignup.css'; // Import the new CSS
+
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -21,9 +23,7 @@ const validationSchema = Yup.object({
     )
     .required("Email is required"),
   password: Yup.string()
-    .min(2, "Password must be at least 8 characters long")
-    // .matches(/[A-Za-z]/, "Password must contain at least one letter")
-    // .matches(/\d/, "Password must contain at least one number")
+    .min(1, "Password must be at least 8 characters long")
     .required("Password is required"),
 });
 
@@ -32,8 +32,15 @@ const loginValidationSchema = validationSchema.pick(["email", "password"]);
 
 const LoginSignup = ({ initialAction = "Login" }) => {
   const [action, setAction] = useState(initialAction);
-  const { setHrId } = useAuth();  // Use setHrId instead of setIsLoggedIn
+  const { setHrId,setRole,isLoggedIn } = useAuth();
   const navigate = useNavigate();
+ 
+  useEffect(() => {
+    if (isLoggedIn && action === "Login") {
+      console.log("isLoggedIn changed to true, navigating to home");
+      navigate("/hr");
+    }
+  }, [isLoggedIn, action, navigate]);
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
@@ -42,44 +49,44 @@ const LoginSignup = ({ initialAction = "Login" }) => {
       if (action === "Sign Up") {
         const response = await addHr(values);
         const success = response.data.data !== undefined ? response.data.data : response.data;
-       
+
         if (success === false) {
           toast.error("Email already exists. Please try another email.");
-        }
-        
-        else {
-          toast.success("Sign-up successful!");
-          setHrId(success); // Backend returns the hrId
+        } else {
+          console.log("Action is", action);
+          setRole('hr');
+          toast.success("Registration successful! Please log in again using your created account.");
+          setAction("Login");
+          console.log("Action is", action);
+          navigate("/hr/login");
           localStorage.setItem('hrDetails', JSON.stringify({
             id: success,
             name: values.name,
             email: values.email
           }));
-          toast.success("Please Login in again using your cerated account");
-          navigate("/login");
         }
-      }
-       else {
+      } else {
         const response = await loginHr(values);
         const hrId = response.data.data !== undefined ? response.data.data.id : response.data.id;
         if (hrId === 0) {
           toast.error("Invalid email or password.");
-        } 
-        else {
+        } else {
+          setHrId(hrId);
+          setRole('hr');
           toast.success("Login successful!");
-          setHrId(hrId);  // Store HR ID
+          console.log("Login here, hrId set to: ", hrId);
+          // Remove navigate("/") from here; let useEffect handle it
           localStorage.setItem("hrId", response.data.id);
           localStorage.setItem('hrDetails', JSON.stringify({
             id: hrId,
-            email: values.email
+            email: values.email,
+            name: response.data.name || values.name,
           }));
-          navigate("/");
         }
       }
-    } 
-    catch (error) {
+    } catch (error) {
       console.error("Error submitting form:", error);
-      toast.error("Error occurred. Please try again.");
+      toast.error(error.response?.data?.message || 'Authentication failed.');
     }
     setSubmitting(false);
   };
@@ -93,26 +100,26 @@ const LoginSignup = ({ initialAction = "Login" }) => {
       <Formik
         initialValues={{ name: "", email: "", password: "" }}
         validationSchema={action === "Sign Up" ? validationSchema : loginValidationSchema}
-        onSubmit={handleSubmit}>
-        
+        onSubmit={handleSubmit}
+      >
         {({ isSubmitting }) => (
           <Form className="inputs">
             {action !== "Login" && (
               <div className="input">
-                <img src={user_icon} alt="" />
+                <img src={user_icon} alt="User Icon" />
                 <Field type="text" name="name" placeholder="Name" />
                 <ErrorMessage name="name" component="div" className="error" />
               </div>
             )}
 
             <div className="input">
-              <img src={email_icon} alt="" />
+              <img src={email_icon} alt="Email Icon" />
               <Field type="email" name="email" placeholder="Email ID" />
               <ErrorMessage name="email" component="div" className="error" />
             </div>
 
             <div className="input">
-              <img src={password_icon} alt="" />
+              <img src={password_icon} alt="Password Icon" />
               <Field type="password" name="password" placeholder="Password" />
               <ErrorMessage name="password" component="div" className="error" />
             </div>
@@ -127,13 +134,15 @@ const LoginSignup = ({ initialAction = "Login" }) => {
               <button
                 type="button"
                 className={action === "Login" ? "submit gray" : "submit"}
-                onClick={() => setAction("Sign Up")}>
+                onClick={() => setAction("Sign Up")}
+              >
                 Sign up
               </button>
               <button
                 type="button"
                 className={action === "Sign Up" ? "submit gray" : "submit"}
-                onClick={() => setAction("Login")}>
+                onClick={() => setAction("Login")}
+              >
                 Login
               </button>
             </div>
@@ -147,5 +156,4 @@ const LoginSignup = ({ initialAction = "Login" }) => {
     </div>
   );
 };
-
 export default LoginSignup;
