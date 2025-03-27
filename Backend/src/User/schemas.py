@@ -10,11 +10,18 @@ class UserBase(BaseModel):
     degree:str
 
 
+class UploadCVResponse(BaseModel):
+    file_path: str
+
 class UserCreate(UserBase):
     pass
 
-class ShowUser(UserBase):
+class ShowUser(BaseModel):
     id: int
 
     class Config:
         from_attributes = True
+
+
+class UserIDResponse(BaseModel):
+    id: int

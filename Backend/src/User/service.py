@@ -15,18 +15,22 @@ UPLOAD_DIR.mkdir(exist_ok=True)  # Ensure the folder exists
 
 class UserService:
     async def create_user(self, request: UserCreate, db: AsyncSession):
-        new_user = UserModel.User(first_name=request.first_name,
-                                  last_name=request.last_name,
-                                   email=request.email, 
-                                   phone=request.phone,
-                                   jobId=request.jobId,
-                                   gender=request.gender,
-                                   degree=request.degree,
-                                   status=Status.PENDING.value)
+        new_user = UserModel.User(
+            first_name=request.first_name,  # request should be of type UserCreate
+            last_name=request.last_name,
+            email=request.email,
+            phone=request.phone,
+            jobId=request.jobId,
+            gender=request.gender,
+            degree=request.degree,
+            status=Status.PENDING.value
+        )
+
         db.add(new_user)
         await db.commit()
         await db.refresh(new_user)
-        return new_user
+
+        return {"id": new_user.id}  # Only return the ID as requested
     
     async def get_users_by_jobid_status(job_id: int, status: Optional[str], db: AsyncSession):
         query = select(UserModel.User).where(UserModel.User.jobId == job_id)
@@ -68,6 +72,30 @@ class UserService:
         await db.commit()
         return {"message": "File uploaded successfully", "file_path": str(file_path)}
     
+    async def upload_cv(self, userId: int, jobId: int, file: UploadFile, db: AsyncSession):
+        # Check if user exists
+        user = await db.get(UserModel.User, userId)
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        # Define upload path
+        user_dir = UPLOAD_DIR / str(jobId) / str(userId)
+        user_dir.mkdir(parents=True, exist_ok=True)
+        file_path = user_dir / "cv.pdf"
+
+        # Save the file
+        with file_path.open("wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+
+        # Store path in DB
+        # user_cv = UserModel.UserCV(userId=userId, cvPath=str(file_path))
+        user.CV_FilePath=str(file_path)
+        await db.commit()
+        await db.refresh(user)
+        
+        return {"file_path": str(file_path)}
+
+
     async def get_user_video(self, userId: int, db: AsyncSession):
         # Fetch the latest video for the user
         result = await db.execute(
