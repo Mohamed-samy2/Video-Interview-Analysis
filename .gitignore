@@ -1,1 +1,9 @@
+Data
+.env
+tests
+DB
+server.js
+db.json
+node_modules
+.DS_Store
 Backend/fastapi-env/
