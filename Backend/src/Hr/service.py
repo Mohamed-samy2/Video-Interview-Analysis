@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import status
-from db.Models import HrModel  # Updated import path
-from Hr.schemas import HrCreate,GetHr  # Updated import path
+from src.db.Models import HrModel  # Updated import path
+from src.Hr.schemas import HrCreate,GetHr  # Updated import path
 from fastapi.responses import  JSONResponse
 
 
