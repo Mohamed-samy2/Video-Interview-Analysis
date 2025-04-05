@@ -162,4 +162,5 @@ cython_debug/
 # .idea/
 Data
 *.pyc
-__pycache__/
+__pycache__
+uploads

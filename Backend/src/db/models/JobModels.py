@@ -1,6 +1,6 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, PrimaryKeyConstraint , Float
 from sqlalchemy.orm import relationship
-from src.db.database import Base  
+from db.database import Base  
 
 class Job(Base):
     __tablename__ = "jobs"
@@ -14,7 +14,7 @@ class Job(Base):
     skills = Column(String, nullable=False)
     requirements = Column(String, nullable=False)
 
-    
+    videos_processing = relationship("VideoProcessing", back_populates="job")
     questions = relationship("JobQuestion", back_populates="job", cascade="all, delete")
 
 

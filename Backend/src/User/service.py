@@ -1,11 +1,13 @@
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import desc
 from fastapi import Depends, UploadFile, File, HTTPException
-from src.db.Models import UserModel # Updated import path
-from src.User.schemas import UserCreate  # Updated import path
+from db.Models import UserModel # Updated import path
+from db.Models.HrModel import VideoProcessing # Updated import path
+from User.schemas import UserCreate  # Updated import path
 import shutil
 from pathlib import Path
 from fastapi.responses import FileResponse
-from src.utils import Status
+from utils import Status
 from sqlalchemy.future import select
 from typing import List, Optional
 
@@ -33,14 +35,61 @@ class UserService:
         return {"id": new_user.id}  # Only return the ID as requested
     
     async def get_users_by_jobid_status(job_id: int, status: Optional[str], db: AsyncSession):
-        query = select(UserModel.User).where(UserModel.User.jobId == job_id)
+        query = select(UserModel.User,
+                       VideoProcessing.total_score
+                       ).outerjoin(VideoProcessing,
+                                   (UserModel.User.id == VideoProcessing.user_id)&
+                                   (VideoProcessing.job_id == job_id)
+                                   ).where(UserModel.User.jobId == job_id)
         if status is None:
             query = query.where(UserModel.User.status == Status.PENDING.value)
         else:
             query = query.where(UserModel.User.status == status)
+        
+        query = query.order_by(desc(VideoProcessing.total_score).nulls_last())
+        
         result = await db.execute(query)
-        return result.scalars().all()
+        rows = result.all()
+        
+        users = []
+        if status == Status.PENDING.value:
+            
+            for user, total_score in rows:
+                user_dict = {
+                    "first_name": user.first_name,
+                    "last_name": user.last_name,
+                    "email": user.email,
+                    "phone": user.phone,
+                    "gender": user.gender,
+                    "degree": user.degree,
+                    "status": user.status,
+                    "CV_FilePath": user.CV_FilePath,
+                }
+                
+                users.append(user_dict)
+            
+            return users
+            
+        
+        
+        for user, total_score in rows:
+            
+            user_dict = {
+                "first_name": user.first_name,
+                "last_name": user.last_name,
+                "email": user.email,
+                "phone": user.phone,
+                "gender": user.gender,
+                "degree": user.degree,
+                "status": user.status,
+                "CV_FilePath": user.CV_FilePath,
+                "total_score": total_score
+            }
+            
+            users.append(user_dict)
 
+        return users
+        
     async def update_user_status(user_id: int, job_id: int, new_status: str, db: AsyncSession):
         query = select(UserModel.User).where(UserModel.User.id == user_id, UserModel.User.jobId == job_id)
         result = await db.execute(query)
