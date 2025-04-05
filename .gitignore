@@ -163,3 +163,4 @@ cython_debug/
 Data
 *.pyc
 __pycache__/
+fastapi-env
