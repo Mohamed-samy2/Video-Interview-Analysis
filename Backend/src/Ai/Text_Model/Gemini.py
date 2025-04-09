@@ -1,8 +1,10 @@
 import google.generativeai as genai
+from dotenv import load_dotenv
+import os
 
 class Gemini:
     
-    def __init__(self, api_key="AIzaSyCsftSXH44BjzEYxe-iDzjucvKU1l9t358"):
+    def __init__(self, api_key=os.getenv("GEMINI_API_KEY")):
         """Initialize the Gemini client with API key and settings."""
         if not api_key:
             raise ValueError("GEMINI_API_KEY is missing.")
