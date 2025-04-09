@@ -19,3 +19,4 @@ class Helper:
         sentence = re.sub(r"\s+", " ", sentence).strip()
         sentence = re.sub(r"\|\|\|", " ", sentence)
         return sentence
+    

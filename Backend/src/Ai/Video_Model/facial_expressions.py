@@ -3,6 +3,11 @@ import json
 import numpy as np
 from deepface import DeepFace
 from collections import defaultdict
+from pathlib import Path
+
+UPLOAD_DIR = Path("uploads")  # Define upload directory
+UPLOAD_DIR.mkdir(exist_ok=True)  # Ensure the folder exists
+
 
 class VideoEmotionAnalyzer:
     def __init__(self, video_path):
@@ -86,10 +91,7 @@ class VideoEmotionAnalyzer:
         }
         
         report_data = self.convert_numpy_floats(report_data)
-        
-        with open("emotion_analysis_report.json", "w") as f:
-            json.dump(report_data, f, indent=4)
-        
+                
         print("Report Generated Successfully!")
         return report_data
 
