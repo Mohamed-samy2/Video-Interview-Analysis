@@ -1,0 +1,24 @@
+Epochs 22 | learning_rate 0.001 | weight_decay 0.001 | Dropout 0.3 | optimizer AdamW| loss function MSELoss| Batch size 16
+ Freeze LLm True| Freeze Speech Encoder False| Text Length 12| Speech Length 80000
+Epoch 1| Train_loss: 18.1565| Validate_loss: 6.4190
+Epoch 2| Train_loss: 13.9089| Validate_loss: 5.1801
+Epoch 3| Train_loss: 12.9654| Validate_loss: 5.7783
+Epoch 4| Train_loss: 12.6504| Validate_loss: 5.5251
+Epoch 5| Train_loss: 11.1752| Validate_loss: 5.7882
+Epoch 6| Train_loss: 9.4955| Validate_loss: 5.8768
+Epoch 7| Train_loss: 8.7376| Validate_loss: 4.8716
+Epoch 8| Train_loss: 8.0276| Validate_loss: 5.9852
+Epoch 9| Train_loss: 8.0407| Validate_loss: 4.0142
+Epoch 10| Train_loss: 7.3387| Validate_loss: 4.3083
+Epoch 11| Train_loss: 7.3465| Validate_loss: 4.7864
+Epoch 12| Train_loss: 7.0493| Validate_loss: 4.1974
+Epoch 13| Train_loss: 6.8665| Validate_loss: 4.3530
+Epoch 14| Train_loss: 6.6439| Validate_loss: 4.4231
+Epoch 15| Train_loss: 6.2616| Validate_loss: 5.0236
+Epoch 16| Train_loss: 6.0824| Validate_loss: 4.3222
+Epoch 17| Train_loss: 6.5861| Validate_loss: 4.2770
+Epoch 18| Train_loss: 6.2094| Validate_loss: 4.6180
+Epoch 19| Train_loss: 6.1067| Validate_loss: 5.6830
+Epoch 20| Train_loss: 5.9533| Validate_loss: 6.6560
+Epoch 21| Train_loss: 5.7359| Validate_loss: 4.6681
+Epoch 22| Train_loss: 5.8392| Validate_loss: 5.3446
