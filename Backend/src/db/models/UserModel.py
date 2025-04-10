@@ -1,7 +1,7 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, PrimaryKeyConstraint
 from sqlalchemy.orm import relationship
-from src.db.database import Base  
-from src.db.Models.JobModels import Job
+from db.database import Base  
+from db.Models.JobModels import Job
 
 class User(Base):
     __tablename__ = 'users'
@@ -18,7 +18,8 @@ class User(Base):
     CV_FilePath = Column(String)
 
     videos = relationship("UserVideo", back_populates="user")
-
+    videos_processing = relationship("VideoProcessing", back_populates="user")
+    
 class UserVideo(Base):
     __tablename__ = 'userVideos'
 

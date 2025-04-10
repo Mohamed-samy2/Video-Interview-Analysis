@@ -1,9 +1,9 @@
 from fastapi import APIRouter, UploadFile, File, Depends,Form
-from src.User.schemas import UserCreate, ShowUser,UploadCVResponse,UserIDResponse
-from src.User.service import UserService
-from src.db.database import db_dependency
+from User.schemas import UserCreate, ShowUser,UploadCVResponse,UserIDResponse
+from User.service import UserService
+from db.database import db_dependency
 from typing import List, Optional
-from src.utils import Status
+from utils import Status
 
 user_router = APIRouter()
 
@@ -16,7 +16,7 @@ async def upload_cv(uid:int,jobId:int,file: UploadFile = File(...), db: db_depen
     return await UserService().upload_cv(uid,jobId,file,db)
 
 
-@user_router.get("/", response_model=List[ShowUser])
+@user_router.get("/")
 async def get_users_by_jobid_status(job_id: int, db: db_dependency, status: Optional[str] =None):
     return await UserService.get_users_by_jobid_status(job_id, status, db)
 

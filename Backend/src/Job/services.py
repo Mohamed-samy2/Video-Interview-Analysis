@@ -2,9 +2,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy.orm import selectinload
 from fastapi import HTTPException
-from src.db.Models.JobModels import Job, JobQuestion 
+from db.Models.JobModels import Job, JobQuestion 
 from typing import List
-from src.Job.schemas import (
+from Job.schemas import (
     JobCreate,
     JobDetailResponse,
     JobListingResponse,

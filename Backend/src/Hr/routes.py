@@ -2,13 +2,13 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import Dict, Any
 
-from src.db.database import get_db
-from src.Hr.schemas import HrCreate, GetHr
-from src.Hr.service import HrService
+from db.database import get_db
+from Hr.schemas import HrCreate, GetHr
+from Hr.service import HrService
 
 hr_router = APIRouter(
     prefix="/hr",
-    tags=["HR Management"]
+    tags=["HR"]
 )
 
 hr_service = HrService()
@@ -22,4 +22,9 @@ async def create_hr(request: HrCreate, db: AsyncSession = Depends(get_db)):
 async def login_hr(request: GetHr, db: AsyncSession = Depends(get_db)):
     """Login for HR users."""
     return await hr_service.hr_login(request, db)
+
+@hr_router.post("/get_user_scores", response_model=Dict[str, Any])
+async def get_scores(request: GetUserScores, db: AsyncSession = Depends(get_db)):
+    """Login for HR users."""
+    return await hr_service.get_user_scores(request, db)
     

@@ -14,3 +14,19 @@ class GetHr(BaseModel):
 
     class Config:
         from_attributes = True
+
+class GetUserScores(BaseModel):
+    user_id: int
+    job_id: int
+ 
+    
+class VideoProcessingResponse(BaseModel):
+    total_score: float
+    summarized_text1: str
+    summarized_text2: str
+    summarized_text3: str
+    total_english_score: float
+    
+
+    class Config:
+        from_attributes = True
