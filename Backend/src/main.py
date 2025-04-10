@@ -21,4 +21,3 @@ app.include_router(hr_router)
 app.include_router(user_router,prefix="/user", tags=["User"])
 app.include_router(job_router, prefix="/job", tags=["Job"])
 # Run with: uvicorn main:app --reload
-

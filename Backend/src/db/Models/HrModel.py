@@ -1,6 +1,6 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Float,Text,PrimaryKeyConstraint,Boolean
 from sqlalchemy.orm import relationship
-from db.database import Base  
+from src.db.database import Base  
 
 class HR(Base):
     __tablename__ = 'hr'
