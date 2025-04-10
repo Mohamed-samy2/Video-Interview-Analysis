@@ -11,4 +11,4 @@ transformers[torch]==4.38.2
 preprocessor
 tweet-preprocessor
 deepface
-google-generativeai #maybe need to update tensorflow
+google-generativeai

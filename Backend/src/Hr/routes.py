@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from typing import Dict, Any
 
 from db.database import get_db
-from Hr.schemas import HrCreate, GetHr
+from Hr.schemas import HrCreate, GetHr,GetUserScores
 from Hr.service import HrService
 
 hr_router = APIRouter(

@@ -1,4 +1,4 @@
-from src.Ai.Text_Model.Helper import Helper
+from Ai.Text_Model.Helper import Helper
 import torch
 import numpy as np
 from pathlib import Path

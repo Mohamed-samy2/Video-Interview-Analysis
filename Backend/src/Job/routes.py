@@ -12,7 +12,7 @@ job_router = APIRouter()
 class JobListResponse(BaseModel):
     jobs: List[JobListingResponse]
 
-@job_router.post("/jobs/", response_model=JobDetailResponse)
+@job_router.post("/create_job", response_model=JobDetailResponse)
 async def create_new_job(job_data: JobCreate, db: AsyncSession = Depends(get_db)):
     # ✅ Create job first
     jobdeets = await create_job(db, job_data)
@@ -35,7 +35,7 @@ async def create_new_job(job_data: JobCreate, db: AsyncSession = Depends(get_db)
     )
 
 # Display all jobs (Basic Details: title, company, salary)
-@job_router.get("/jobs/", response_model=JobListResponse)
+@job_router.get("/get_jobs", response_model=JobListResponse)
 async def get_jobs(db: AsyncSession = Depends(get_db)):
     jobs = await get_all_jobs(db)
     if not jobs:
@@ -43,7 +43,7 @@ async def get_jobs(db: AsyncSession = Depends(get_db)):
     return {"jobs": jobs}
 
 # Get full job details when "View Details" is clicked
-@job_router.get("/jobs/{job_id}", response_model=JobDetailResponse)
+@job_router.get("/get_job_info", response_model=JobDetailResponse)
 async def get_job_info(job_id: int, db: AsyncSession = Depends(get_db)):
     job_details = await get_job_details(db, job_id)
     if not job_details:

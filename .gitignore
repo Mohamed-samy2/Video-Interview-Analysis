@@ -162,13 +162,8 @@ cython_debug/
 # .idea/
 Data
 *.pyc
-<<<<<<< HEAD
 __pycache__
 uploads
-=======
 __pycache__/
-
 uploads
-
 fastapi-env
->>>>>>> Backend
