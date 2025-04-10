@@ -165,5 +165,9 @@ Data
 __pycache__
 uploads
 __pycache__/
-uploads
 fastapi-env
+tests
+server.js
+db.json
+node_modules
+.DS_Store
