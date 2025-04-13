@@ -2,9 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import Dict, Any
 
-from db.database import get_db
-from Hr.schemas import HrCreate, GetHr,GetUserScores
-from Hr.service import HrService
+from src.db.database import get_db
+from src.Hr.schemas import HrCreate, GetHr,GetUserScores
+from src.Hr.service import HrService
 
 hr_router = APIRouter(
     prefix="/hr",
