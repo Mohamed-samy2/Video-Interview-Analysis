@@ -1,6 +1,6 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Float,Text,PrimaryKeyConstraint,Boolean
 from sqlalchemy.orm import relationship
-from db.database import Base  
+from src.db.database import Base  
 
 class HR(Base):
     __tablename__ = 'hr'
@@ -10,7 +10,8 @@ class HR(Base):
     email = Column(String, unique=True)
     # phone_number = Column(String)
     password=Column(String)
-    
+
+    jobs = relationship("Job", back_populates="hr")
     videos_processing = relationship("VideoProcessing", back_populates="hr")
 
 class VideoProcessing(Base):

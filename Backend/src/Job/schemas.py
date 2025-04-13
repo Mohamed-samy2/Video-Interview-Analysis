@@ -29,6 +29,7 @@ class JobBase(BaseModel):
 
 # Schema for creating a job (includes multiple questions)
 class JobCreate(JobBase):
+    HRId:int
     questions: List[JobQuestionCreate]
 
 # Schema for job listing (Minimal details)

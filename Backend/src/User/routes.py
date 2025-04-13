@@ -1,9 +1,9 @@
 from fastapi import APIRouter, UploadFile, File, Depends,Form
-from User.schemas import UserCreate, ShowUser,UploadCVResponse,UserIDResponse
-from User.service import UserService
-from db.database import db_dependency
+from src.User.schemas import UserCreate, ShowUser,UploadCVResponse,UserIDResponse
+from src.User.service import UserService
+from src.db.database import db_dependency
 from typing import List, Optional
-from utils import Status
+from src.utils import Status
 
 user_router = APIRouter()
 
