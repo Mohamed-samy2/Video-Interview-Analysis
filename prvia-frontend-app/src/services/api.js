@@ -105,15 +105,21 @@ export const loginHr = (credentials) => {
   return api.post('/login', credentials);
 };
 
-export const getUsersByJobId = (jobId) => {
-  console.log('Fetching users for jobId:', jobId);
-  return api.get('/user/', { params: { jobId } });
+
+export const getUsersByJobId = (jobId, status) => {
+  console.log('Fetching users for jobId:', jobId, 'with status:', status);
+  return api.get('/user/', { params: { jobId, status } });
 };
 
 export const updateStatus = (data) => {
   const { userId, jobId, status } = data;
   console.log('Updating status for userId:', userId, 'jobId:', jobId, 'status:', status);
   return api.put(`/user/${userId}/status`, { jobId, status });
+};
+
+export const getUserScores = (userId, jobId) => {
+  console.log('Fetching scores for userId:', userId, 'jobId:', jobId);
+  return api.get('/hr/get_user_scores', { params: { userId, jobId } });
 };
 
 export const getVideosByUserAndJob = (userId, jobId) => {
@@ -126,5 +132,8 @@ export const getVideosByUserAndJob = (userId, jobId) => {
 //   console.log('Fetching HR jobs for hrId:', hrId);
 //   return api.get(`/jobs`, { params: { hrId } });
 // };
-
+// export const getUsersByJobId = (jobId) => {
+//   console.log('Fetching users for jobId:', jobId);
+//   return api.get('/user/', { params: { jobId } });
+// };
 
