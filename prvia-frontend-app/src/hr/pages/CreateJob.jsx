@@ -17,7 +17,7 @@ const CreateJob = () => {
   const [location, setLocation] = useState("");
   const [questions, setQuestions] = useState([{ id: 1, question: "" }]);
   const [loading, setLoading] = useState(false);
-  const { hrId } = useAuth();
+  const { HRId } = useAuth();
   const navigate = useNavigate();
 
   const handleAddQuestion = () => {
@@ -35,7 +35,7 @@ const CreateJob = () => {
     e.preventDefault();
 
     // Check if HR is logged in
-    if (!hrId) {
+    if (!HRId) {
       toast.error('Please log in to create a job.');
       navigate('/hr/login');
       return;
@@ -45,15 +45,14 @@ const CreateJob = () => {
     try {
       const jobData = {
         title: title,
-        description,
+        HRId: HRId,
+        description: description,
         salary: Number(salary),
-        company_name: company,
+        company:company,
         skills: skills.split(',').map(skill => skill.trim()), // Convert string to array
-        type,
+        job_type: type,
         requirements: requirements.split(',').map(req => req.trim()), // Convert string to array
-        location,
-        questions,
-        hrId
+        questions
       };
       const response = await addJob(jobData);
       

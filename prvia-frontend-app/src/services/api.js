@@ -44,18 +44,32 @@ export const submitApplication = async (applicationData) => {
 
   // Step 2: Upload the CV
   const formData = new FormData();
-  formData.append('user_id', userId);
-  formData.append('cv', applicationData.cv);
-
-  console.log('Submitting CV to /user/upload-CV for userId:', userId);
-  const cvResponse = await api.put('/user/upload-CV', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
+  formData.append('uid', userId);
+  formData.append('jobId', applicationData.jobId); // Add job ID to the form data
+  formData.append('file', applicationData.cv);
+  // Log file details for debugging
+  console.log('CV file details:', {
+    name: applicationData.cv.name,
+    type: applicationData.cv.type,
+    size: applicationData.cv.size + ' bytes'
   });
-  console.log('Response from /user/upload-CV:', cvResponse.data);
 
-  return { userId, cvResponse };
+  console.log('Submitting CV to /user/upload-CV for userId:', userId, 'jobId:', applicationData.jobId);
+  try {
+    const cvResponse = await api.put('/user/upload-CV', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        // Remove any content-length header that might be auto-added
+        'Content-Length': undefined,
+      },
+    });
+    console.log('Response from /user/upload-CV:', cvResponse.data);
+    return { userId, cvResponse };
+  } 
+  catch (error) {
+    console.error('CV upload error details:', error.response?.data);
+    throw error;
+  }
 };
 
 export const uploadVideo = (videoResponseData, videoFile) => {
@@ -63,7 +77,7 @@ export const uploadVideo = (videoResponseData, videoFile) => {
   formData.append('userId', videoResponseData.userId);
   formData.append('questionId', videoResponseData.questionId);
   formData.append('jobId', videoResponseData.jobId);
-  formData.append('video', videoFile);
+  formData.append('file', videoFile);
 
   console.log('Submitting video to /user/upload-video:', videoResponseData);
   return api.post('/user/upload-video', formData, {
@@ -80,10 +94,11 @@ export const getJobById = (job_id) => {
 
 // HR APIs:
 
-export const getJobs = (hrId) => {
-  console.log('Fetching jobs for hrId:', hrId);
-  return api.get(`/job`, { params: { hrId } });
+export const getJobs = (HRId) => {
+  console.log('Fetching jobs for hrId:', HRId);
+  return api.get(`/job/get_jobs_HRId`, { params: { HRId } });
 };
+
 
 export const addJob = (jobData) => {
   console.log('Creating new job:', jobData);
