@@ -24,17 +24,21 @@ const UserHome = () => {
     const fetchJobs = async () => {
       try {
         const response = await getAllJobs();
-        setJobs(response.data);
-      } catch (err) {
+        setJobs(response.data.jobs);
+        console.log('Fetched jobs:', response.data.jobs);
+        console.log('Jobs:', jobs);
+      } 
+      catch (err) {
         const message = err.response?.data?.error || 'Failed to fetch jobs. Please try again.';
         setError(message);
         toast.error(message);
-      } finally {
+      } 
+      finally {
         setLoading(false);
       }
     };
     fetchJobs();
-  }, []);
+  }, [jobs]);
 
   if (loading) return <div className="text-center mt-5"><Spinner animation="border" /></div>;
   if (error) return <div className="text-danger text-center mt-5">{error}</div>;
