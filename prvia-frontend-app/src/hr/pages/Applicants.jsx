@@ -21,13 +21,6 @@ const ApplicantsPage = () => {
         const response = await getUsersByJobId(id, DEFAULT_STATUS);
         console.log('Pending Applicants:', response.data);
         setApplicants(response.data);
-
-      // Filter applicants with status: PENDING
-        // const pendingApplicants = response.data.filter(
-        //   applicant => applicant.status.toLowerCase() === DEFAULT_STATUS.toLowerCase()
-        // );
-        // console.log('Pending Applicants:', pendingApplicants);
-        // setApplicants(pendingApplicants);
       } 
       catch (err) {
         const message = err.response?.data?.error || 'Failed to fetch applicants. Please try again.';

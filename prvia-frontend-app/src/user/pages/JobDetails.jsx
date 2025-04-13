@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { Container, Card, Button, ListGroup, Spinner } from 'react-bootstrap';
+import { Container, Card, Button, Spinner } from 'react-bootstrap';
 import { getJobById } from '../../services/api';
 import { toast } from 'react-toastify';
 
@@ -26,11 +26,14 @@ const JobDetails = () => {
       try {
         const response = await getJobById(id);
         setJob(response.data);
-      } catch (err) {
+        console.log('Fetched job details:', response.data);
+      } 
+      catch (err) {
         const message = err.response?.data?.error || 'Failed to fetch job details. Please try again.';
         setError(message);
         toast.error(message);
-      } finally {
+      } 
+      finally {
         setLoading(false);
       }
     };
@@ -46,20 +49,22 @@ const JobDetails = () => {
       <Card className="shadow-sm">
         <Card.Body>
           <Card.Title as="h1">{job.title}</Card.Title>
-          <Card.Text><strong>Company:</strong> {job.company_name}</Card.Text>
+          <Card.Text><strong>Company:</strong> {job.company}</Card.Text>
           <Card.Text><strong>Description:</strong> {job.description}</Card.Text>
           <Card.Text><strong>Salary:</strong> ${job.salary}</Card.Text>
-          <Card.Text><strong>Skills:</strong> {job.skills.join(', ')}</Card.Text>
-          <Card.Text><strong>Type:</strong> {job.type}</Card.Text>
-          <Card.Text><strong>Location:</strong> {job.location}</Card.Text>
-          <div className="mb-3">
+          <Card.Text><strong>Type:</strong> {job.job_type}</Card.Text>
+          <Card.Text><strong>Skills:</strong> {job.skills}</Card.Text>
+          <Card.Text><strong>Requirements:</strong> {job.requirements}</Card.Text>
+          
+          {/* <div className="mb-3">
             <strong>Requirements:</strong>
             <ListGroup variant="flush">
               {job.requirements.map((req, index) => (
                 <ListGroup.Item key={index}>{req}</ListGroup.Item>
               ))}
             </ListGroup>
-          </div>
+          </div> */}
+
           <div className="text-center mt-4">
             <Button
               variant="success"
