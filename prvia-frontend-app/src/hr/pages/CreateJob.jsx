@@ -4,7 +4,7 @@ import { addJob } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { Container, Form, Button, InputGroup } from "react-bootstrap";
+import { Container, Form, Button } from "react-bootstrap";
 
 const CreateJob = () => {
   const [title, setJobTitle] = useState("");
@@ -14,15 +14,21 @@ const CreateJob = () => {
   const [skills, setSkills] = useState("");
   const [type, setType] = useState("");
   const [requirements, setRequirements] = useState("");
-  const [location, setLocation] = useState("");
-  const [questions, setQuestions] = useState([{ id: 1, question: "" }]);
+  // const [questions, setQuestions] = useState([{ id: 1, question: "" }]);
+  // Initialize with exactly 3 questions
+  const [questions, setQuestions] = useState([
+    { id: 1, question: "" },
+    { id: 2, question: "" },
+    { id: 3, question: "" }
+  ]);
+  
   const [loading, setLoading] = useState(false);
-  const { HRId } = useAuth();
+  const { hrId } = useAuth();
   const navigate = useNavigate();
 
-  const handleAddQuestion = () => {
-    setQuestions([...questions, { id: questions.length + 1, question: "" }]);
-  };
+  // const handleAddQuestion = () => {
+  //   setQuestions([...questions, { id: questions.length + 1, question: "" }]);
+  // };
 
   const handleQuestionChange = (index, value) => {
     const updatedQuestions = questions.map((q, i) =>
@@ -35,7 +41,7 @@ const CreateJob = () => {
     e.preventDefault();
 
     // Check if HR is logged in
-    if (!HRId) {
+    if (!hrId) {
       toast.error('Please log in to create a job.');
       navigate('/hr/login');
       return;
@@ -45,13 +51,13 @@ const CreateJob = () => {
     try {
       const jobData = {
         title: title,
-        HRId: HRId,
+        HRId: hrId,
         description: description,
         salary: Number(salary),
         company:company,
-        skills: skills.split(',').map(skill => skill.trim()), // Convert string to array
+        skills: skills,
         job_type: type,
-        requirements: requirements.split(',').map(req => req.trim()), // Convert string to array
+        requirements: requirements, 
         questions
       };
       const response = await addJob(jobData);
@@ -71,8 +77,11 @@ const CreateJob = () => {
       setSkills("");
       setType("");
       setRequirements("");
-      setLocation("");
-      setQuestions([{ id: 1, question: "" }]);
+      setQuestions([
+        { id: 1, question: "" },
+        { id: 2, question: "" },
+        { id: 3, question: "" }
+      ]);
 
       // Navigate back to homepage
       navigate('/hr');
@@ -166,37 +175,17 @@ const CreateJob = () => {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3">
-          <Form.Label>Location</Form.Label>
-          <Form.Control
-            type="text"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            required
-          />
-        </Form.Group>
 
         <h5>Interview Questions</h5>
         {questions.map((q, index) => (
           <Form.Group className="mb-3" key={q.id}>
             <Form.Label>Question {index + 1}</Form.Label>
-            <InputGroup>
-              <Form.Control
-                type="text"
-                value={q.question}
-                onChange={(e) => handleQuestionChange(index, e.target.value)}
-                required
-              />
-              {index === questions.length - 1 && (
-                <Button
-                  variant="outline-primary"
-                  onClick={handleAddQuestion}
-                  className="ms-2"
-                >
-                  +
-                </Button>
-              )}
-            </InputGroup>
+            <Form.Control
+              type="text"
+              value={q.question}
+              onChange={(e) => handleQuestionChange(index, e.target.value)}
+              required
+            />
           </Form.Group>
         ))}
 

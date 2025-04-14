@@ -50,9 +50,9 @@ const PassedApplicantsPage = () => {
 
   return (
     <Container className="mt-5">
-      <h2 className="text-center mb-4">Passed Applicants for Job ID: {id}</h2>
+      <h2 className="text-center mb-4">Passed Applicants</h2>
       {applicants.length === 0 ? (
-        <Alert variant="info">No passed applicants for this job.</Alert>
+        <Alert variant="info">No applicants has passed interviews for this job yet.</Alert>
       ) : (
         <>
           <Table striped bordered hover responsive>
@@ -69,11 +69,13 @@ const PassedApplicantsPage = () => {
             <tbody>
               {applicants.map(applicant => (
                 <tr key={applicant.userId}>
-                  <td>{applicant.firstName}</td>
-                  <td>{applicant.lastName}</td>
+                  <td>{applicant.first_name}</td>
+                  <td>{applicant.last_name}</td>
                   <td>{applicant.email || 'N/A'}</td>
-                  <td>{applicant.phoneNumber || 'N/A'}</td>
-                  <td>{applicant.totalScore || 'N/A'}</td>
+                  <td>{applicant.phone || 'N/A'}</td>
+                  <td>{applicant.gender || 'N/A'}</td>
+                  <td>{applicant.degree || 'N/A'}</td>
+                  <td>{applicant.total_score || 'N/A'}</td>
                   <td>
                     <Button
                       variant="info"
