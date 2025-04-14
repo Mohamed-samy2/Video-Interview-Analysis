@@ -47,8 +47,7 @@ const ApplicantsPage = () => {
       console.log('Update status response:', response.data);
       // const { interviewLink } = response.data;
       
-      // Alternative approach (commented out): Generate the interview link on the frontend
-      
+      // Alternative approach : Generate the interview link on the frontend
       const interviewLink = `http://localhost:3000/question/1?userId=${userId}&jobId=${id}`;
       console.log('Frontend-generated interview link:', interviewLink);
 
@@ -74,9 +73,9 @@ const ApplicantsPage = () => {
 
   return (
     <Container className="mt-5">
-      <h2 className="text-center mb-4">Pending Applicants for Job ID: {id}</h2>
+      <h2 className="text-center mb-4">Pending Applicants </h2>
       {applicants.length === 0 ? (
-        <Alert variant="info">No pending applicants for this job.</Alert>
+        <Alert variant="info">No Applicants has applied for this job currently .</Alert>
       ) : (
         <Table striped bordered hover responsive>
           <thead>
@@ -95,15 +94,15 @@ const ApplicantsPage = () => {
           <tbody>
             {applicants.map(applicant => (
               <tr key={applicant.userId}>
-                <td>{applicant.firstName}</td>
-                <td>{applicant.lastName}</td>
+                <td>{applicant.first_name}</td>
+                <td>{applicant.last_name}</td>
                 <td>{applicant.email || 'N/A'}</td>
-                <td>{applicant.phoneNumber || 'N/A'}</td>
+                <td>{applicant.phone || 'N/A'}</td>
                 <td>{applicant.gender || 'N/A'}</td>
-                <td>{applicant.education || 'N/A'}</td>
+                <td>{applicant.degree || 'N/A'}</td>
                 <td>
-                  {applicant.cv ? (
-                    <a href={applicant.cv} target="_blank" rel="noopener noreferrer">
+                  {applicant.CV_FilePath ? (
+                    <a href={applicant.CV_FilePath} target="_blank" rel="noopener noreferrer">
                       View CV
                     </a>
                   ) : (

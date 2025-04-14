@@ -37,16 +37,15 @@ export const submitApplication = async (applicationData) => {
   const userResponse = await api.post('/user/create-user', userData);
   console.log('Response from /user/create-user:', userResponse.data);
 
-  const userId = userResponse.data.response;
+  const userId = userResponse.data.id;
   if (userId === '0') {
     throw new Error('User creation failed');
   }
 
   // Step 2: Upload the CV
   const formData = new FormData();
-  formData.append('uid', userId);
-  formData.append('jobId', applicationData.jobId); // Add job ID to the form data
   formData.append('file', applicationData.cv);
+  
   // Log file details for debugging
   console.log('CV file details:', {
     name: applicationData.cv.name,
@@ -56,13 +55,14 @@ export const submitApplication = async (applicationData) => {
 
   console.log('Submitting CV to /user/upload-CV for userId:', userId, 'jobId:', applicationData.jobId);
   try {
-    const cvResponse = await api.put('/user/upload-CV', formData, {
+    const cvResponse = await api.put(`/user/upload-CV?jobId=${applicationData.jobId}&uid=${userId}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         // Remove any content-length header that might be auto-added
         'Content-Length': undefined,
       },
     });
+    
     console.log('Response from /user/upload-CV:', cvResponse.data);
     return { userId, cvResponse };
   } 
@@ -72,19 +72,39 @@ export const submitApplication = async (applicationData) => {
   }
 };
 
-export const uploadVideo = (videoResponseData, videoFile) => {
+export const uploadVideo = async (videoResponseData, videoFile) => {
   const formData = new FormData();
-  formData.append('userId', videoResponseData.userId);
-  formData.append('questionId', videoResponseData.questionId);
-  formData.append('jobId', videoResponseData.jobId);
   formData.append('file', videoFile);
-
-  console.log('Submitting video to /user/upload-video:', videoResponseData);
-  return api.post('/user/upload-video', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
+   
+  // Log file details for debugging
+   console.log('Video file details:', {
+    name: videoFile.name,
+    type: videoFile.type,
+    size: videoFile.size + ' bytes'
   });
+  // Extract the parameters
+  const { userId, questionId, jobId } = videoResponseData;
+  console.log('Submitting video to /user/upload-video for userId:', userId, 'questionId:', questionId, 'jobId:', jobId);
+  
+  try {
+    const videoResponse = await api.post(
+      `/user/upload-video?userId=${userId}&questionId=${questionId}&jobId=${jobId}`, 
+      formData, 
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+      }
+    );
+    
+    console.log('Response from /user/upload-video:', videoResponse.data);
+    return { userId, videoResponse };
+  } 
+  catch (error) {
+    console.error('Video upload error details:', error.response?.data);
+    throw error;
+  }
+
 };
 
 export const getJobById = (job_id) => {
@@ -115,9 +135,10 @@ export const loginHr = (credentials) => {
   return api.post('hr/login', credentials);
 };
 
-export const getUsersByJobId = (jobId, status) => {
-  console.log('Fetching users for jobId:', jobId, 'with status:', status);
-  return api.get('/user/', { params: { jobId, status } });
+
+export const getUsersByJobId = (job_id, status) => {
+  console.log('Fetching users for jobId:', job_id, 'with status:', status);
+  return api.get('/user/', { params: { job_id, status } });
 };
 
 export const updateStatus = (data) => {
@@ -131,13 +152,14 @@ export const getUserScores = (userId, jobId) => {
   return api.get('/hr/get_user_scores', { params: { userId, jobId } });
 };
 
-export const getVideosByUserAndJob = (userId, jobId) => {
-  console.log('Fetching videos for userId:', userId, 'jobId:', jobId);
-  return api.get('/videos', { params: { userId, jobId } });
+export const computeScores = (data) => {
+  console.log('Submitting compute-scores request:', data);
+  return api.post('/compute-scores', data);
 };
 
-
-// export const computeScores = (data) => {
-//   console.log('Submitting compute-scores request:', data);
-//   return api.post('/compute-scores', data);
+// export const getVideosByUserAndJob = (userId, jobId) => {
+//   console.log('Fetching videos for userId:', userId, 'jobId:', jobId);
+//   return api.get('/videos', { params: { userId, jobId } });
 // };
+
+

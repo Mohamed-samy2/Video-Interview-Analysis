@@ -16,19 +16,36 @@ const Home = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
+        console.log('Fetching jobs for HR ID:', hrId);
         const response = await getJobs(hrId);
-        setJobs(response.data);
-      } catch (err) {
-        const message = err.response?.data?.error || 'Failed to fetch jobs. Please try again.';
-        setError(message);
-        toast.error(message);
-      } finally {
+        console.log('Jobs fetched successfully:', response.data);
+        setJobs(response.data.jobs);
+        setError(null);
+
+      } 
+      catch (err) {
+        console.error('Error fetching jobs:', err);
+        // Only set error for authentication issues, not for empty jobs
+        if (err.response?.status === 401 || err.response?.status === 403) {
+          const message = 'Authentication error. Please log in again.';
+          setError(message);
+          toast.error(message);
+        } 
+        else {
+          console.log('No jobs available at the moment.',err);
+          // Set jobs as empty array but don't treat as error
+          setJobs([]);
+        }
+      } 
+
+      finally {
         setLoading(false);
       }
     };
     if (hrId) {
       fetchJobs();
-    } else {
+    } 
+    else {
       setLoading(false);
       setError('Please log in to view your jobs.');
       toast.error('Please log in to view your jobs.');
@@ -36,7 +53,9 @@ const Home = () => {
   }, [hrId]);
 
   if (loading) return <div className="text-center mt-5"><Spinner animation="border" /></div>;
-  if (error) return <div className="text-danger text-center mt-5">{error}</div>;
+  // Only show error message for authentication issues, not for empty jobs
+  if (error && !hrId) return <div className="text-danger text-center mt-5">{error}</div>;
+  // if (error) return <div className="text-danger text-center mt-5">{error}</div>;
 
   return (
     <Container className="mt-5">
