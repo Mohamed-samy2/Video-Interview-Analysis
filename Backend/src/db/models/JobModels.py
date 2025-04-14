@@ -1,11 +1,14 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, PrimaryKeyConstraint , Float
 from sqlalchemy.orm import relationship
-from db.database import Base  
+from src.db.database import Base  
 
 class Job(Base):
     __tablename__ = "jobs"
 
     id = Column(Integer, primary_key=True, index=True)
+
+    HRId = Column(Integer, ForeignKey("hr.id"), index=True)  # Fix ForeignKey
+
     title = Column(String, nullable=False)
     description = Column(String, nullable=False)
     salary = Column(Float, nullable=False)
@@ -16,6 +19,8 @@ class Job(Base):
 
     videos_processing = relationship("VideoProcessing", back_populates="job")
     questions = relationship("JobQuestion", back_populates="job", cascade="all, delete")
+    hr = relationship("HR", back_populates="jobs")  # Optional: define relationship to HR
+
 
 
 class JobQuestion(Base):
