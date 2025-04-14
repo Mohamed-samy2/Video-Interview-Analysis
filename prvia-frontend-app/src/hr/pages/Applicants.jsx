@@ -18,13 +18,9 @@ const ApplicantsPage = () => {
   useEffect(() => {
     const fetchApplicants = async () => {
       try {
-        const response = await getUsersByJobId(id);
-        // Filter applicants with status: PENDING
-        const pendingApplicants = response.data.filter(
-          applicant => applicant.status.toLowerCase() === DEFAULT_STATUS.toLowerCase()
-        );
-        console.log('Pending Applicants:', pendingApplicants);
-        setApplicants(pendingApplicants);
+        const response = await getUsersByJobId(id, DEFAULT_STATUS);
+        console.log('Pending Applicants:', response.data);
+        setApplicants(response.data);
       } 
       catch (err) {
         const message = err.response?.data?.error || 'Failed to fetch applicants. Please try again.';
@@ -43,18 +39,18 @@ const ApplicantsPage = () => {
       console.log('Exporting interview link for userId:', userId, 'jobId:', id);
       const response = await updateStatus({ userId, jobId: id, status: INTERVIEW_PROCESS_STATUS });
       console.log('Update status response:', response.data);
+      
       if (response.data.response !== "success") {
        toast.error('Failed to update status');
        return
       }
       console.log('Update status response:', response.data);
-      const { interviewLink } = response.data;
+      // const { interviewLink } = response.data;
       
       // Alternative approach (commented out): Generate the interview link on the frontend
-      /*
+      
       const interviewLink = `http://localhost:3000/question/1?userId=${userId}&jobId=${id}`;
       console.log('Frontend-generated interview link:', interviewLink);
-      */
 
       navigator.clipboard.writeText(interviewLink)
         .then(() => {
