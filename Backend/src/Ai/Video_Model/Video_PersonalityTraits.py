@@ -15,24 +15,25 @@ class Video_PersonalityTraits:
         self.frame_count = frame_count
         self.image_size = image_size
         self.face_detector = MTCNN(image_size=image_size, margin=margin, post_process=False, select_largest=True, device=self.device)
-        self.model = x3d_model('x3d_s',self.device)
+        self.model = x3d_model('x3d_s')
         self.model.load_state_dict(torch.load(os.path.join(os.path.dirname(__file__), "X3D_Third_CheckPoint (1).pth")))
         self.model = self.model.to(self.device)
         self.model.eval()
         
-    # def normalize_image(self,image):
-    #     """Normalize pixel values to [0,1] range"""
-    #     return (image - image.min()) / (image.max() + 1e-6)
     
-    def process_new_video(self,video_path):
+    def process_new_video(self, video_path):
+        
+        if not os.path.exists(video_path):
+            raise FileNotFoundError(f"Video file not found: {video_path}")
+        
         frames = self.extract_frames(video_path)
         frames = frames.unsqueeze(0).to(self.device)
         frames = frames.permute(0, 2, 1, 3, 4)
         
         with torch.no_grad():
             predictions = self.model(frames)
-            
-        return predictions.cpu().numpy()
+        
+        return predictions.cpu().numpy().tolist()[0]
 
     def extract_faces(self,frames):
         """Detect and crop faces."""

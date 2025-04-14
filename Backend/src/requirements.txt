@@ -17,3 +17,4 @@ deepface==0.0.93
 google-generativeai==0.8.4
 av==14.3.0
 facenet-pytorch==2.6.0
+fvcore==0.1.5.post20221221
