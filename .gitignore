@@ -172,3 +172,4 @@ db.json
 node_modules
 .DS_Store
 *.pth
+*.mp3
