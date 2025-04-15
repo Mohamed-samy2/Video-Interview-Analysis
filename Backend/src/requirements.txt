@@ -19,5 +19,6 @@ av==14.3.0
 facenet-pytorch==2.6.0
 fvcore==0.1.5.post20221221
 librosa==0.11.0
-whisper==1.1.10
+git+https://github.com/openai/whisper.git
 moviepy==1.0.3
+ffmpeg==1.4
