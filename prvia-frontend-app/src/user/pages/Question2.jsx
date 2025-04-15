@@ -36,7 +36,8 @@ const Question2 = () => {
         const response = await getJobById(jobId);
         console.log("Job ID in Question 2 page is ", jobId);
         const job = response.data;
-        const q = job.questions.find((q) => q.id === 2);
+        // const q = job.questions.find((q) => q.id === 2);
+        const q = job.questions[1];
         if (!q) {
           throw new Error('Question 2 not found');
         }

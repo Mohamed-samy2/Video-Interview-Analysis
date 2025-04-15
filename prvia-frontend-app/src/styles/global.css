@@ -3,12 +3,16 @@ body {
   font-family: 'Poppins', sans-serif;
   color: #333333;
   background: linear-gradient(180deg, #f8f9fa, #e4e4e2b3);
+  margin: 0;
+  padding: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   font-size: x-large;
   color: #4206a3;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 p, span, div {
@@ -18,21 +22,31 @@ p, span, div {
 /* Job Card Styling */
 .job-card {
   border-radius: 25px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+  /* box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05); */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+
   border: none;
   background-color: #ffffff;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.2s ease;
+  /* transition: transform 0.2s ease, box-shadow 0.2s ease; */
   padding: 25px;
   overflow: hidden;
+  margin-bottom: 20px; /* Add space between cards */
+  position: relative; /* Establish positioning context */
+  z-index: 1; 
 }
 
 .job-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  z-index: 2; 
 }
 
 .job-card .card-body {
-  padding: 0;
+  /* padding: 0; */
+  padding: 10px 0; 
+  display: flex;
+  flex-direction: column;
   gap: 5px;
 }
 
@@ -62,9 +76,11 @@ p, span, div {
   padding: 8px 16px;
   font-weight: 400;
   width: 50%;
+  max-width: 200px; /* Added max-width for consistency */
   border: none;
   color: white;
   font-size: 16px;
+  align-self: flex-start; /* Align button to the left */
 }
 
 .job-card .btn-primary:hover {
@@ -146,7 +162,7 @@ p, span, div {
 }
 
 /* Job Details Card Styling */
-.job-details-card {
+/*.job-details-card {
   border-radius: 25px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
   border: none;
@@ -174,4 +190,4 @@ p, span, div {
 .job-details-card .list-group-item {
   border: none;
   padding: 5px 0;
-}
+}*/

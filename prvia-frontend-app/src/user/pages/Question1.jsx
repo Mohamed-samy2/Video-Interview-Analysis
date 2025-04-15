@@ -34,7 +34,7 @@ const Question1 = () => {
       try {
         const response = await getJobById(jobId);
         const job = response.data;
-        const q = job.questions.find((q) => q.id === 1);
+        const q = job.questions[0];
         
         if (!q) {
           throw new Error('Question 1 not found');
