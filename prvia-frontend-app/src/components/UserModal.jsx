@@ -30,13 +30,16 @@ const UserModal = ({ show, onHide, userId, jobId, onStatusUpdate }) => {
   const handleStatusChange = async (status) => {
     try {
       const response = await updateStatus({ userId, jobId, status });
-      if (response.data.response !== "success") {
-        toast.error(`Failed to update status to ${status}`);
-        return;
-      }
+      
+      // if (response.data.response !== "success") {
+      //   toast.error(`Failed to update status to ${status}`);
+      //   return;
+      // }
+      console.log('Update status response:', response.data);
       toast.success(`Applicant ${status.toLowerCase()} successfully!`);
       onStatusUpdate(userId);
-    } catch (err) {
+    } 
+    catch (err) {
       const message = err.response?.data?.error || `Failed to update status to ${status}. Please try again.`;
       toast.error(message);
     }

@@ -40,10 +40,10 @@ const ApplicantsPage = () => {
       const response = await updateStatus({ userId, jobId: id, status: INTERVIEW_PROCESS_STATUS });
       console.log('Update status response:', response.data);
       
-      if (response.data.response !== "success") {
-       toast.error('Failed to update status');
-       return
-      }
+      // if (response.data.response !== "success") {
+      //  toast.error('Failed to update status');
+      //  return
+      // }
       console.log('Update status response:', response.data);
       // const { interviewLink } = response.data;
       

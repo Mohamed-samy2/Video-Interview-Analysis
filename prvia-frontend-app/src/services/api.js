@@ -119,7 +119,6 @@ export const getJobs = (HRId) => {
   return api.get(`/job/get_jobs_HRId`, { params: { HRId } });
 };
 
-
 export const addJob = (jobData) => {
   console.log('Creating new job:', jobData);
   return api.post('/job/create_job', jobData);
@@ -135,7 +134,6 @@ export const loginHr = (credentials) => {
   return api.post('hr/login', credentials);
 };
 
-
 export const getUsersByJobId = (job_id, status) => {
   console.log('Fetching users for jobId:', job_id, 'with status:', status);
   return api.get('/user/', { params: { job_id, status } });
@@ -144,7 +142,8 @@ export const getUsersByJobId = (job_id, status) => {
 export const updateStatus = (data) => {
   const { userId, jobId, status } = data;
   console.log('Updating status for userId:', userId, 'jobId:', jobId, 'status:', status);
-  return api.put(`/user/${userId}/status`, { jobId, status });
+  return api.put(`/user/${userId}/status?job_id=${jobId}&new_status=${status}`);
+
 };
 
 export const getUserScores = (userId, jobId) => {
@@ -157,9 +156,9 @@ export const computeScores = (data) => {
   return api.post('/compute-scores', data);
 };
 
-// export const getVideosByUserAndJob = (userId, jobId) => {
-//   console.log('Fetching videos for userId:', userId, 'jobId:', jobId);
-//   return api.get('/videos', { params: { userId, jobId } });
+
+// export const updateStatus = (data) => {
+//   const { userId, jobId, status } = data;
+//   console.log('Updating status for userId:', userId, 'jobId:', jobId, 'status:', status);
+//   return api.put(`/user/${userId}/status`, { jobId, status });
 // };
-
-
