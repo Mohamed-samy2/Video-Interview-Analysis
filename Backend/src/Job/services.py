@@ -2,9 +2,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy.orm import selectinload
 from fastapi import HTTPException
-from db.Models.JobModels import Job, JobQuestion 
+from src.db.Models.JobModels import Job, JobQuestion 
 from typing import List
-from Job.schemas import (
+from src.Job.schemas import (
     JobCreate,
     JobDetailResponse,
     JobListingResponse,
@@ -19,6 +19,7 @@ async def create_job(db: AsyncSession, job_data: JobCreate) -> JobDetailResponse
     new_job = Job(
         title=job_data.title,
         description=job_data.description,
+        HRId=job_data.HRId,
         salary=job_data.salary,
         company=job_data.company,
         job_type=job_data.job_type,  
@@ -74,6 +75,22 @@ async def get_all_jobs(db: AsyncSession):
 
     return [
         JobListingResponse(id=job.id, title=job.title, company=job.company, salary=job.salary)
+        for job in jobs
+    ]
+
+async def get_all_jobs_HRId(HRId: int, db: AsyncSession):
+    result = await db.execute(
+        select(Job).where(Job.HRId == HRId)
+    )
+    jobs = result.scalars().all()
+
+    return [
+        JobListingResponse(
+            id=job.id,
+            title=job.title,
+            company=job.company,
+            salary=job.salary
+        )
         for job in jobs
     ]
 
