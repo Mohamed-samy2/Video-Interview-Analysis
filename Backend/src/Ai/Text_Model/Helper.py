@@ -1,13 +1,11 @@
-import shutil
 from pathlib import Path
-from moviepy import VideoFileClip
+from moviepy.editor import VideoFileClip
 from fastapi import HTTPException
 from transformers import BertTokenizer, BertModel
 import preprocessor as p
 import re
 from sqlalchemy.ext.asyncio import AsyncSession
 import whisper  
-
 UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
 
@@ -50,35 +48,30 @@ class HelperText:
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Error extracting audio: {e}")
 
-@staticmethod
-def transcribe_audio(audio_path: str) -> str:
-    try:
-        detection_model = whisper.load_model("medium")         #for language detection
-        transcription_model = whisper.load_model("medium.en")  #for English transcription only
-
-        
-        audio = whisper.load_audio(audio_path)
-        audio = whisper.pad_or_trim(audio)
-        mel = whisper.log_mel_spectrogram(audio).to(detection_model.device)
-
-        
-        _, probs = detection_model.detect_language(mel)
-        detected_lang = max(probs, key=probs.get)
-        confidence = probs[detected_lang]
-
-        
-        is_english = detected_lang == "en" and confidence > 0.8
-
-        if is_english:
+    @staticmethod
+    def transcribe_audio(audio_path: str) -> str:
+        try:
+            # detection_model = whisper.load_model("large")         #for language detection
+            # print(detection_model.device)
+            audio = whisper.load_audio(audio_path)
+            audio = whisper.pad_or_trim(audio)
+            # mel = whisper.log_mel_spectrogram(audio).to(detection_model.device)
+            # _, probs = detection_model.detect_language(mel)
+            # detected_lang = max(probs, key=probs.get)
+            # confidence = probs[detected_lang]
+            # print(f"Detected Language: {detected_lang} (Confidence: {confidence})")
+            # is_english = detected_lang == "en" and confidence > 0.8
+            # if is_english:
+            
+            transcription_model = whisper.load_model("medium.en")  #for English transcription only
             result = transcription_model.transcribe(audio_path)
             transcription = result["text"]
-        else:
-            transcription = ""
+            # else:
+                # transcription = ""
 
-        
-        return transcription, is_english
+            return transcription
 
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error transcribing audio: {e}")
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Error transcribing audio: {e}")
 
 
