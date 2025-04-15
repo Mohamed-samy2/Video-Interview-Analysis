@@ -37,23 +37,6 @@ class Gemini:
         response = self.model.generate_content(prompt)
         return response.text
 
-    def grammatical_error_correctness(self, text: str) -> str:
-        """Correct grammatical errors in the given transcript while keeping the content unchanged."""
-        prompt = f"""
-        You are an AI language model designed to **correct grammatical errors** in transcripts.
-        Your task is to return the **exact same content** but with all grammar mistakes fixed.
-        - **Do NOT change the meaning or wording** unless necessary for correctness.
-        - Keep the **same structure, tone, and format** as the original.
-        - Do not remove or add information—just fix grammar issues.
-
-        Here is the transcript:
-        "{text}"
-
-        Please provide the **corrected transcript** with all grammar mistakes fixed.
-        """
-
-        response = self.model.generate_content(prompt)
-        return response.text  
 
     def relevance_check(self, description: str, question: str) -> str:
         """Evaluate the relevance of an interview question based on the job description."""
@@ -77,4 +60,4 @@ class Gemini:
         """
 
         response = self.model.generate_content(prompt)
-        return response.text  
+        return int(response.text)  
