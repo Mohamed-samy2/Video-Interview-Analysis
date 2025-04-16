@@ -28,6 +28,10 @@ const ThankYou = () => {
         console.log('Computing scores for userId:', userId, 'jobId:', jobId, 'hrId:', hrId);
         const scoreResponse = await computeScores({ hrId, userId, jobId });
         console.log('Compute scores response:', scoreResponse.data);
+        if (scoreResponse.data.response !== "success") {
+         console.log('Error in computing scores:', scoreResponse);
+       return
+      }
         // toast.success('Scores computed successfully!');
       } 
       catch (err) {

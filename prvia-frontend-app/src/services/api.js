@@ -112,6 +112,14 @@ export const getJobById = (job_id) => {
   return api.get(`/job/get_job_info?job_id=${job_id}`);
 };
 
+export const computeScores = (data) => {
+  console.log('Submitting compute-scores request:', data);
+  const { hrId, userId, jobId } = data;
+  // return api.post('/compute-scores', data);
+  return api.post(`user/compute-scores?hrId=${hrId}&userId=${userId}&jobId=${jobId}`);
+
+};
+
 // HR APIs:
 
 export const getJobs = (HRId) => {
@@ -149,11 +157,6 @@ export const updateStatus = (data) => {
 export const getUserScores = (userId, jobId) => {
   console.log('Fetching scores for userId:', userId, 'jobId:', jobId);
   return api.get('/hr/get_user_scores', { params: { userId, jobId } });
-};
-
-export const computeScores = (data) => {
-  console.log('Submitting compute-scores request:', data);
-  return api.post('/compute-scores', data);
 };
 
 

@@ -75,7 +75,16 @@ const PassedApplicantsPage = () => {
                   <td>{applicant.phone || 'N/A'}</td>
                   <td>{applicant.gender || 'N/A'}</td>
                   <td>{applicant.degree || 'N/A'}</td>
-                  <td>{applicant.total_score || 'N/A'}</td>
+                  <td>
+                  {applicant.CV_FilePath ? (
+                     <a href={`/Backend/src/${applicant.CV_FilePath}`} target="_blank" rel="noopener noreferrer">
+                      View CV
+                    </a>
+                  ) : (
+                    'N/A'
+                  )}
+                </td>
+                <td>{applicant.total_score || 'N/A'}</td>
                   <td>
                     <Button
                       variant="info"

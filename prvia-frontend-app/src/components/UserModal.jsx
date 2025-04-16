@@ -17,10 +17,12 @@ const UserModal = ({ show, onHide, userId, jobId, onStatusUpdate }) => {
         const response = await getUserScores(userId, jobId);
         console.log('User details:', response.data);
         setDetails(response.data);
-      } catch (err) {
+      } 
+      catch (err) {
         const message = err.response?.data?.error || 'Failed to load details. Please try again.';
         setError(message);
-      } finally {
+      } 
+      finally {
         setLoading(false);
       }
     };
@@ -30,18 +32,14 @@ const UserModal = ({ show, onHide, userId, jobId, onStatusUpdate }) => {
   const handleStatusChange = async (status) => {
     try {
       const response = await updateStatus({ userId, jobId, status });
-      
-      // if (response.data.response !== "success") {
-      //   toast.error(`Failed to update status to ${status}`);
-      //   return;
-      // }
       console.log('Update status response:', response.data);
-      toast.success(`Applicant ${status.toLowerCase()} successfully!`);
+      toast.success(`Applicant ${status.toLowerCase()} updated to ${status} successfully!`);
       onStatusUpdate(userId);
     } 
     catch (err) {
       const message = err.response?.data?.error || `Failed to update status to ${status}. Please try again.`;
-      toast.error(message);
+      console.log('Error updating status:', err,message);
+      toast.error(`Failed to update status to ${status}. Please try again.`);
     }
   };
 
@@ -62,14 +60,14 @@ const UserModal = ({ show, onHide, userId, jobId, onStatusUpdate }) => {
         ) : (
           <>
             <h5>Personal Information</h5>
-            <p><strong>First Name:</strong> {details.firstName}</p>
-            <p><strong>Last Name:</strong> {details.lastName}</p>
+            <p><strong>First Name:</strong> {details.first_name}</p>
+            <p><strong>Last Name:</strong> {details.last_name}</p>
             <p><strong>Email:</strong> {details.email}</p>
-            <p><strong>Phone Number:</strong> {details.phoneNumber}</p>
+            <p><strong>Phone Number:</strong> {details.phone}</p>
             <p>
               <strong>CV:</strong>{' '}
-              {details.cvFile ? (
-                <a href={`http://localhost:3001${details.cvFile}`} target="_blank" rel="noopener noreferrer">
+              {details.cv ? (
+                 <a href={`/Backend/src/${details.cv}`}  target="_blank" rel="noopener noreferrer">
                   View CV
                 </a>
               ) : (
@@ -77,8 +75,15 @@ const UserModal = ({ show, onHide, userId, jobId, onStatusUpdate }) => {
               )}
             </p>
 
-            <h5>Scores</h5>
-            <p><strong>Personality Traits Score:</strong> {details.personalityTraitsScore}</p>
+            <h5>Personality Traits</h5>
+            <p><strong>Agreebleness:</strong> {details.traits1}</p>
+            <p><strong>Conscientiousness:</strong> {details.traits2}</p>
+            <p><strong>Extraversion:</strong> {details.traits3}</p>
+            <p><strong>Neutrocisim:</strong> {details.traits4}</p>
+            <p><strong>Openness:</strong> {details.traits4}</p>
+            
+            <h5>Personality Traits</h5>
+            
             <p><strong>Facial Expressions Score:</strong> {details.facialExpressionsScore}</p>
             <p><strong>English Proficiency Score:</strong> {details.englishProficiencyScore}</p>
             <p><strong>Cheated:</strong> {details.cheated ? 'Yes' : 'No'}</p>
@@ -93,7 +98,7 @@ const UserModal = ({ show, onHide, userId, jobId, onStatusUpdate }) => {
                     </Accordion.Header>
                     <Accordion.Body>
                       <p><strong>Summary:</strong> {q.summary}</p>
-                      <p><strong>Relevancy Score:</strong> {q.relevancyScore}</p>
+                      <p><strong>Relevancy Score:</strong> {q.relevance}</p>
                       {q.videoFile ? (
                         <video
                           controls

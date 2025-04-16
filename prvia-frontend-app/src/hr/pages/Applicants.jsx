@@ -102,7 +102,7 @@ const ApplicantsPage = () => {
                 <td>{applicant.degree || 'N/A'}</td>
                 <td>
                   {applicant.CV_FilePath ? (
-                    <a href={applicant.CV_FilePath} target="_blank" rel="noopener noreferrer">
+                     <a href={`/Backend/src/${applicant.CV_FilePath}`} target="_blank" rel="noopener noreferrer">
                       View CV
                     </a>
                   ) : (
