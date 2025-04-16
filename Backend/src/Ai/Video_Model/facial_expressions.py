@@ -10,8 +10,8 @@ UPLOAD_DIR.mkdir(exist_ok=True)  # Ensure the folder exists
 
 
 class VideoEmotionAnalyzer:
-    def __init__(self, video_path):
-        self.video_path = video_path
+    def __init__(self):
+        
         self.face_model = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
         self.positive_emotions = {"happy", "neutral", "surprise"}
         self.negative_emotions = {"sad", "angry", "fear", "disgust"}
@@ -28,8 +28,8 @@ class VideoEmotionAnalyzer:
         else:
             return data
 
-    def analyze_video(self):
-        cap = cv2.VideoCapture(self.video_path)
+    def analyze_video(self,video_path):
+        cap = cv2.VideoCapture(video_path)
         fps = int(cap.get(cv2.CAP_PROP_FPS))
         total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
         duration = total_frames / fps

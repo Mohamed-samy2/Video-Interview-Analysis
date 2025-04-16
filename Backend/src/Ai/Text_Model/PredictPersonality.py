@@ -6,7 +6,7 @@ import sys
 import re
 import tensorflow as tf
 import joblib
-
+import os
 
 class PredictPersonality:
     def __init__(self):
@@ -90,7 +90,7 @@ class PredictPersonality:
 
         new_embeddings = self.extract_bert_features(new_text_pre, tokenizer, model, token_length)
 
-        op_dir = '.\\src\\Ai\\Text_Model\\Models\\'
+        op_dir = os.path.join(os.path.dirname(__file__), "Models")
 
         models = self.load_finetune_model(op_dir)
         predictions = {}

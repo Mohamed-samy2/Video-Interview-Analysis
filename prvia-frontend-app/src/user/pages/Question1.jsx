@@ -15,7 +15,7 @@ const Question1 = () => {
 
   const userId = searchParams.get('userId') || localStorage.getItem('userId');
   const jobId = searchParams.get('jobId') || localStorage.getItem('jobId');
-  
+
   console.log("user id :", userId);
   console.log("job id :", jobId);
 
@@ -35,18 +35,18 @@ const Question1 = () => {
         const response = await getJobById(jobId);
         const job = response.data;
         const q = job.questions[0];
-        
+
         if (!q) {
           throw new Error('Question 1 not found');
         }
         setQuestion(q.question);
-      } 
+      }
       catch (error) {
         console.error('Error fetching question:', error);
         setError('Failed to fetch question. Please try again.');
         toast.error('Failed to fetch question.');
-        navigate('/apply');
-      } 
+        navigate('/');
+      }
       finally {
         setLoading(false);
       }

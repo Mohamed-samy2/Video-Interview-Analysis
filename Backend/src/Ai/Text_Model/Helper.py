@@ -18,6 +18,7 @@ class Helper:
         return self.tokenizer, self.model
 
     def preprocess_text(self, sentence: str) -> str:
+        
         sentence = p.clean(sentence)
         sentence = re.sub(r"http\S+", " ", sentence)
         sentence = re.sub(r"\s+", " ", sentence).strip()
@@ -26,7 +27,7 @@ class Helper:
 
 class HelperText:
     @staticmethod
-    async def extract_audio(userId: int, jobId: int, questionId: int, db: AsyncSession):
+    async def extract_audio(userId: int, jobId: int, questionId: int):
         try:
             video_dir = UPLOAD_DIR / str(jobId) / str(userId) / "videos"
             video_path = video_dir / f"{questionId}.mp4"
@@ -43,7 +44,7 @@ class HelperText:
             audio.write_audiofile(str(audio_path))
             video.close()
 
-            return {"message": "Audio extracted successfully", "audio_path": str(audio_path)}
+            return str(audio_path)
 
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Error extracting audio: {e}")

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://127.0.0.1:8000', 
+  baseURL: 'http://127.0.0.1:8000',
 });
 
 console.log('API baseURL:', api.defaults.baseURL);
@@ -45,7 +45,7 @@ export const submitApplication = async (applicationData) => {
   // Step 2: Upload the CV
   const formData = new FormData();
   formData.append('file', applicationData.cv);
-  
+
   // Log file details for debugging
   console.log('CV file details:', {
     name: applicationData.cv.name,
@@ -62,10 +62,10 @@ export const submitApplication = async (applicationData) => {
         'Content-Length': undefined,
       },
     });
-    
+
     console.log('Response from /user/upload-CV:', cvResponse.data);
     return { userId, cvResponse };
-  } 
+  }
   catch (error) {
     console.error('CV upload error details:', error.response?.data);
     throw error;
@@ -75,9 +75,9 @@ export const submitApplication = async (applicationData) => {
 export const uploadVideo = async (videoResponseData, videoFile) => {
   const formData = new FormData();
   formData.append('file', videoFile);
-   
+
   // Log file details for debugging
-   console.log('Video file details:', {
+  console.log('Video file details:', {
     name: videoFile.name,
     type: videoFile.type,
     size: videoFile.size + ' bytes'
@@ -85,21 +85,21 @@ export const uploadVideo = async (videoResponseData, videoFile) => {
   // Extract the parameters
   const { userId, questionId, jobId } = videoResponseData;
   console.log('Submitting video to /user/upload-video for userId:', userId, 'questionId:', questionId, 'jobId:', jobId);
-  
+
   try {
     const videoResponse = await api.post(
-      `/user/upload-video?userId=${userId}&questionId=${questionId}&jobId=${jobId}`, 
-      formData, 
+      `/user/upload-video?userId=${userId}&questionId=${questionId}&jobId=${jobId}`,
+      formData,
       {
         headers: {
           'Content-Type': 'multipart/form-data'
         },
       }
     );
-    
+
     console.log('Response from /user/upload-video:', videoResponse.data);
     return { userId, videoResponse };
-  } 
+  }
   catch (error) {
     console.error('Video upload error details:', error.response?.data);
     throw error;
@@ -112,15 +112,14 @@ export const getJobById = (job_id) => {
   return api.get(`/job/get_job_info?job_id=${job_id}`);
 };
 
-export const computeScores = (data) => {
-  console.log('Submitting compute-scores request:', data);
-  const { hrId, userId, jobId } = data;
-  // return api.post('/compute-scores', data);
-  return api.post(`user/compute-scores?hrId=${hrId}&userId=${userId}&jobId=${jobId}`);
-
-};
 
 // HR APIs:
+export const computeScores = (data) => {
+  console.log('Submitting compute-scores request:', data);
+  const { hr_id, user_id, job_id } = data;
+  // return api.post('/compute-scores', data);
+  return api.post(`hr/compute_scores`, data);
+};
 
 export const getJobs = (HRId) => {
   console.log('Fetching jobs for hrId:', HRId);

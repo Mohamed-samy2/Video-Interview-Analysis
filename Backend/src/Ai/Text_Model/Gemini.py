@@ -4,12 +4,13 @@ import os
 
 class Gemini:
     
-    def __init__(self, api_key=os.getenv("GEMINI_API_KEY")):
+    def __init__(self):
         """Initialize the Gemini client with API key and settings."""
-        if not api_key:
-            raise ValueError("GEMINI_API_KEY is missing.")
+        load_dotenv()
+        # if not api_key:
+        #     raise ValueError("GEMINI_API_KEY is missing.")
 
-        genai.configure(api_key=api_key)
+        genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
         self.model = genai.GenerativeModel(
             "gemini-2.0-flash",
             generation_config={
@@ -38,24 +39,24 @@ class Gemini:
         return response.text
 
 
-    def relevance_check(self, description: str, question: str) -> str:
+    def relevance_check(self, text: str, question: str) -> str:
         """Evaluate the relevance of an interview question based on the job description."""
-        prompt = f"""
-        You are an **AI-powered interviewer assistant** evaluating the relevance of interview questions for a given job role.
-
+        prompt = f"""You are an **AI-powered interviewer assistant** evaluating the relevance of an interview question.
+ 
         ### **Task:**
-        - Determine how **relevant** the question is to assessing the candidate for this role.
+        - Determine how **relevant** the question is to assessing the candidate.
+        - Use the provided **candidate's answer** to help contextualize the evaluation.
         - Provide a **single numerical score (0-10)** where:
-          - **0** = Completely irrelevant  
-          - **10** = Highly relevant  
-
-        ### **Job Description:**  
-        "{description}"
-
-        ### **Interview Question:**  
+        - **0** = Completely irrelevant
+        - **10** = Highly relevant
+    
+        ### **Interview Question:**
         "{question}"
-
-        ### **Output Format:**  
+    
+        ### **Candidate's Answer:**
+        "{text}"
+    
+        ### **Output Format:**
         Provide **only** a single number between **0 and 10** representing the relevance score.
         """
 

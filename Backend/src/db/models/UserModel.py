@@ -1,7 +1,7 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, PrimaryKeyConstraint
 from sqlalchemy.orm import relationship
-from src.db.database import Base  
-from src.db.Models.JobModels import Job
+from db.database import Base  
+from db.Models.JobModels import Job
 
 class User(Base):
     __tablename__ = 'users'

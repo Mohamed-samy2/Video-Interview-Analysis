@@ -1,13 +1,13 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import desc
 from fastapi import Depends, UploadFile, File, HTTPException
-from src.db.Models import UserModel # Updated import path
-from src.db.Models.HrModel import VideoProcessing # Updated import path
-from src.User.schemas import UserCreate  # Updated import path
+from db.Models import UserModel # Updated import path
+from db.Models.HrModel import VideoProcessing # Updated import path
+from User.schemas import UserCreate  # Updated import path
 import shutil
 from pathlib import Path
 from fastapi.responses import FileResponse
-from src.utils import Status
+from utils import Status
 from sqlalchemy.future import select
 from typing import List, Optional
 
@@ -56,6 +56,7 @@ class UserService:
             
             for user, total_score in rows:
                 user_dict = {
+                    "userId": user.id,
                     "first_name": user.first_name,
                     "last_name": user.last_name,
                     "email": user.email,
@@ -75,6 +76,7 @@ class UserService:
         for user, total_score in rows:
             
             user_dict = {
+                "userId": user.id,
                 "first_name": user.first_name,
                 "last_name": user.last_name,
                 "email": user.email,

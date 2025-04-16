@@ -42,7 +42,7 @@ const Question3 = () => {
         console.error('Error fetching question:', error);
         setError('Failed to fetch question. Please try again.');
         toast.error('Failed to fetch question.');
-        navigate('/apply');
+        navigate('/');
       } finally {
         setLoading(false);
       }

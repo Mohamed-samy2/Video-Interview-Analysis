@@ -45,6 +45,7 @@ class JobListingResponse(BaseModel):
 # Schema for viewing full job details (Includes multiple questions)
 class JobDetailResponse(JobBase):
     id: int
+    hrId:int
     questions: List[JobQuestionResponse]  # ✅ Now supports multiple questions
 
     class Config:

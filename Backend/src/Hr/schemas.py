@@ -18,6 +18,16 @@ class GetHr(BaseModel):
 class GetUserScores(BaseModel):
     user_id: int
     job_id: int
+    class Config:
+        from_attributes = True
+ 
+class ComputeUserScores(BaseModel):
+    user_id: int
+    job_id: int
+    hr_id: int
+    
+    class Config:
+        from_attributes = True
  
     
 class VideoProcessingResponse(BaseModel):

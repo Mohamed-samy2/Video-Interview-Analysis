@@ -1,6 +1,6 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Float,Text,PrimaryKeyConstraint,Boolean
 from sqlalchemy.orm import relationship
-from src.db.database import Base  
+from db.database import Base  
 
 class HR(Base):
     __tablename__ = 'hr'
@@ -23,8 +23,6 @@ class VideoProcessing(Base):
     
     # Data columns
     total_score = Column(Float,default=0.0) 
-    personality_score = Column(Float,default=0.0)
-    not_cheated = Column(Boolean,default=True)
     
     summarized_text1 = Column(Text)
     summarized_text2 = Column(Text)
@@ -35,6 +33,16 @@ class VideoProcessing(Base):
     relevance3 = Column(Float,default=0.0)
     
     total_english_score = Column(Float,default=0.0)
+    
+    emotion1 = Column(String)
+    emotion2 = Column(String)
+    emotion3 = Column(String)
+    
+    trait1 = Column(String)
+    trait2 = Column(String)
+    trait3 = Column(String)
+    trait4 = Column(String)
+    trait5 = Column(String)
     
     __table_args__ = (
         PrimaryKeyConstraint('hr_id', 'job_id', 'user_id'),

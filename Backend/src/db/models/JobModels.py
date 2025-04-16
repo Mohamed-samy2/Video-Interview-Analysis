@@ -1,6 +1,6 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, PrimaryKeyConstraint , Float
 from sqlalchemy.orm import relationship
-from src.db.database import Base  
+from db.database import Base  
 
 class Job(Base):
     __tablename__ = "jobs"

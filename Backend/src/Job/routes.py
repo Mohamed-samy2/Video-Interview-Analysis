@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
-from src.db.database import get_db
-from src.Job.schemas import JobCreate, JobDetailResponse, JobListingResponse
-from src.Job.services import create_job, get_all_jobs, get_all_jobs_HRId, get_job_details , get_questions , fetch_questions
+from db.database import get_db
+from Job.schemas import JobCreate, JobDetailResponse, JobListingResponse
+from Job.services import create_job, get_all_jobs, get_all_jobs_HRId, get_job_details , get_questions , fetch_questions
 from typing import List
 from pydantic import BaseModel
 
@@ -25,6 +25,7 @@ async def create_new_job(job_data: JobCreate, db: AsyncSession = Depends(get_db)
     return JobDetailResponse(
         id=jobdeets.id,
         title=jobdeets.title,
+        hrId=jobdeets.hrId,
         description=jobdeets.description,
         salary=jobdeets.salary,
         company=jobdeets.company,

@@ -9,13 +9,13 @@ import QuestionCard from '../../components/QuestionCard';
 const Question2 = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  
+
   console.log('Question 2:')
   console.log("Search params url ", searchParams);
 
   const userId = searchParams.get('userId') || localStorage.getItem('userId');
   const jobId = searchParams.get('jobId') || localStorage.getItem('jobId');
-  
+
   console.log("user id :", userId);
   console.log("job id :", jobId);
 
@@ -42,13 +42,13 @@ const Question2 = () => {
           throw new Error('Question 2 not found');
         }
         setQuestion(q.question);
-      } 
+      }
       catch (error) {
         console.error('Error fetching question:', error);
         setError('Failed to fetch question. Please try again.');
         toast.error('Failed to fetch question.');
-        navigate('/apply');
-      } 
+        navigate('/');
+      }
       finally {
         setLoading(false);
       }

@@ -22,18 +22,23 @@ const ThankYou = () => {
       try {
         // Fetch hrId for computeScores
         const job = await getJobById(jobId);
-        const hrId = job.data.hrId;
+        const hrId = parseInt(job.data.hrId);
 
         // Call computeScores
         console.log('Computing scores for userId:', userId, 'jobId:', jobId, 'hrId:', hrId);
-        const scoreResponse = await computeScores({ hrId, userId, jobId });
+        const scoreResponse = await computeScores({
+          hr_id: hrId,
+          user_id: parseInt(userId), // ✅ Make sure userId is an int
+          job_id: parseInt(jobId)    // ✅ Make sure jobId is an int
+        });
+
         console.log('Compute scores response:', scoreResponse.data);
         if (scoreResponse.data.response !== "success") {
-         console.log('Error in computing scores:', scoreResponse);
-       return
-      }
+          console.log('Error in computing scores:', scoreResponse);
+          return
+        }
         // toast.success('Scores computed successfully!');
-      } 
+      }
       catch (err) {
         console.error('Error in computing scores:', err);
         // toast.error('Failed to compute scores. Please contact support.');
@@ -64,7 +69,7 @@ const ThankYou = () => {
             Thank You!
           </Card.Title>
           <Card.Text className="mb-4" style={{ color: '#343a40', fontSize: '1.1rem' }}>
-            Your application has been successfully submitted! We’re excited to review your video responses. 
+            Your application has been successfully submitted! We’re excited to review your video responses.
             Wishing you the best of luck—we hope to welcome you to our team soon!
           </Card.Text>
           <Button
