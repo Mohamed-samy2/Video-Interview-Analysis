@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Button, Accordion, Alert ,Spinner} from 'react-bootstrap';
+import { Modal, Button, Accordion, Alert, Spinner } from 'react-bootstrap';
 import { getUserScores, updateStatus } from '../services/api'
 import { toast } from 'react-toastify';
 import { ACCEPTED_STATUS, REJECTED_STATUS } from '../utilities/constants'
@@ -14,14 +14,21 @@ const UserModal = ({ show, onHide, userId, jobId, onStatusUpdate }) => {
 
     const fetchDetails = async () => {
       try {
-        const response = await getUserScores(userId, jobId);
+
+        console.log('UserID:', parseInt(userId));
+        console.log('JOB ID:', parseInt(jobId));
+        const response = await getUserScores({
+          user_id: parseInt(userId),
+          job_id: parseInt(jobId)
+        });
+
         console.log('User details:', response.data);
         setDetails(response.data);
-      } 
+      }
       catch (err) {
         const message = err.response?.data?.error || 'Failed to load details. Please try again.';
         setError(message);
-      } 
+      }
       finally {
         setLoading(false);
       }
@@ -35,10 +42,10 @@ const UserModal = ({ show, onHide, userId, jobId, onStatusUpdate }) => {
       console.log('Update status response:', response.data);
       toast.success(`Applicant ${status.toLowerCase()} updated to ${status} successfully!`);
       onStatusUpdate(userId);
-    } 
+    }
     catch (err) {
       const message = err.response?.data?.error || `Failed to update status to ${status}. Please try again.`;
-      console.log('Error updating status:', err,message);
+      console.log('Error updating status:', err, message);
       toast.error(`Failed to update status to ${status}. Please try again.`);
     }
   };
@@ -67,7 +74,7 @@ const UserModal = ({ show, onHide, userId, jobId, onStatusUpdate }) => {
             <p>
               <strong>CV:</strong>{' '}
               {details.cv ? (
-                 <a href={`/Backend/src/${details.cv}`}  target="_blank" rel="noopener noreferrer">
+                <a href={`http://localhost:8000/${details.cv}`} target="_blank" rel="noopener noreferrer">
                   View CV
                 </a>
               ) : (
@@ -76,33 +83,36 @@ const UserModal = ({ show, onHide, userId, jobId, onStatusUpdate }) => {
             </p>
 
             <h5>Personality Traits</h5>
-            <p><strong>Agreebleness:</strong> {details.traits1}</p>
-            <p><strong>Conscientiousness:</strong> {details.traits2}</p>
-            <p><strong>Extraversion:</strong> {details.traits3}</p>
-            <p><strong>Neutrocisim:</strong> {details.traits4}</p>
-            <p><strong>Openness:</strong> {details.traits4}</p>
-            
-            <h5>Personality Traits</h5>
-            
-            <p><strong>Facial Expressions Score:</strong> {details.facialExpressionsScore}</p>
-            <p><strong>English Proficiency Score:</strong> {details.englishProficiencyScore}</p>
-            <p><strong>Cheated:</strong> {details.cheated ? 'Yes' : 'No'}</p>
+            <p><strong>Agreebleness:</strong> {details.trait1}</p>
+            <p><strong>Conscientiousness:</strong> {details.trait2}</p>
+            <p><strong>Extraversion:</strong> {details.trait3}</p>
+            <p><strong>Neutrocisim:</strong> {details.trait4}</p>
+            <p><strong>Openness:</strong> {details.trait5}</p>
+
+            {/* <h5>Personality Traits</h5> */}
+
+            {/* <p><strong>Facial Expressions Score:</strong> {details.facialExpressionsScore}</p> */}
+            <p><strong>English Proficiency Score:</strong> {details.total_english_score}</p>
+            {/* <p><strong>Cheated:</strong> {details.cheated ? 'Yes' : 'No'}</p> */}
 
             <h5>Interview Questions</h5>
             {details.questions && details.questions.length > 0 ? (
               <Accordion>
                 {details.questions.map((q, index) => (
-                  <Accordion.Item eventKey={q.id.toString()} key={q.id}>
+                  <Accordion.Item eventKey={index.toString()} key={index}>
                     <Accordion.Header>
                       Question {index + 1}: {q.question}
                     </Accordion.Header>
                     <Accordion.Body>
                       <p><strong>Summary:</strong> {q.summary}</p>
                       <p><strong>Relevancy Score:</strong> {q.relevance}</p>
-                      {q.videoFile ? (
+                      <p><strong>Facial Expressions:</strong> {q.emotion}</p>
+                      {q.video ? (
                         <video
                           controls
-                          src={`http://localhost:3001${q.videoFile}`}
+                          src={`http://localhost:8000/${q.video}`}
+
+                          // src={`../../../Backend/src/${q.video}`}
                           style={{ maxWidth: '100%', maxHeight: '400px' }}
                         />
                       ) : (

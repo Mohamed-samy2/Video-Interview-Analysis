@@ -12,7 +12,7 @@ class AudioModel:
     def __init__(self, llm_name = 'answerdotai/ModernBERT-base', speech_encoder_name = "jonatasgrosman/wav2vec2-large-xlsr-53-english",apply_preprocessing=False):
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
         self.model = EnglishModel(llm_name=llm_name,speech_encoder_name=speech_encoder_name)
-        self.model.load_state_dict(torch.load(os.path.join(os.path.dirname(__file__), "EnglishModel_weights_last_epoch.pth"),weights_only=True))
+        self.model.load_state_dict(torch.load(os.path.join(os.path.dirname(__file__), "EnglishModel_weights_best_epoch.pth"),weights_only=True))
         self.model = self.model.to(self.device)
         self.model.eval()
         self.tokenizer = AutoTokenizer.from_pretrained(llm_name)

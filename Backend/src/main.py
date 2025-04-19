@@ -4,6 +4,7 @@ from Hr.routes import hr_router
 from Job.routes import job_router
 from db.database import engine, Base
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 import asyncio
 
@@ -17,6 +18,7 @@ async def create_tables():
 @app.on_event("startup")
 async def startup_event():
     await create_tables()
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 app.add_middleware(
     CORSMiddleware,

@@ -5,7 +5,8 @@ from transformers import BertTokenizer, BertModel
 import preprocessor as p
 import re
 from sqlalchemy.ext.asyncio import AsyncSession
-import whisper  
+import whisper 
+import torch
 UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
 
@@ -27,7 +28,7 @@ class Helper:
 
 class HelperText:
     @staticmethod
-    async def extract_audio(userId: int, jobId: int, questionId: int):
+    def extract_audio(userId: int, jobId: int, questionId: int):
         try:
             video_dir = UPLOAD_DIR / str(jobId) / str(userId) / "videos"
             video_path = video_dir / f"{questionId}.mp4"
@@ -50,10 +51,12 @@ class HelperText:
             raise HTTPException(status_code=500, detail=f"Error extracting audio: {e}")
 
     @staticmethod
-    def transcribe_audio(audio_path: str) -> str:
-        try:
+    async def transcribe_audio(audio_path: str) -> str:
+        # try:
             # detection_model = whisper.load_model("large")         #for language detection
             # print(detection_model.device)
+            device = 'cuda' if torch.cuda.is_available() else 'cpu'
+
             audio = whisper.load_audio(audio_path)
             audio = whisper.pad_or_trim(audio)
             # mel = whisper.log_mel_spectrogram(audio).to(detection_model.device)
@@ -64,7 +67,7 @@ class HelperText:
             # is_english = detected_lang == "en" and confidence > 0.8
             # if is_english:
             
-            transcription_model = whisper.load_model("medium.en")  #for English transcription only
+            transcription_model = whisper.load_model("medium.en",device=device)  #for English transcription only
             result = transcription_model.transcribe(audio_path)
             transcription = result["text"]
             # else:
@@ -72,7 +75,7 @@ class HelperText:
 
             return transcription
 
-        except Exception as e:
-            raise HTTPException(status_code=500, detail=f"Error transcribing audio: {e}")
+        # except Exception as e:
+        #     raise HTTPException(status_code=500, detail=f"Error transcribing audio: {e}")
 
 

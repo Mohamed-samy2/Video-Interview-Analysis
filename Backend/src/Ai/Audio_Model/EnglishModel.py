@@ -134,13 +134,12 @@ class TransformerEncoder(nn.Module):
 
 
 class EnglishModel(nn.Module):
-    def __init__(self,llm_name,speech_encoder_name,freeze_llm=False,freeze_speech_encoder=False,freeze_feature_extractor=False,freeze_encoder_layers=15):
+    def __init__(self,llm_name,speech_encoder_name,freeze_llm=False,freeze_speech_encoder=False,freeze_feature_extractor=False,freeze_encoder_layers=0):
         super(EnglishModel,self).__init__()
         
         self.llm = AutoModel.from_pretrained(llm_name)
         self.speech_encoder = AutoModel.from_pretrained(speech_encoder_name)
-        # print([name for name, _ in self.speech_encoder.named_children()])
-        
+        print([name for name, _ in self.speech_encoder.named_children()])
         if freeze_llm:
             for param in self.llm.parameters():
                 param.requires_grad = False
@@ -149,12 +148,15 @@ class EnglishModel(nn.Module):
             for param in self.speech_encoder.parameters():
                 param.requires_grad = False
                 
-        if freeze_feature_extractor:
-            layers = self.speech_encoder.feature_extractor.conv_layers  # Common path for transformer models
+        if freeze_feature_extractor:            
+            for layer in self.speech_encoder.feature_extractor.conv_layers.parameters():
+                param.requires_grad = False
+                
+            for param in self.speech_encoder.feature_projection.parameters():
+                param.requires_grad = False
             
-            for layer in layers:
-                for param in layer.parameters():
-                    param.requires_grad = False
+            for param in self.speech_encoder.encoder.pos_conv_embed.parameters():
+                param.requires_grad = False
         
         if freeze_encoder_layers:
             encoder_layers = self.speech_encoder.encoder.layers  # Common path for transformer models
@@ -164,10 +166,20 @@ class EnglishModel(nn.Module):
                 for param in layer.parameters():
                     param.requires_grad = False
 
+        # self.adapter = TransformerAdapter(
+        #     input_dim=self.speech_encoder.config.hidden_size,
+        #     output_dim=1024,
+        #     num_layers=2
+        # )
 
         self.cross_attention = CrossModalAttention(self.llm.config.hidden_size)
-        self.encoder = TransformerEncoder(5, self.llm.config.hidden_size, 32, 2048, 0.2)
+        self.encoder = TransformerEncoder(6, self.llm.config.hidden_size, 32, 2048, 0.2)
         
+        # self.shared_encoder = nn.Sequential(
+        #     nn.Linear(3*self.llm.config.hidden_size, 768),
+        #     nn.SiLU(),
+        #     nn.Dropout(0.2),
+        # )
         
         self.acc = nn.Sequential(
             nn.Linear(2560, 1024),  
@@ -231,6 +243,7 @@ class EnglishModel(nn.Module):
         
         text_features = torch.cat(self.llm(input_ids=input_ids,attention_mask=attention_masks,output_hidden_states=True).hidden_states[-5:],dim=1)
         speech_features = torch.cat(self.speech_encoder(waveforms,output_hidden_states=True).hidden_states[-5:],dim=1)
+        # speech_features = self.adapter(speech_features)
         
         cross_attn = self.cross_attention(text_features,speech_features)
         encoded=self.encoder(cross_attn)
@@ -243,6 +256,7 @@ class EnglishModel(nn.Module):
 
         
         combined_features = torch.cat([text_pool, attended_pool,speech_pool], dim=1)
+        # combined_features = self.shared_encoder(combined_features)
         
         acc = self.acc(combined_features)
         flu = self.flu(combined_features)

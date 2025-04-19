@@ -64,12 +64,12 @@ class HrService:
         
         query = select(
                 HrModel.VideoProcessing,
-                JobModels.JobQuestion.question,
+                JobModels.JobQuestion,
                 UserModel.User,
                 UserModel.UserVideo
             ).outerjoin(
                 JobModels.JobQuestion, 
-                HrModel.VideoProcessing.job_id == JobModels.JobQuestion.job_id
+                JobModels.JobQuestion.job_id == HrModel.VideoProcessing.job_id
             ).outerjoin(
                 UserModel.User,
                 HrModel.VideoProcessing.user_id == UserModel.User.id
@@ -80,6 +80,7 @@ class HrService:
                 (HrModel.VideoProcessing.user_id == request.user_id) &
                 (HrModel.VideoProcessing.job_id == request.job_id)
             )
+
             
         result = await db.execute(query)
         
@@ -101,14 +102,15 @@ class HrService:
         response['cv'] = user.CV_FilePath
         
         questions = []
-        
-        
+        i=0
         for record in records:
+            if i==3:
+                break
             question_data = {
-                "question": record[1],
-                "video":record[4].videoPath
+                "question": record[1].question,
+                "video":record[3].videoPath
             }
-            
+            i+=1
             questions.append(question_data)
         
         
@@ -172,10 +174,13 @@ class HrService:
         video_traits_model = Video_PersonalityTraits()
         video_emotion_model = VideoEmotionAnalyzer()
         
+        print("debuggggg")
         for video_path in video_paths:
+            gc.collect()
+            torch.cuda.empty_cache()
             video_traits.append(video_traits_model.process_new_video(video_path))
             emotions.append(video_emotion_model.analyze_video(video_path))
-            audio_paths.append(await HelperText.extract_audio(request.user_id, request.job_id, video_path.split("/")[-1].split(".")[0]))
+            audio_paths.append(HelperText.extract_audio(request.user_id, request.job_id, video_path.split("/")[-1].split(".")[0]))
         print("Video processing loop completed. Video traits:", len(video_traits), "Emotions:", len(emotions), "Audio paths:", len(audio_paths))
         
         del video_traits_model
@@ -184,7 +189,9 @@ class HrService:
         torch.cuda.empty_cache()
         # Process the audio files and transcribe them
         for audio_path in audio_paths:
-            texts.append(HelperText.transcribe_audio(audio_path))
+            gc.collect()
+            torch.cuda.empty_cache()
+            texts.append(await HelperText.transcribe_audio(audio_path))
         print("Audio transcription loop completed. Texts generated:", len(texts))
         
         
@@ -199,6 +206,8 @@ class HrService:
         text_traits_model = PredictPersonality()
         
         for text in texts:
+            gc.collect()
+            torch.cuda.empty_cache()
             text_traits.append(text_traits_model.predict(text))
         print("Text traits prediction loop completed. Text traits:", len(text_traits))
         
@@ -206,18 +215,18 @@ class HrService:
         gc.collect()
         torch.cuda.empty_cache()
         
-        # english_model = AudioModel()
+        english_model = AudioModel()
         
-        # for audio_path,text in zip(audio_paths,texts):
-        #     english_scores.append(english_model.run(text,audio_path))
-        # print("English scoring loop completed. English scores:", len(english_scores))
+        for audio_path,text in zip(audio_paths,texts):
+            english_scores.append(english_model.run(text,audio_path))
+        print("English scoring loop completed. English scores:", len(english_scores))
         
-        # print("English scores:", english_scores)
-        # total_english_score = english_model.get_total_applicant_score(english_scores)  
+        print("English scores:", english_scores)
+        total_english_score = english_model.get_total_applicant_score(english_scores)  
          
-        # del english_model
-        # gc.collect()
-        # torch.cuda.empty_cache()
+        del english_model
+        gc.collect()
+        torch.cuda.empty_cache()
         
         
         trait_order = ['AGR', 'CONN', 'EXT', 'NEU', 'OPN']
@@ -238,20 +247,20 @@ class HrService:
         avg_relevance = sum(relevance) / len(relevance)
         avg_traits = sum(combined_traits) / len(combined_traits)
         
-        total_score = (0.8*avg_relevance) + (0.7*avg_traits)+ (0.6* 0)
+        total_score = (0.8*avg_relevance) + (0.7*avg_traits)+ (0.6* total_english_score)
         
         video_processing = HrModel.VideoProcessing(
             hr_id=request.hr_id,
             job_id=request.job_id,
             user_id=request.user_id,
-            total_score=total_score,
+            total_score=round(total_score),
             summarized_text1=summarizations[0],
             summarized_text2=summarizations[1],
             summarized_text3=summarizations[2],
             relevance1=relevance[0],
             relevance2=relevance[1],
             relevance3=relevance[2],
-            total_english_score=0.0,
+            total_english_score=round(total_english_score),
             emotion1=emotions[0],
             emotion2=emotions[1],
             emotion3=emotions[2],

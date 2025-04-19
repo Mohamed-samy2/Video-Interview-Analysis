@@ -21,13 +21,13 @@ const PassedApplicantsPage = () => {
         const response = await getUsersByJobId(id, UPDATED_STATUS);
         console.log('Passed Applicants:', response.data);
         setApplicants(response.data);
-      } 
+      }
       catch (err) {
         const message = err.response?.data?.error || 'Failed to fetch passed applicants. Please try again.';
         console.error('Error fetching passed applicants:', err);
         setError(message);
         toast.error(message);
-      } 
+      }
       finally {
         setLoading(false);
       }
@@ -62,6 +62,10 @@ const PassedApplicantsPage = () => {
                 <th>Last Name</th>
                 <th>Email</th>
                 <th>Phone Number</th>
+                <th>Gender</th>
+                <th>Education</th>
+                <th>CV URL</th>
+                <th>Status</th>
                 <th>Total Score</th>
                 <th>Action</th>
               </tr>
@@ -75,16 +79,20 @@ const PassedApplicantsPage = () => {
                   <td>{applicant.phone || 'N/A'}</td>
                   <td>{applicant.gender || 'N/A'}</td>
                   <td>{applicant.degree || 'N/A'}</td>
+
+
                   <td>
-                  {applicant.CV_FilePath ? (
-                     <a href={`/Backend/src/${applicant.CV_FilePath}`} target="_blank" rel="noopener noreferrer">
-                      View CV
-                    </a>
-                  ) : (
-                    'N/A'
-                  )}
-                </td>
-                <td>{applicant.total_score || 'N/A'}</td>
+                    {applicant.CV_FilePath ? (
+                      <a href={`http://localhost:8000/${applicant.CV_FilePath}`} target="_blank" rel="noopener noreferrer">
+                        View CV
+                      </a>
+                    ) : (
+                      'N/A'
+                    )}
+                  </td>
+                  <td>{applicant.status}</td>
+                  <td>{applicant.total_score || 'N/A'}</td>
+
                   <td>
                     <Button
                       variant="info"
