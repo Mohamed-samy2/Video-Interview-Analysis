@@ -5,7 +5,11 @@ body {
   background: linear-gradient(180deg, #f8f9fa, #e4e4e2b3);
   margin: 0;
   padding: 0;
+  background-color: #93cff7 !important;
+
+
 }
+
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
@@ -15,15 +19,18 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0.5em;
 }
 
+
 p, span, div {
   font-weight: 400;
 }
+
 
 /* Job Card Styling */
 .job-card {
   border-radius: 25px;
   /* box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05); */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+
 
   border: none;
   background-color: #ffffff;
@@ -33,22 +40,25 @@ p, span, div {
   overflow: hidden;
   margin-bottom: 20px; /* Add space between cards */
   position: relative; /* Establish positioning context */
-  z-index: 1; 
+  z-index: 1;
 }
+
 
 .job-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  z-index: 2; 
+  z-index: 2;
 }
+
 
 .job-card .card-body {
   /* padding: 0; */
-  padding: 10px 0; 
+  padding: 10px 0;
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
+
 
 .job-card .card-title {
   font-size: 1.3rem;
@@ -57,17 +67,20 @@ p, span, div {
   margin-bottom: 5px;
 }
 
+
 .job-card .card-subtitle {
   font-size: 0.85rem;
   color: #6c757d;
   margin-bottom: 5px;
 }
 
+
 .job-card .card-text {
   font-size: 1rem;
   color: #333333;
   margin-bottom: 15px;
 }
+
 
 .job-card .btn-primary {
   background: linear-gradient(135deg, #007bff, #0056b3);
@@ -83,9 +96,11 @@ p, span, div {
   align-self: flex-start; /* Align button to the left */
 }
 
+
 .job-card .btn-primary:hover {
   background: linear-gradient(135deg, #0056b3, #004494);
 }
+
 
 /* Navbar Styling */
 .custom-navbar {
@@ -94,6 +109,7 @@ p, span, div {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   border-radius: 0 0 10px 10px;
 }
+
 
 .custom-navbar .navbar-brand {
   font-size: 1.5rem;
@@ -104,9 +120,11 @@ p, span, div {
   transition: color 0.3s ease;
 }
 
+
 .custom-navbar .navbar-brand:hover {
   color: #0056b3;
 }
+
 
 .custom-navbar .nav-link {
   font-size: 1rem;
@@ -114,9 +132,11 @@ p, span, div {
   margin: 0 15px;
 }
 
+
 .custom-navbar .nav-link:hover {
   color: #007bff;
 }
+
 
 .custom-navbar .nav .dropdown-toggle {
   font-size: 1rem;
@@ -124,9 +144,11 @@ p, span, div {
   margin-right: 20px;
 }
 
+
 .custom-navbar .nav .dropdown-toggle:hover {
   color: #007bff;
 }
+
 
 /* Button Styling */
 .custom-btn {
@@ -135,10 +157,12 @@ p, span, div {
   font-weight: 700;
 }
 
+
 .custom-btn:hover {
   background-color: #218838;
   border-color: #1e7e34;
 }
+
 
 .btn-primary {
   background: linear-gradient(135deg, #007bff, #0056b3);
@@ -150,9 +174,11 @@ p, span, div {
   transition: background 0.3s ease-in-out;
 }
 
+
 .btn-primary:hover {
   background: linear-gradient(135deg, #0056b3, #004494);
 }
+
 
 .custom-logo {
   height: 30px;
@@ -160,6 +186,7 @@ p, span, div {
   margin-right: 2px;
   padding: 5px;
 }
+
 
 /* Job Details Card Styling */
 /*.job-details-card {
@@ -170,22 +197,26 @@ p, span, div {
   padding: 25px;
 }
 
+
 .job-details-card .card-title {
   font-size: 1.5rem;
   color: #333333;
   font-weight: 700;
 }
 
+
 .job-details-card .card-subtitle {
   font-size: 1rem;
   color: #6c757d;
 }
+
 
 .job-details-card .card-text {
   font-size: 1rem;
   color: #333333;
   margin-bottom: 15px;
 }
+
 
 .job-details-card .list-group-item {
   border: none;
