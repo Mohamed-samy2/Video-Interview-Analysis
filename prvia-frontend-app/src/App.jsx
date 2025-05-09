@@ -1,6 +1,6 @@
 // import { useState } from "react";
 import { RouterProvider} from "react-router-dom";
-// import router from './routes/AppRoutes'; // We’ll update this 
+import './styles/global.css'; // Make sure this import is present
 import router from "./AppRoutes";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
