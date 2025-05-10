@@ -1,0 +1,207 @@
+/* src/styles/jobCardStyles.css */
+.job-cards-large-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 1rem auto; /* Reduced top margin to bring content closer to the top */
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 0 15px;
+  background: transparent;
+}
+
+
+.job-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.job-card {
+  width: 300px;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+  background: linear-gradient(135deg, #f0f4f8, #ffffff); /* Subtle gradient matching background */
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.job-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.job-card .card-body {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.job-card .card-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.job-card .card-subtitle {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-bottom: 0.5rem;
+}
+
+.job-card .card-text {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+/* Custom View Details Button */
+.job-card .btn-custom {
+  width: 180px;
+  height: 45px;
+  margin: 20px auto;
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
+  background-size: 200% auto;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-position 0.3s ease;
+}
+
+.job-card .btn-custom:hover {
+  background-position: right center; 
+}
+
+
+
+/* Section Header */
+.section-header {
+  background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
+  /* background-image: linear-gradient(to right, #93cff7 0%, #b3e0ff 51%, #93cff7 100%); */
+  background-size: 200% auto;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e0e0e0;
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.section-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 1;
+}
+
+.section-header::before {
+  content: "🔍";
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.5);
+  z-index: 0;
+}
+
+/* .section-header:hover {
+  background-position: right center;
+} */
+
+
+/* No Jobs Available Message */
+.no-jobs-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+  background: transparent;
+  box-shadow: none;
+}
+
+.no-jobs-message h1 {
+  font-size: 1.7rem;
+  background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 1rem;
+}
+
+
+.no-jobs-message p {
+  font-size: 1rem;
+  color: #506373;
+  margin-bottom: 1rem;
+}
+
+
+/* Custom No Results Icon */
+.custom-no-results-icon {
+  background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 1rem;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .job-card {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  .job-card-container {
+    gap: 10px;
+  }
+  .section-header {
+    padding: 8px 15px;
+  }
+  .section-header h1 {
+    font-size: 1.2rem;
+  }
+  .section-header::before {
+    font-size: 1rem;
+  }
+  .no-jobs-message {
+    min-height: 30vh;
+    padding: 15px;
+    max-width: 90%;
+  }
+}
+
+/* Gradient animation for text */
+/* @keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+} */
