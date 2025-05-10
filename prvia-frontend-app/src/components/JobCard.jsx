@@ -1,7 +1,6 @@
 // src/components/JobCard.jsx
-import React from 'react';
 import { Card, Button } from 'react-bootstrap';
-import '../styles/global.css'
+import '../styles/JobCardStyle.css'
 
 function JobCard({ job, onClick }) {
   if (!job) return null;
@@ -14,7 +13,7 @@ function JobCard({ job, onClick }) {
         {job.description && <Card.Text>{job.description}</Card.Text>}
         {job.salary && <Card.Text>Salary: {job.salary} EGP</Card.Text>}
         {onClick && (
-          <Button variant="primary" onClick={() => onClick(job.id)}>
+          <Button variant="primary" className="btn-custom" onClick={() => onClick(job.id)}>
             View Details
           </Button>
         )}
