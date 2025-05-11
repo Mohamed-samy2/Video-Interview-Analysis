@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import JobCard from '../../components/JobCard';
 import '../../styles/JobCardStyle.css'
 import { MdSearchOff } from "react-icons/md";
+import { FaPlus } from 'react-icons/fa';
 
 
 const Home = () => {
@@ -56,11 +57,14 @@ const Home = () => {
     <Container className="job-cards-large-container" >
       <div className="section-header">
         <h1>Your Jobs</h1>
-        <Button 
-       className="btn-custom btn-create-job" onClick={() => navigate('/hr/jobs/new')}>
-        Create New Job
-         </Button>
       </div>
+      <div className="button-container">
+        <Button className="btn-custom" onClick={() => navigate('/hr/jobs/new')}>
+          <FaPlus style={{ marginRight: '5px' }} />
+          Add Job
+        </Button>
+      </div>
+  
       {!Array.isArray(jobs) || jobs.length === 0 ? (
        <div className="no-jobs-message">
         <MdSearchOff className='custom-no-results-icon' size={50} color="#514A9D"/>
@@ -80,29 +84,4 @@ const Home = () => {
 }
 export default Home;
 
-
-
-//   return (
-//     <Container className="job-cards-large-container">
-//       <div className="section-header">
-//         <h1>Your Jobs</h1>
-//       </div>
-//       <div className="d-flex justify-content-between align-items-center mb-4">
-//         <div></div> {/* Placeholder to maintain layout */}
-//         <Button variant="success" onClick={() => navigate('/hr/jobs/new')}>
-//           Create New Job
-//         </Button>
-//       </div>
-//       {jobs.length === 0 ? (
-//         <p className="text-center">You have not created any jobs yet.</p>
-//       ) : (
-//         <div className="job-card-container">
-//           {jobs.map(job => (
-//             <JobCard key={job.id} job={job} onClick={() => navigate(`/hr/jobs/${job.id}`)} />
-//           ))}
-//         </div>
-//       )}
-//     </Container>
-//   );
-// };
 

@@ -42,7 +42,7 @@ const UserHome = () => {
   return (
     <Container className="job-cards-large-container" >
       <div className="section-header">
-        <h1>Explore Jobs</h1>
+        <h2>Explore Jobs</h2>
       </div>
       {!Array.isArray(jobs) || jobs.length === 0 ? (
        <div className="no-jobs-message">

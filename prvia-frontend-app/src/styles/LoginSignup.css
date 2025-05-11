@@ -27,6 +27,11 @@ body {
   gap: 9px;
   width: 100%;
   margin-top: 20px;
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+  padding-top: 20px; /* Adjusted to account for the header */
 }
 
 

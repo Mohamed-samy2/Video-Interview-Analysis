@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom"; // Add Link for navigation
 import { useAuth } from "../../context/AuthContext";
 import user_icon from "../../assets/person.png";
