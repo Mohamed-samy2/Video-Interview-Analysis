@@ -1,10 +1,14 @@
 // src/hr/pages/Home.jsx
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { Container, Card, Button, Spinner } from 'react-bootstrap';
+import { Container, Button, Spinner } from 'react-bootstrap';
 import { getJobs } from '../../services/api';
 import { toast } from 'react-toastify';
+import JobCard from '../../components/JobCard';
+import '../../styles/JobCardStyle.css'
+import { MdSearchOff } from "react-icons/md";
+
 
 const Home = () => {
   const navigate = useNavigate();
@@ -21,31 +25,23 @@ const Home = () => {
         console.log('Jobs fetched successfully:', response.data);
         setJobs(response.data.jobs);
         setError(null);
-
-      } 
-      catch (err) {
+      } catch (err) {
         console.error('Error fetching jobs:', err);
-        // Only set error for authentication issues, not for empty jobs
         if (err.response?.status === 401 || err.response?.status === 403) {
           const message = 'Authentication error. Please log in again.';
           setError(message);
           toast.error(message);
-        } 
-        else {
-          console.log('No jobs available at the moment.',err);
-          // Set jobs as empty array but don't treat as error
+        } else {
+          console.log('No jobs available at the moment.', err);
           setJobs([]);
         }
-      } 
-
-      finally {
+      } finally {
         setLoading(false);
       }
     };
     if (hrId) {
       fetchJobs();
-    } 
-    else {
+    } else {
       setLoading(false);
       setError('Please log in to view your jobs.');
       toast.error('Please log in to view your jobs.');
@@ -53,41 +49,60 @@ const Home = () => {
   }, [hrId]);
 
   if (loading) return <div className="text-center mt-5"><Spinner animation="border" /></div>;
-  // Only show error message for authentication issues, not for empty jobs
   if (error && !hrId) return <div className="text-danger text-center mt-5">{error}</div>;
-  // if (error) return <div className="text-danger text-center mt-5">{error}</div>;
 
-  return (
-    <Container className="mt-5">
-      <div className="d-flex justify-content-between align-items-center mb-4">
+  return(
+      
+    <Container className="job-cards-large-container" >
+      <div className="section-header">
         <h1>Your Jobs</h1>
-        <Button
-          variant="success"
-          onClick={() => navigate('/hr/jobs/new')}
-        >
-          Create New Job
-        </Button>
+        <Button 
+       className="btn-custom btn-create-job" onClick={() => navigate('/hr/jobs/new')}>
+        Create New Job
+         </Button>
       </div>
-      {jobs.length === 0 ? (
-        <p className="text-center">You have not created any jobs yet.</p>
+      {!Array.isArray(jobs) || jobs.length === 0 ? (
+       <div className="no-jobs-message">
+        <MdSearchOff className='custom-no-results-icon' size={50} color="#514A9D"/>
+         <h1>You Have not created any jobs Yet</h1>
+         <p>Click create job to add your first job!</p>
+        </div>
       ) : (
-        jobs.map(job => (
-          <Card key={job.id} className="mb-3 shadow-sm">
-            <Card.Body>
-              <Card.Title>{job.title}</Card.Title>
-              <Card.Text>{job.description}</Card.Text>
-              <Button
-                variant="primary"
-                onClick={() => navigate(`/hr/jobs/${job.id}`)}
-              >
-                View Details
-              </Button>
-            </Card.Body>
-          </Card>
-        ))
+        <div className="job-card-container">
+          {jobs.map(job => (
+            <JobCard key={job.id} job={job} onClick={() => navigate(`/hr/jobs/${job.id}`)} />
+          ))}
+        </div>
       )}
     </Container>
-  );
-};
 
+  );
+}
 export default Home;
+
+
+
+//   return (
+//     <Container className="job-cards-large-container">
+//       <div className="section-header">
+//         <h1>Your Jobs</h1>
+//       </div>
+//       <div className="d-flex justify-content-between align-items-center mb-4">
+//         <div></div> {/* Placeholder to maintain layout */}
+//         <Button variant="success" onClick={() => navigate('/hr/jobs/new')}>
+//           Create New Job
+//         </Button>
+//       </div>
+//       {jobs.length === 0 ? (
+//         <p className="text-center">You have not created any jobs yet.</p>
+//       ) : (
+//         <div className="job-card-container">
+//           {jobs.map(job => (
+//             <JobCard key={job.id} job={job} onClick={() => navigate(`/hr/jobs/${job.id}`)} />
+//           ))}
+//         </div>
+//       )}
+//     </Container>
+//   );
+// };
+
