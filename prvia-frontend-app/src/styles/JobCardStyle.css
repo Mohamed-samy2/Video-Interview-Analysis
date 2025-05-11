@@ -2,7 +2,7 @@
 .job-cards-large-container {
   width: 100%;
   max-width: 1200px;
-  margin: 1rem auto; /* Reduced top margin to bring content closer to the top */
+  margin: 1rem auto; 
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -65,7 +65,8 @@
 }
 
 /* Custom View Details Button */
-.job-card .btn-custom {
+.job-card .btn-custom,
+.btn-custom {
   width: 180px;
   height: 45px;
   margin: 20px auto;
@@ -81,11 +82,20 @@
   transition: background-position 0.3s ease;
 }
 
-.job-card .btn-custom:hover {
+.job-card .btn-custom:hover,
+.btn-custom:hover {
   background-position: right center; 
 }
 
 
+/* Specific styling for Create New Job button */
+.btn-create-job {
+  margin: 0; /* Remove auto margin to position within section-header */
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
 
 /* Section Header */
 .section-header {
@@ -196,6 +206,11 @@
     min-height: 30vh;
     padding: 15px;
     max-width: 90%;
+  }
+  .btn-create-job {
+    position: static;
+    transform: none;
+    margin: 10px auto;
   }
 }
 
