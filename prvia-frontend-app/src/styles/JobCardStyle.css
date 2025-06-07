@@ -6,7 +6,7 @@
 
 .job-cards-large-container {
   width: 70vw;
-  min-height: 75vh;
+  min-height: 74vh;
   max-width: 1400px;
   margin:  auto; 
   margin-top: 50px;
@@ -79,13 +79,13 @@
 
 
 .job-card .card-subtitle {
-  font-size: 0.9rem;
+  font-size: 1.01rem;
   color: #6c757d;
   margin-bottom: 0.5rem;
 }
 
 .job-card .card-text {
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   margin-bottom: 1rem;
 }
 
@@ -129,6 +129,7 @@
   border-radius: 8px;
   margin-bottom: 20px;
   text-align: center;
+  
   border: 1px solid #e2ddde;
   position: relative;
   overflow: visible;
@@ -137,10 +138,11 @@
 
 .section-header h2 {
   margin: 0;
-  font-size: 1.7rem;
+  font-size: 1.6rem;
   background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
+  font-weight: bold;
   color: transparent;
   background-clip: text;
   color: #2f3c8e;
