@@ -1,0 +1,65 @@
+.custom-footer {
+  background-color: #d4e5f6;
+  font-family: 'Poppins', sans-serif;
+  padding: 40px 20px;
+  color: white;
+}
+
+/* .footer-container {
+  background-color: #f9fbfd;
+  border-radius: 10px;
+  padding: 40px;
+  color: #333;
+  max-width: 1200px;
+  margin: 0 auto;
+} */
+
+
+.footer-container {
+  background-color: #f9fbfd; /* light gray, close to white */
+  border-radius: 20px;       /* <-- this creates the curved corners */
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* optional for depth */
+}
+
+.footer-columns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.footer-column {
+  flex: 1 1 200px;
+  min-width: 180px;
+}
+
+.footer-column h5 {
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #000;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 8px;
+  cursor: pointer;
+  color: #444;
+}
+
+.footer-column ul li:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+}
