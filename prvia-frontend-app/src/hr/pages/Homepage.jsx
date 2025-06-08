@@ -55,7 +55,7 @@ const Home = () => {
   if (error && !hrId) return <div className="text-danger text-center mt-5">{error}</div>;
 
   return(
-  
+    <>
     <Container className="job-cards-large-container custom-container" >
       <div className="section-header">
         <h2>Your Jobs</h2>
