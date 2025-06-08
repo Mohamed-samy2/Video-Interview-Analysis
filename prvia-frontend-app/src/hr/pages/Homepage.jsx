@@ -55,23 +55,24 @@ const Home = () => {
   if (error && !hrId) return <div className="text-danger text-center mt-5">{error}</div>;
 
   return(
-    <>
-    <Container className="job-cards-large-container" >
+  
+    <Container className="job-cards-large-container custom-container" >
       <div className="section-header">
-        <h1>Your Jobs</h1>
-      </div>
-      <div className="button-container">
-        <Button className="btn-custom" onClick={() => navigate('/hr/jobs/new')}>
-          <FaPlus style={{ marginRight: '5px' }} />
+        <h2>Your Jobs</h2>
+          <Button className="btn-custom" onClick={() => navigate('/hr/jobs/new')}>
+          <FaPlus style={{ marginRight: '10px' }} />
           Add Job
         </Button>
       </div>
+      {/* <div className="button-container"> */}
+   
+      {/* </div> */}
   
       {!Array.isArray(jobs) || jobs.length === 0 ? (
        <div className="no-jobs-message">
         <MdSearchOff className='custom-no-results-icon' size={50} color="#514A9D"/>
-         <h1>You Have not created any jobs Yet</h1>
-         <p>Click create job to add your first job!</p>
+         <h1>You have not created any jobs yet</h1>
+         <p>Click add job to add your first job!</p>
         </div>
       ) : (
         <div className="job-card-container">

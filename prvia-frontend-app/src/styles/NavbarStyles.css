@@ -4,11 +4,13 @@
 .custom-navbar,
 .custom-header {
   background: rgb(173, 220, 231);
-   /* background: linear-gradient(180deg, #ADD8E6, #ffff); */
-  background-color: rgb(238, 243, 248) !important;
+  /* background: linear-gradient(135deg, rgba(147, 226, 236, 0.1) 0%, rgba(77, 70, 152, 0.1) 51%, rgba(62, 118, 125, 0.1) 100%) !important;  */
+  /* background-image: linear-gradient(to right, #abe1e8 0%, #7871c6 51%, #5dcddb 100%); */
+  background-color: #ffff !important;
   padding: 15px 30px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   border-radius: 0 0 10px 10px;
+  
 }
 
 .custom-navbar .navbar-brand {
@@ -58,10 +60,6 @@
 }
 
 /* Login/signup header styling*/
-
-
-
-
 
 
 /* User navbar styling*/

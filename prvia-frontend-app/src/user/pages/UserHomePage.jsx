@@ -42,8 +42,7 @@ const UserHome = () => {
   if (loading) return <div className="text-center mt-5"><Spinner animation="border" /></div>;
 
   return (
-    <>
-    <Container className="job-cards-large-container" >
+    <Container className="job-cards-large-container custom-container" >
       <div className="section-header">
         <h2>Explore Jobs</h2>
       </div>

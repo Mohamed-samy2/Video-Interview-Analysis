@@ -1,5 +1,5 @@
 // src/user/pages/JobDetails.jsx
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { Container, Card, Button, Spinner } from 'react-bootstrap';
@@ -45,25 +45,25 @@ const JobDetails = () => {
   if (!job) return <div className="text-center mt-5">Job not found.</div>;
 
   return (
-    <Container className="mt-5">
-      <Card className="shadow-sm">
-        <Card.Body>
-          <Card.Title as="h1">{job.title}</Card.Title>
-          <Card.Text><strong>Company:</strong> {job.company}</Card.Text>
+    <Container className="details-container">
+      <div className="details-card">
+        {/* <Card.Body> */}
+          {/* <Card.Title as="h1">{job.title}</Card.Title> */}
+          <h1> {job.title} </h1>
+          <strong> Company: {job.company}</strong>
+          <strong> Description: {job.description}</strong>
+          <strong> Salary: {job.salary}</strong>
+          <strong> Type: {job.job_type}</strong>
+          <strong> Skills: {job.skills}</strong>
+          <strong> Requirements: {job.company}</strong>
+          <strong> Company: {job.requirements}</strong>
+
+          {/* <Card.Text><strong>Company:</strong> {job.company}</Card.Text>
           <Card.Text><strong>Description:</strong> {job.description}</Card.Text>
           <Card.Text><strong>Salary:</strong> ${job.salary}</Card.Text>
           <Card.Text><strong>Type:</strong> {job.job_type}</Card.Text>
           <Card.Text><strong>Skills:</strong> {job.skills}</Card.Text>
-          <Card.Text><strong>Requirements:</strong> {job.requirements}</Card.Text>
-          
-          {/* <div className="mb-3">
-            <strong>Requirements:</strong>
-            <ListGroup variant="flush">
-              {job.requirements.map((req, index) => (
-                <ListGroup.Item key={index}>{req}</ListGroup.Item>
-              ))}
-            </ListGroup>
-          </div> */}
+          <Card.Text><strong>Requirements:</strong> {job.requirements}</Card.Text> */}
 
           <div className="text-center mt-4">
             <Button
@@ -74,8 +74,9 @@ const JobDetails = () => {
               Apply Now
             </Button>
           </div>
-        </Card.Body>
-      </Card>
+
+        {/* </Card.Body> */}
+      </div>
     </Container>
   );
 };

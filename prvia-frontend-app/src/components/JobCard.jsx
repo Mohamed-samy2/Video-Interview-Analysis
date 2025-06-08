@@ -9,11 +9,11 @@ function JobCard({ job, onClick }) {
     <Card className="job-card">
       <Card.Body>
         <Card.Title>{job.title}</Card.Title>
-        {job.company_name && <Card.Subtitle className="mb-2 text-muted">{job.company_name}</Card.Subtitle>}
+        {job.company && <Card.Subtitle className="mb-2 text-muted">{job.company}</Card.Subtitle>}
         {job.description && <Card.Text>{job.description}</Card.Text>}
         {job.salary && <Card.Text>Salary: {job.salary} EGP</Card.Text>}
         {onClick && (
-          <Button variant="primary" className="btn-custom" onClick={() => onClick(job.id)}>
+          <Button variant="primary" className="btn-custom2" onClick={() => onClick(job.id)}>
             View Details
           </Button>
         )}
