@@ -1,27 +1,21 @@
 .custom-footer {
-  background-color: #d4e5f6;
   font-family: 'Poppins', sans-serif;
-  padding: 40px 20px;
-  color: white;
+  padding: 20px 15px;
+  /* background: linear-gradient(180deg, #f8f9fa, #e4e4e2b3); */
+  background: transparent;
+  background-color:transparent;
+  margin-top: 50px;
 }
 
-/* .footer-container {
-  background-color: #f9fbfd;
-  border-radius: 10px;
-  padding: 40px;
-  color: #333;
-  max-width: 1200px;
-  margin: 0 auto;
-} */
 
 
 .footer-container {
-  background-color: #f9fbfd; /* light gray, close to white */
-  border-radius: 20px;       /* <-- this creates the curved corners */
-  padding: 40px;
-  max-width: 1200px;
+  /* Remove background, border radius, and shadow */
+  padding: min(8vh, 80px) 30px min(6vh, 60px) 30px;
+  border-radius: 20px;
+  margin-top: 100px;
+  max-width: 1000px;
   margin: 0 auto;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* optional for depth */
 }
 
 .footer-columns {
@@ -62,4 +56,13 @@
   text-align: center;
   font-size: 0.9rem;
   color: #666;
+}
+
+.footer-bottom p {
+  color: transparent;
+ background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  font-weight: bold;
+  background-clip: text;
 }
