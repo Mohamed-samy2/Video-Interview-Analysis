@@ -8,6 +8,8 @@ import { getAllJobs } from '../../services/api';
 import { MdSearchOff } from "react-icons/md";
 import JobCard from '../../components/JobCard';
 import '../../styles/JobCardStyle.css'
+import Footer from '../../components/Footer';
+
 
 const UserHome = () => {
   const navigate = useNavigate();
@@ -58,6 +60,8 @@ const UserHome = () => {
         </div>
       )}
     </Container>
+    <Footer />
+    </>
   );
 };
 

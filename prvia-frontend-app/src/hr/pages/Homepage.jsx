@@ -9,6 +9,8 @@ import JobCard from '../../components/JobCard';
 import '../../styles/JobCardStyle.css'
 import { MdSearchOff } from "react-icons/md";
 import { FaPlus } from 'react-icons/fa';
+import Footer from '../../components/Footer';
+
 
 
 const Home = () => {
@@ -53,7 +55,7 @@ const Home = () => {
   if (error && !hrId) return <div className="text-danger text-center mt-5">{error}</div>;
 
   return(
-      
+  
     <Container className="job-cards-large-container custom-container" >
       <div className="section-header">
         <h2>Your Jobs</h2>
@@ -80,6 +82,8 @@ const Home = () => {
         </div>
       )}
     </Container>
+    <Footer />
+    </>
 
   );
 }
