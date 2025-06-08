@@ -1,5 +1,4 @@
 // src/components/Footer.jsx
-import { Container, Row, Col } from 'react-bootstrap';
 import React from 'react';
 import '../styles/FooterStyles.css'; 
 
