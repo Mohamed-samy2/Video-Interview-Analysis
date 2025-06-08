@@ -1,0 +1,66 @@
+/* Navbar Styling */
+
+/* Hr Navbar Style*/
+.custom-navbar,
+.custom-header {
+  background: rgb(173, 220, 231);
+  /* background: linear-gradient(135deg, rgba(147, 226, 236, 0.1) 0%, rgba(77, 70, 152, 0.1) 51%, rgba(62, 118, 125, 0.1) 100%) !important;  */
+  /* background-image: linear-gradient(to right, #abe1e8 0%, #7871c6 51%, #5dcddb 100%); */
+  background-color: #ffff !important;
+  padding: 15px 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 0 0 10px 10px;
+  
+}
+
+.custom-navbar .navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding-left: 20px;
+  letter-spacing: 1px;
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+.custom-header .navbar-brand{
+  font-weight: 700;
+  padding-left: 20px;
+  letter-spacing: 1px;
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+
+.custom-navbar .navbar-brand:hover {
+  color: #0056b3;
+}
+
+
+.custom-navbar .nav-link {
+  font-size: 1rem;
+  color: #333333;
+  margin: 0 15px;
+}
+
+
+.custom-navbar .nav-link:hover {
+  color: #007bff;
+}
+
+
+.custom-navbar .nav .dropdown-toggle {
+  font-size: 1rem;
+  color: #333333;
+  margin-right: 20px;
+}
+
+
+.custom-navbar .nav .dropdown-toggle:hover {
+  color: #007bff;
+}
+
+/* Login/signup header styling*/
+
+
+/* User navbar styling*/
+

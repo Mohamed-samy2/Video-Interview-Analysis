@@ -1,15 +1,29 @@
 /* src/styles/global.css */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  min-height: 100vh; /* Ensure React app fills the viewport */
+  display: flex;
+  flex-direction: column;
+}
+
+
 body {
   font-family: 'Poppins', sans-serif;
   color: #333333;
   background: linear-gradient(180deg, #f8f9fa, #e4e4e2b3);
+  /* background: linear-gradient(circle, #f8f9fa, #e4e4e2b3); */
+  size-adjust: 100%;
+
   margin: 0;
   padding: 0;
-  background-color: #93cff7 !important;
-
-
+  min-height: 100vh;
+  background-color: #93cff7 !important ;
 }
-
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
@@ -19,134 +33,15 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0.5em;
 }
 
-
 p, span, div {
   font-weight: 400;
 }
 
-
-/* Job Card Styling */
-.job-card {
-  border-radius: 25px;
-  /* box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05); */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-
-
-  border: none;
-  background-color: #ffffff;
-  transition: all 0.2s ease;
-  /* transition: transform 0.2s ease, box-shadow 0.2s ease; */
-  padding: 25px;
-  overflow: hidden;
-  margin-bottom: 20px; /* Add space between cards */
-  position: relative; /* Establish positioning context */
-  z-index: 1;
-}
-
-
-.job-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  z-index: 2;
-}
-
-
-.job-card .card-body {
-  /* padding: 0; */
-  padding: 10px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-
-.job-card .card-title {
-  font-size: 1.3rem;
-  color: #333333;
-  font-weight: 700;
-  margin-bottom: 5px;
-}
-
-
-.job-card .card-subtitle {
-  font-size: 0.85rem;
-  color: #6c757d;
-  margin-bottom: 5px;
-}
-
-
-.job-card .card-text {
-  font-size: 1rem;
-  color: #333333;
-  margin-bottom: 15px;
-}
-
-
-.job-card .btn-primary {
-  background: linear-gradient(135deg, #007bff, #0056b3);
-  border-color: #007bff;
-  border-radius: 20px;
-  padding: 8px 16px;
-  font-weight: 400;
-  width: 50%;
-  max-width: 200px; /* Added max-width for consistency */
-  border: none;
-  color: white;
-  font-size: 16px;
-  align-self: flex-start; /* Align button to the left */
-}
-
-
-.job-card .btn-primary:hover {
-  background: linear-gradient(135deg, #0056b3, #004494);
-}
-
-
-/* Navbar Styling */
-.custom-navbar {
-  background: white;
-  padding: 15px 30px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  border-radius: 0 0 10px 10px;
-}
-
-
-.custom-navbar .navbar-brand {
-  font-size: 1.5rem;
-  font-weight: 700;
-  padding-left: 20px;
-  letter-spacing: 1px;
-  color: #007bff;
-  transition: color 0.3s ease;
-}
-
-
-.custom-navbar .navbar-brand:hover {
-  color: #0056b3;
-}
-
-
-.custom-navbar .nav-link {
-  font-size: 1rem;
-  color: #333333;
-  margin: 0 15px;
-}
-
-
-.custom-navbar .nav-link:hover {
-  color: #007bff;
-}
-
-
-.custom-navbar .nav .dropdown-toggle {
-  font-size: 1rem;
-  color: #333333;
-  margin-right: 20px;
-}
-
-
-.custom-navbar .nav .dropdown-toggle:hover {
-  color: #007bff;
+.custom-logo {
+  height: 30px;
+  width: auto;
+  margin-right: 2px;
+  padding: 5px;
 }
 
 
@@ -180,45 +75,16 @@ p, span, div {
 }
 
 
-.custom-logo {
-  height: 30px;
-  width: auto;
-  margin-right: 2px;
-  padding: 5px;
-}
 
 
-/* Job Details Card Styling */
-/*.job-details-card {
-  border-radius: 25px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
-  border: none;
-  background-color: #ffffff;
-  padding: 25px;
-}
-
-
-.job-details-card .card-title {
-  font-size: 1.5rem;
-  color: #333333;
-  font-weight: 700;
-}
-
-
-.job-details-card .card-subtitle {
-  font-size: 1rem;
-  color: #6c757d;
-}
-
-
-.job-details-card .card-text {
-  font-size: 1rem;
-  color: #333333;
-  margin-bottom: 15px;
-}
-
-
-.job-details-card .list-group-item {
-  border: none;
-  padding: 5px 0;
-}*/
+/* Responsive Design */
+@media (max-width: 768px) {
+  .job-card {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  .job-cards-container {
+    gap: 10px;
+  }
+} 

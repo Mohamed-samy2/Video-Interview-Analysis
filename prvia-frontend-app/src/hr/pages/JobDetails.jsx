@@ -1,5 +1,5 @@
 // src/hr/pages/JobDetails.jsx
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Card, Button, ListGroup, Spinner } from 'react-bootstrap';
 import { getJobById } from '../../services/api';
@@ -58,7 +58,7 @@ const JobDetails = () => {
   if (!job) return <div className="text-center mt-5">Job not found.</div>;
 
   return (
-    <Container className="mt-5">
+     <Container className="details-container">
       <Card className="shadow-sm">
         <Card.Body>
           <Card.Title as="h1">{job.title}</Card.Title>
