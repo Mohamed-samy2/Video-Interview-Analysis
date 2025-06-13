@@ -69,6 +69,20 @@
   transition: all 0.3s ease;
 }
 
+.job-details-container .view-button {
+  width: 250px;              
+  padding: 7px 18px;       
+  font-size: 17px ; 
+  font-weight: 400;
+  height: auto;
+  margin-top: 10px;
+  background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
+  background-size: 200% auto;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
 .sub-list {
   padding-left: 20px;
