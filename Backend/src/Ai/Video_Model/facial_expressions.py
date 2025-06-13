@@ -50,21 +50,28 @@ class VideoEmotionAnalyzer:
                 if not ret:
                     continue
                 
-                gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                faces = self.face_model.detectMultiScale(gray, 1.1, 4)
-                
-                for (x, y, w, h) in faces:
-                    emotion_result = DeepFace.analyze(frame, actions=['emotion'], enforce_detection=False)
-                    if isinstance(emotion_result, list):
-                        emotion_result = emotion_result[0]
-                    
-                    emotion_scores = emotion_result.get('emotion', {})
-                    
+                try:
+                    result = DeepFace.analyze(
+                        frame,
+                        actions=['emotion'],
+                        enforce_detection=True,
+                        detector_backend='mtcnn'
+                    )
+
+                    if isinstance(result, list):
+                        result = result[0]
+
+                    emotion_scores = result.get('emotion', {})
                     for emotion, score in emotion_scores.items():
                         total_emotions[emotion] += score
-                    
+
                     num_frames_processed += 1
-        
+
+                except Exception as e:
+                    print(f"Frame {frame_idx} skipped due to error: {e}")
+                    continue
+
+
         cap.release()
         
         if num_frames_processed == 0:
