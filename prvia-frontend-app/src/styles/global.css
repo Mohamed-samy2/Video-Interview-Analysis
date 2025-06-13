@@ -1,6 +1,7 @@
 /* src/styles/global.css */
 html, body {
   height: 100%;
+  overflow-x: hidden; /* prevent horizontal scroll */
   margin: 0;
   padding: 0;
 }
@@ -15,8 +16,7 @@ html, body {
 body {
   font-family: 'Poppins', sans-serif;
   color: #333333;
-  background: linear-gradient(180deg, #f8f9fa, #e4e4e2b3);
-  /* background: linear-gradient(circle, #f8f9fa, #e4e4e2b3); */
+  background: linear-gradient(180deg, #f8f9fa, #e4e4e2b3) !important;
   size-adjust: 100%;
 
   margin: 0;
@@ -73,18 +73,3 @@ p, span, div {
 .btn-primary:hover {
   background: linear-gradient(135deg, #0056b3, #004494);
 }
-
-
-
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .job-card {
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-  }
-  .job-cards-container {
-    gap: 10px;
-  }
-} 
