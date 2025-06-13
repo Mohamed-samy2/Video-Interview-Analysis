@@ -72,18 +72,16 @@
   /* -webkit-background-clip: text;
   background-clip: text; */
   color: transparent;
-  /* background-image: linear-gradient(90deg, #514A9D, #24C6DC);
-  -webkit-background-clip: text;
-  background-clip: text; */
   color: #2f3c8e;
   font-weight: bold;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  letter-spacing: -0.02em; /* Tighter letter spacing for modern feel */
+  letter-spacing: -0.02em;
 }
 
 
 .job-card .card-subtitle {
   font-size: 1.01rem;
+  margin-top: 2px;
   color: #6c757d;
   margin-bottom: 0.5rem;
   /* background-image: linear-gradient(90deg, #514A9D, #24C6DC); */

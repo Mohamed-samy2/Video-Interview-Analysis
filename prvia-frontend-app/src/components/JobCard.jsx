@@ -1,6 +1,7 @@
 // src/components/JobCard.jsx
 import { Card, Button } from 'react-bootstrap';
 import '../styles/JobCardStyle.css'
+import { FaBuilding } from 'react-icons/fa';
 
 function JobCard({ job, onClick }) {
   if (!job) return null;
@@ -8,8 +9,8 @@ function JobCard({ job, onClick }) {
   return (
     <Card className="job-card">
       <Card.Body>
-        <Card.Title>{job.title}</Card.Title>
-        {job.company && <Card.Subtitle className="mb-2 text-muted">{job.company}</Card.Subtitle>}
+        <Card.Title> {job.title}</Card.Title> 
+        {job.company && <Card.Subtitle className="mb-2 text-muted"> <FaBuilding className="icon" />{job.company}</Card.Subtitle>}
         {job.description && <Card.Text>{job.description}</Card.Text>}
         {job.salary && <Card.Text>Salary: {job.salary} EGP</Card.Text>}
         {onClick && (
