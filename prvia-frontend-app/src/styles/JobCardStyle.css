@@ -27,7 +27,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 50px;
-   backdrop-filter: blur(50px) !important; 
+  backdrop-filter: blur(50px) !important; 
   justify-content: flex-start; 
   padding: 20px;
   border-radius: 10px;
@@ -69,11 +69,15 @@
   margin-bottom: 0.5rem;
   /* background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
   background-size: 200% auto; */
+  /* -webkit-background-clip: text;
+  background-clip: text; */
+  color: transparent;
+  /* background-image: linear-gradient(90deg, #514A9D, #24C6DC);
   -webkit-background-clip: text;
-  background-clip: text;
+  background-clip: text; */
   color: #2f3c8e;
   font-weight: bold;
-   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   letter-spacing: -0.02em; /* Tighter letter spacing for modern feel */
 }
 
@@ -82,6 +86,7 @@
   font-size: 1.01rem;
   color: #6c757d;
   margin-bottom: 0.5rem;
+  /* background-image: linear-gradient(90deg, #514A9D, #24C6DC); */
 }
 
 .job-card .card-text {
@@ -115,12 +120,6 @@
   background-position: right center; 
 }
 
-/* .btn-custom svg {
-  font-size: 16px;
-  transition: transform 0.2s ease;
-} */ 
-
-
 
 /* Section Header */
 .section-header {
@@ -139,13 +138,14 @@
 .section-header h2 {
   margin: 0;
   font-size: 1.6rem;
-  background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
+  /* background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%); */
+  background-image: linear-gradient(90deg, #514A9D, #24C6DC);
   background-size: 200% auto;
   -webkit-background-clip: text;
   font-weight: bold;
   color: transparent;
   background-clip: text;
-  color: #2f3c8e;
+  /* color: #2f3c8e; */
   text-transform: uppercase;
   letter-spacing: 1px;
   position: relative;

@@ -2,9 +2,11 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { Container, Button, Spinner } from 'react-bootstrap';
+import {  Button, Spinner } from 'react-bootstrap';
 import { getJobById } from '../../services/api';
 import { toast } from 'react-toastify';
+import { FaBuilding, FaTools } from 'react-icons/fa';
+import '../../styles/JobDetails.css'
 
 const JobDetails = () => {
   const { id } = useParams();
@@ -45,39 +47,37 @@ const JobDetails = () => {
   if (!job) return <div className="text-center mt-5">Job not found.</div>;
 
   return (
-    <Container className="details-container">
-      <div className="details-card">
-        {/* <Card.Body> */}
-          {/* <Card.Title as="h1">{job.title}</Card.Title> */}
-          <h1> {job.title} </h1>
-          <strong> Company: {job.company}</strong>
-          <strong> Description: {job.description}</strong>
-          <strong> Salary: {job.salary}</strong>
-          <strong> Type: {job.job_type}</strong>
-          <strong> Skills: {job.skills}</strong>
-          <strong> Requirements: {job.company}</strong>
-          <strong> Company: {job.requirements}</strong>
-
-          {/* <Card.Text><strong>Company:</strong> {job.company}</Card.Text>
-          <Card.Text><strong>Description:</strong> {job.description}</Card.Text>
-          <Card.Text><strong>Salary:</strong> ${job.salary}</Card.Text>
-          <Card.Text><strong>Type:</strong> {job.job_type}</Card.Text>
-          <Card.Text><strong>Skills:</strong> {job.skills}</Card.Text>
-          <Card.Text><strong>Requirements:</strong> {job.requirements}</Card.Text> */}
-
-          <div className="text-center mt-4">
-            <Button
-              variant="success"
-              size="lg"
-              onClick={() => navigate(`/apply?jobId=${job.id}`)}
-            >
+    <div className="job-details-container">
+         <h1 className="job-title">{job.title}</h1>
+        <div className="detail-item"><FaBuilding className="icon" /> <strong>Company:</strong> {job.company}</div>
+        <div className="detail-item"><strong>Description:</strong>{job.description}</div>
+        <div className="detail-item"><strong>Salary:</strong>{job.salary} EGP</div>
+        <div className="detail-item"><strong>Type:</strong>{job.job_type}</div>
+        <div className="detail-item" > <FaTools className="icon" />
+          <strong>Skills:</strong>
+          <ul className="sub-list">
+            {job.skills.split(',').map((skill, index) => (
+              <li key={index}>{skill.trim()}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="detail-item">
+            <strong>Requirements:</strong>
+            <ul className="sub-list">
+              {job.requirements.split(',').map((req, index) => (
+                <li key={index}>{req.trim()}</li>
+              ))}
+            </ul>
+        </div>
+  
+          <div className="button-wrapper"> 
+            <Button variant="primary" className="apply-button"
+              onClick={() => navigate(`/apply?jobId=${job.id}`)}>
               Apply Now
             </Button>
-          </div>
+         </div>
 
-        {/* </Card.Body> */}
-      </div>
-    </Container>
+    </div>
   );
 };
 
