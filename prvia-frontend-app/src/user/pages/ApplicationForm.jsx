@@ -91,30 +91,30 @@ function App() {
       <div className="application-form">
         <h1>Job Application Form</h1>
         <form onSubmit={formik.handleSubmit}>
-          <label htmlFor="firstname">First Name</label>
+          <label htmlFor="firstname">First Name <span style={{ color: 'red' }}>*</span></label>
           <input type="text" name="firstname" placeholder="Enter First Name" value={formik.values.firstname} onChange={formik.handleChange} onBlur={formik.handleBlur} />
           {formik.touched.firstname && formik.errors.firstname && <p className="error">{formik.errors.firstname}</p>}
 
-          <label htmlFor="lastname">Last Name</label>
+          <label htmlFor="lastname">Last Name <span style={{ color: 'red' }}>*</span> </label>
           <input type="text" name="lastname" placeholder="Enter Last Name" value={formik.values.lastname} onChange={formik.handleChange} onBlur={formik.handleBlur} />
           {formik.touched.lastname && formik.errors.lastname && <p className="error">{formik.errors.lastname}</p>}
 
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">Email <span style={{ color: 'red' }}>*</span></label>
           <input type="email" name="email" placeholder="Enter Email" value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} />
           {formik.touched.email && formik.errors.email && <p className="error">{formik.errors.email}</p>}
 
-          <label htmlFor="contact">Contact</label>
+          <label htmlFor="contact">Contact <span style={{ color: 'red' }}>*</span></label>
           <input type="text" name="contact" placeholder="Enter Phone Number" value={formik.values.contact} onChange={formik.handleChange} onBlur={formik.handleBlur} />
           {formik.touched.contact && formik.errors.contact && <p className="error">{formik.errors.contact}</p>}
 
-          <label htmlFor="gender">Gender</label>
+          <label htmlFor="gender">Gender <span style={{ color: 'red' }}>*</span></label>
           <div className="radio-group">
             <input type="radio" name="gender" value="Male" onChange={formik.handleChange} checked={formik.values.gender === "Male"} /> Male
             <input type="radio" name="gender" value="Female" onChange={formik.handleChange} checked={formik.values.gender === "Female"} /> Female
           </div>
           {formik.touched.gender && formik.errors.gender && <p className="error">{formik.errors.gender}</p>}
 
-          <label htmlFor="degree">Degree</label>
+          <label htmlFor="degree">Degree <span style={{ color: 'red' }}>*</span></label>
           <select name="degree" onChange={formik.handleChange} value={formik.values.degree}>
             <option value="" disabled>Select Degree</option>
             <option value="bachelor">Bachelor's Degree</option>
@@ -123,7 +123,7 @@ function App() {
           </select>
           {formik.touched.degree && formik.errors.degree && <p className="error">{formik.errors.degree}</p>}
 
-          <label htmlFor="cv">CV</label>
+          <label htmlFor="cv">CV <span style={{ color: 'red' }}>*</span></label>
           <div className="file-upload">
             <label className="upload-button">
               <MdCloudUpload size={26} className="upload-icon" /> 
