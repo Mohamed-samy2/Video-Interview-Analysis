@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { Container, Form, Button } from "react-bootstrap";
+import '../../styles/CreateJobForm.css';
 
 const CreateJob = () => {
   const [title, setJobTitle] = useState("");
@@ -14,8 +15,6 @@ const CreateJob = () => {
   const [skills, setSkills] = useState("");
   const [type, setType] = useState("");
   const [requirements, setRequirements] = useState("");
-  // const [questions, setQuestions] = useState([{ id: 1, question: "" }]);
-  // Initialize with exactly 3 questions
   const [questions, setQuestions] = useState([
     { id: 1, question: "" },
     { id: 2, question: "" },
@@ -25,10 +24,6 @@ const CreateJob = () => {
   const [loading, setLoading] = useState(false);
   const { hrId } = useAuth();
   const navigate = useNavigate();
-
-  // const handleAddQuestion = () => {
-  //   setQuestions([...questions, { id: questions.length + 1, question: "" }]);
-  // };
 
   const handleQuestionChange = (index, value) => {
     const updatedQuestions = questions.map((q, i) =>
@@ -95,47 +90,53 @@ const CreateJob = () => {
     }
   };
 
-  const handleCancel = () => {
-    navigate('/hr');
-  };
+  // const handleCancel = () => {
+  //   navigate('/hr');
+  // };
 
   return (
-    <Container className="mt-5">
-      <h2>Create Job</h2>
+    <Container className="create-job-form-container">
+      {/* <h1>Please fill out the below details</h1> */}
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
-          <Form.Label>Job Title</Form.Label>
+          <Form.Label>Job Title <span style={{ color: 'red' }}>*</span></Form.Label>
           <Form.Control
             type="text"
             value={title}
             onChange={(e) => setJobTitle(e.target.value)}
+            placeholder="Enter job title"
             required
           />
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Description</Form.Label>
+          <Form.Label>Description <span style={{ color: 'red' }}>*</span></Form.Label>
           <Form.Control
             as="textarea"
             rows={3}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            placeholder="Enter job description"
             required
           />
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Salary</Form.Label>
+          <Form.Label>Salary <span style={{ color: 'red' }}>*</span></Form.Label>
           <Form.Control
             type="number"
             value={salary}
             onChange={(e) => setSalary(e.target.value)}
+             min={0} 
+             max={1000000}
+             step={1} 
+            placeholder="0"
             required
           />
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Company</Form.Label>
+          <Form.Label>Company Name <span style={{ color: 'red' }}>*</span></Form.Label>
           <Form.Control
             type="text"
             value={company}
@@ -145,17 +146,18 @@ const CreateJob = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Skills (comma-separated, e.g., JavaScript, React)</Form.Label>
+          <Form.Label>Skills (comma-separated, e.g., JavaScript, React) <span style={{ color: 'red' }}>*</span></Form.Label>
           <Form.Control
             type="text"
             value={skills}
             onChange={(e) => setSkills(e.target.value)}
+            placeholder="JavaScript, React"
             required
           />
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Job Type</Form.Label>
+          <Form.Label>Job Type <span style={{ color: 'red' }}>*</span></Form.Label>
           <Form.Control
             type="text"
             value={type}
@@ -171,15 +173,15 @@ const CreateJob = () => {
             rows={2}
             value={requirements}
             onChange={(e) => setRequirements(e.target.value)}
+            placeholder="Bachelor’s degree in Engineering, 3+ years Experience"
             required
           />
         </Form.Group>
 
-
         <h5>Interview Questions</h5>
         {questions.map((q, index) => (
           <Form.Group className="mb-3" key={q.id}>
-            <Form.Label>Question {index + 1}</Form.Label>
+            <Form.Label>Question {index + 1} <span style={{ color: 'red' }}>*</span></Form.Label>
             <Form.Control
               type="text"
               value={q.question}
@@ -190,11 +192,8 @@ const CreateJob = () => {
         ))}
 
         <div className="text-center">
-          <Button variant="primary" type="submit" disabled={loading} className="me-2">
-            {loading ? "Creating..." : "Create Job"}
-          </Button>
-          <Button variant="danger" onClick={handleCancel}>
-            Cancel
+          <Button variant="primary" type="submit" disabled={loading} className="submit-button">
+            {loading ? "Creating..." : "Submit"}
           </Button>
         </div>
       </Form>
