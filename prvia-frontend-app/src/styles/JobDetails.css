@@ -1,17 +1,113 @@
-.details-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 70vh;
-    background-color: #f2f2f2;
-  }
+.job-details-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+  width: 70vw;
+  min-height: 60vh;
+  max-width: 1400px;
+  margin:  auto; 
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(250, 250, 253, 0.7) !important;
+  flex-grow: 0.7;
+  padding: 30px;
+  border-radius:20px;
+  background: transparent;
 
-  .details-card  {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 80%;
-    max-width: 600px;
-  }
+}
+
+.details-container h1 {
+  font-size: 2.2rem;
+  margin-bottom: 24px;
+  color: #1f2937;
+  text-align: center;
+}
+
+.detail-item {
+  margin-bottom: 16px;
+  font-size: 1.1rem;
+  color: #374151;
+}
+
+.detail-item strong {
+  margin-right: 6px;
+  color: #111827;
+}
+
+.text-center.mt-4 .btn {
+  padding: 10px 22px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.job-details-container .button-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.job-details-container .apply-button.btn {
+  width: 200px;              
+  padding: 10px 18px;       
+  font-size: 18px ; 
+  font-weight: 700;
+  height: auto;
+  
+  margin-top: 10px;
+  background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
+  background-size: 200% auto;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.job-details-container .view-button {
+  width: 250px;              
+  padding: 7px 18px;       
+  font-size: 17px ; 
+  font-weight: 400;
+  height: auto;
+  margin-top: 10px;
+  background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
+  background-size: 200% auto;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sub-list {
+  padding-left: 20px;
+  margin-top: 8px;
+  list-style-type: disc;
+  color: #4b5563;
+  font-size: 1rem;
+}
+.job-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 32px;
+  color: transparent;
+  background-image: linear-gradient(90deg, #514A9D, #24C6DC);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.apply-button:hover {
+  background-position: right center;
+  transform: scale(1.05);
+}
+.icon {
+  margin-right: 5px;
+  margin-bottom: 3px;
+  color: #7084d3;
+}

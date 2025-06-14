@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import {Container, Spinner } from 'react-bootstrap';
 import { getAllJobs } from '../../services/api';
-// import { FaSearch } from 'react-icons/fa'; 
+
 import { MdSearchOff } from "react-icons/md";
 import JobCard from '../../components/JobCard';
 import '../../styles/JobCardStyle.css'

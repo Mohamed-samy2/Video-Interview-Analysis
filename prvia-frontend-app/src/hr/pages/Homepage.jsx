@@ -28,7 +28,8 @@ const Home = () => {
         console.log('Jobs fetched successfully:', response.data);
         setJobs(response.data.jobs);
         setError(null);
-      } catch (err) {
+      } 
+      catch (err) {
         console.error('Error fetching jobs:', err);
         if (err.response?.status === 401 || err.response?.status === 403) {
           const message = 'Authentication error. Please log in again.';

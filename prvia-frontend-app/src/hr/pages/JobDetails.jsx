@@ -1,10 +1,14 @@
 // src/hr/pages/JobDetails.jsx
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Card, Button, ListGroup, Spinner } from 'react-bootstrap';
+import { Button, Spinner } from 'react-bootstrap';
 import { getJobById } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
 import { toast } from 'react-toastify';
+import { FaBuilding, FaTools } from 'react-icons/fa';
+import '../../styles/JobDetails.css'
+
+
 
 const JobDetails = () => {
   const { id } = useParams();
@@ -57,7 +61,58 @@ const JobDetails = () => {
   // if (error) return <div className="text-danger text-center mt-5">{error}</div>;
   if (!job) return <div className="text-center mt-5">Job not found.</div>;
 
-  return (
+    return (
+      <div className="job-details-container">
+           <h1 className="job-title">{job.title}</h1>
+          <div className="detail-item"><FaBuilding className="icon" /> <strong>Company:</strong> {job.company}</div>
+          <div className="detail-item"><strong>Description:</strong>{job.description}</div>
+          <div className="detail-item"><strong>Salary:</strong>{job.salary} EGP</div>
+          <div className="detail-item"><strong>Type:</strong>{job.job_type}</div>
+          <div className="detail-item" > <FaTools className="icon" />
+            <strong>Skills:</strong>
+            <ul className="sub-list">
+              {job.skills.split(',').map((skill, index) => (
+                <li key={index}>{skill.trim()}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="detail-item">
+              <strong>Requirements:</strong>
+              <ul className="sub-list">
+                {job.requirements.split(',').map((req, index) => (
+                  <li key={index}>{req.trim()}</li>
+                ))}
+              </ul>
+          </div>
+          <div className="detail-item">
+            <strong>Interview Questions:</strong>
+            <ul variant="flush">
+              {job.questions.map(q => (
+                // <ListGroup.Item key={q.id}>{q.question}</ListGroup.Item>
+                 <li key={q.id}>{q.question}</li>
+              ))}
+            </ul>
+    
+            <div className="button-wrapper"> 
+              <Button variant="primary" className='view-button'
+              onClick={() => navigate(`/hr/jobs/${id}/applicants`)}
+            >
+              View Applicants
+            </Button>
+            <Button
+              variant="success"  className='view-button'
+              onClick={() => navigate(`/hr/jobs/${id}/passed-applicants`)}
+            >
+              View Passed Applications
+            </Button>
+           </div>
+  
+      </div>
+      </div>
+    );
+    }
+  
+  /* return (
      <Container className="details-container">
       <Card className="shadow-sm">
         <Card.Body>
@@ -98,7 +153,7 @@ const JobDetails = () => {
         </Button>
       </div>
     </Container>
-  );
-};
+  ); */
+  
 
 export default JobDetails;

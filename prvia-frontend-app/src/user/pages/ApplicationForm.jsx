@@ -126,7 +126,7 @@ function App() {
           <label htmlFor="cv">CV</label>
           <div className="file-upload">
             <label className="upload-button">
-              <MdCloudUpload size={24} /> 
+              <MdCloudUpload size={26} className="upload-icon" /> 
               <input type="file" name="cv" accept="application/pdf" hidden onChange={(event) => formik.setFieldValue("cv", event.currentTarget.files[0])} />
             </label>
             {formik.values.cv && (
@@ -138,7 +138,7 @@ function App() {
           </div>
           {formik.touched.cv && formik.errors.cv && <p className="error">{formik.errors.cv}</p>}
 
-          <button type="reset" onClick={formik.handleReset}>Reset</button>
+          {/* <button type="reset" onClick={formik.handleReset}>Reset</button> */}
           <button type="submit">Submit</button>
         </form>
       </div>

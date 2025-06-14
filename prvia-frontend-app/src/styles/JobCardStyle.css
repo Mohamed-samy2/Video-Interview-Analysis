@@ -22,12 +22,12 @@
 }
 
 .job-card-container {
-  width: 50%;
+  width: 70%;
   min-height: 280px;
   display: flex;
   flex-wrap: wrap;
   gap: 50px;
-   backdrop-filter: blur(50px) !important; 
+  backdrop-filter: blur(50px) !important; 
   justify-content: flex-start; 
   padding: 20px;
   border-radius: 10px;
@@ -35,9 +35,9 @@
 }
 
 .job-card {
-  width: 350px; 
-  min-height: 200px; 
-  border-radius: 30px !important; 
+  width: 370px; 
+  min-height: 280px; 
+  border-radius: 19px !important; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(50px) !important; 
   background-color: rgba(255, 255, 255, 0.3) !important; 
@@ -67,21 +67,32 @@
 .job-card .card-title {
   font-size: 1.3rem; /* Reduced font size */
   margin-bottom: 0.5rem;
-  /* background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
-  background-size: 200% auto; */
+  margin-left:0;
+  background-image: linear-gradient(to right, #053440 0%, #195d88 51%, #14045c 100%);
+  background-size: 200% auto; 
   -webkit-background-clip: text;
-  background-clip: text;
-  color: #2f3c8e;
+  background-clip: text; 
+  color: transparent;
+  /* color: #020309; */
   font-weight: bold;
-   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  letter-spacing: -0.02em; /* Tighter letter spacing for modern feel */
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+  letter-spacing: -0.02em;
+  width: 100%; 
+  display: block; 
 }
 
 
 .job-card .card-subtitle {
-  font-size: 1.01rem;
-  color: #6c757d;
+  font-size: 1rem;
+  margin-top: 0.4px;
+  color: #7084d3 !important;
   margin-bottom: 0.5rem;
+  margin-left: 0;
+  text-align: center; 
+  width: 100%; 
+  display: block; 
+
 }
 
 .job-card .card-text {
@@ -91,11 +102,13 @@
 
 /* Custom View Details Button */
 .job-card .btn-custom2 {
-  width: 120px; 
-  padding: 10px;
+  width: 100px; 
+  padding: 10px 3px;
   height: 35px;
-  margin-top: auto;
+  /* margin-top: auto;
   margin-left: auto; 
+  margin-right: auto; */
+  margin: 0 auto;
   display: block;
   font-size: 14px; 
   font-weight: 400;
@@ -103,6 +116,7 @@
   text-align: center; 
   line-height: 18px; 
   background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
+  /* background: #38438e ; */
   background-size: 200% auto;
   border: none;
   border-radius: 8px;
@@ -113,13 +127,96 @@
  .job-card .btn-custom2:hover,
 .btn-custom:hover {
   background-position: right center; 
+  background-color: #2fa3cd;
+  border-color: #1d76b1;
+
 }
 
-/* .btn-custom svg {
-  font-size: 16px;
-  transition: transform 0.2s ease;
-} */ 
+.custom-line {
+  width: 50%;
+  margin: 0 auto; /* Center horizontally */
+  align-items: center;
+  display: block;
+  height: 1px;
+  background-color: #b9b4b5;
+  margin-top: 80px; /* Space from content above */
+  margin-bottom: 15px; /* Space before button */
+}
 
+
+/* Job Tag and Rate */
+.job-tag-rate {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.job-type {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: white;
+}
+
+.job-type.hourly {
+  background-color: #28a745; /* Green for hourly */
+}
+
+.job-type.part-time {
+  background-color: #ffc107; /* Orange for part-time */
+}
+
+.job-rate {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #2f3c8e;
+}
+
+/* Skills/Tags */
+.job-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.skill-tag {
+  padding: 5px 10px;
+  background-color: #e9ecef;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: #2f3c8e;
+}
+
+.skill-count {
+  padding: 5px 10px;
+  background-color: #007bff;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: white;
+}
+
+/* Description */
+.job-description {
+  font-size: 1rem;
+  color: #506373;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+/* Adjust Job Card Container for Dynamic Layout */
+.job-card-container {
+  width: 100%; /* Full width to allow dynamic adjustment */
+  min-height: 280px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* Dynamic columns */
+  gap: 50px;
+  justify-content: flex-start;
+  padding: 20px;
+  border-radius: 10px;
+  background: transparent;
+}
 
 
 /* Section Header */
@@ -139,13 +236,14 @@
 .section-header h2 {
   margin: 0;
   font-size: 1.6rem;
-  background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
+  /* background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%); */
+  background-image: linear-gradient(90deg, #514A9D, #24C6DC);
   background-size: 200% auto;
   -webkit-background-clip: text;
   font-weight: bold;
   color: transparent;
   background-clip: text;
-  color: #2f3c8e;
+  /* color: #2f3c8e; */
   text-transform: uppercase;
   letter-spacing: 1px;
   position: relative;
@@ -268,4 +366,3 @@
     margin: 10px auto; /* Center and add margin on mobile */
   }
 }
-
