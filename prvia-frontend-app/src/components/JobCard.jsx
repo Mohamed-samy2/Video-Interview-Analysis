@@ -37,7 +37,7 @@ function JobCard({ job, onClick }) {
         {/* View Button */}
         {onClick && (
           <Button variant="primary" className="btn-custom2" onClick={() => onClick(job.id)}>
-            Apply
+            VIEW
           </Button>
         )}
       </Card.Body>
