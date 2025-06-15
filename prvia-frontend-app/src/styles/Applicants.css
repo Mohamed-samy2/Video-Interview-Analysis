@@ -16,9 +16,9 @@
 
 /* Heading */
 .applicants-heading {
-  font-size: 1.6rem;
+  font-size: 1.65em;
   font-weight: bold;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Arial', sans-serif;
   display: block;
   margin: 0 auto 20px;
   color: #226389;
@@ -68,6 +68,7 @@
   font-size: 1.25rem;
   font-weight: bold;
   background: transparent !important;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   /* background-color: #184257 !important; 
   color: #e2e9ec !important;  */
   /* border: 1px solid #1d4782 !important; */
@@ -144,13 +145,28 @@
 
 .back-button {
   /* margin-top: 200px; */
-  padding: 8px 16px;
+  /* padding: 8px 16px; */
   background-color: #06467d !important; 
   border: none;
   color: white;
   display: inline-block;
+  padding: 9px 20px;
+  border-radius: 8px;
+  margin: 15px;
+  border: none;
+  color: white;
+  background: linear-gradient(135deg, #362e91, #168d9d);
+  width: 19%;
+  font-size: 16px;
+  padding: 7px 18px;       
+  font-size: 17px ; 
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .back-button:hover {
   background-color: #3b5e83 !important;
+  background-position: right center;
+  transform: scale(1.001);
 }

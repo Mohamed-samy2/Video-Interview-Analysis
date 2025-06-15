@@ -54,8 +54,8 @@
 }
 
 .job-details-container .apply-button.btn {
-  width: 200px;              
-  padding: 10px 18px;       
+  width: 180px;              
+  padding: 9px 16px;       
   font-size: 18px ; 
   font-weight: 700;
   height: auto;
@@ -104,7 +104,7 @@
 
 .apply-button:hover {
   background-position: right center;
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 .icon {
   margin-right: 5px;
