@@ -1,10 +1,11 @@
 // src/user/pages/Question1.jsx
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getJobById } from '../../services/api';
 import { Container, Spinner } from 'react-bootstrap';
 import QuestionCard from '../../components/QuestionCard';
+import '../../styles/QuestionCardStyle.css'
 
 const Question1 = () => {
   const navigate = useNavigate();
@@ -68,7 +69,7 @@ const Question1 = () => {
   if (error) return <div className="text-danger text-center mt-5">{error}</div>;
 
   return (
-    <Container className="mt-5">
+    <Container className="question-card-container">
       <QuestionCard
         question={question}
         questionId={1}
@@ -79,7 +80,7 @@ const Question1 = () => {
         onBack={handleBack}
         isLastQuestion={false}
       />
-    </Container>
+    </Container> 
   );
 };
 

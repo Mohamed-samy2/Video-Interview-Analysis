@@ -73,3 +73,61 @@ p, span, div {
 .btn-primary:hover {
   background: linear-gradient(135deg, #0056b3, #004494);
 }
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* min-height: 100vh; */
+  width: 50vw;
+  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+  font-family: 'Arial', sans-serif;
+  margin: 0 auto;
+  margin-top: 200px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.error-message404,
+.error-message-divider,
+.error-message-not-found {
+  margin: 0;
+  color: #0d71a0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-weight: bold;
+  display: inline-block;
+}
+
+.error-message404 {
+  font-size: 5rem;
+  font-weight: bold;
+  margin-right: 20px;
+  /* animation: pulse 2s infinite; */
+}
+
+.error-message-divider {
+  font-size: 6rem;
+  font-weight: 300;
+  margin: 0 20px;
+  opacity: 0.7;
+}
+
+.error-message-not-found {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-left: 20px;
+  letter-spacing: 1px;
+}
+
+/* @keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+} */
+

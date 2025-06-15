@@ -1,7 +1,13 @@
-import React from 'react';
+import '../styles/global.css'
 
 const Error = () => {
-    return ( <h2> 404 Not Found!</h2> );
+    return ( 
+        <div className='error-container'>
+            <h2 className='error-message404'> 404 </h2>
+            <h2 className='error-message-divider'> | </h2>
+            <h2 className='error-message-not-found'> Page Not Found! </h2>
+        </div>
+    );
 }
  
 export default Error;
