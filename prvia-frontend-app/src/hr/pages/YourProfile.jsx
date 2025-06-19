@@ -1,5 +1,5 @@
 // src/hr/pages/YourProfile.jsx
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { Container, Card, Button, ListGroup, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { getJobs } from '../../services/api'; // Use getJobs instead of getHRJobs
@@ -21,11 +21,14 @@ const YourProfile = () => {
     const fetchJobs = async () => {
       try {
         const response = await getJobs(hrId);
-        setCreatedJobs(response.data || []);
-      } catch (error) {
+        console.log('Fetched jobs:', response.data);
+        setCreatedJobs(response.data.jobs || []);
+      } 
+      catch (error) {
         console.error('Error fetching jobs:', error);
         toast.error('Failed to load jobs.');
-      } finally {
+      } 
+      finally {
         setLoading(false);
       }
     };

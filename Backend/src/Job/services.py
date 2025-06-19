@@ -64,8 +64,6 @@ async def fetch_questions(job_id: int, db: AsyncSession) -> List[JobQuestionResp
 
 
 
-
-
 async def get_all_jobs(db: AsyncSession):
     """
     Retrieve all jobs.
@@ -75,7 +73,7 @@ async def get_all_jobs(db: AsyncSession):
     jobs = result.scalars().all()  
 
     return [
-        JobListingResponse(id=job.id, title=job.title, company=job.company, salary=job.salary)
+        JobListingResponse(id=job.id, title=job.title, description=job.description,company=job.company, salary=job.salary)
         for job in jobs
     ]
 
@@ -89,8 +87,9 @@ async def get_all_jobs_HRId(HRId: int, db: AsyncSession):
         JobListingResponse(
             id=job.id,
             title=job.title,
+            description=job.description,
             company=job.company,
-            salary=job.salary
+            salary=job.salary 
         )
         for job in jobs
     ]
