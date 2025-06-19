@@ -38,6 +38,8 @@ class JobListingResponse(BaseModel):
     title: str
     company: str
     salary: float
+    job_type: str
+    description: str
 
     class Config:
         from_attributes = True

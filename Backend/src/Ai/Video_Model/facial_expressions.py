@@ -55,7 +55,7 @@ class VideoEmotionAnalyzer:
                         frame,
                         actions=['emotion'],
                         enforce_detection=True,
-                        detector_backend='mtcnn'
+                        detector_backend='retinaface'
                     )
 
                     if isinstance(result, list):
