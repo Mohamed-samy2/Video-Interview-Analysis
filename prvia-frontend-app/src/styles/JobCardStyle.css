@@ -65,8 +65,8 @@
 
 
 .job-card .card-title {
-  font-size: 1.25rem; /* Reduced font size */
-  margin-bottom: 0.2rem;
+  font-size: 1.3rem; /* Reduced font size */
+  margin-bottom: 0.5rem;
   margin-left:0;
   background-image: linear-gradient(to right, #053440 0%, #195d88 51%, #14045c 100%);
   background-size: 200% auto; 
@@ -115,8 +115,8 @@
   color: #fff;
   text-align: center; 
   line-height: 18px; 
-  /* background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%); */
-  background: #6464b6 ;
+  background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
+  /* background: #38438e ; */
   background-size: 200% auto;
   border: none;
   border-radius: 8px;
@@ -127,8 +127,8 @@
  .job-card .btn-custom2:hover,
 .btn-custom:hover {
   background-position: right center; 
-  background-color: #4266c9;
-  border-color: #0d4b75;
+  background-color: #2fa3cd;
+  border-color: #1d76b1;
 
 }
 
@@ -226,6 +226,7 @@
   border-radius: 8px;
   margin-bottom: 20px;
   text-align: center;
+  
   border: 1px solid #e2ddde;
   position: relative;
   overflow: visible;
@@ -235,9 +236,8 @@
 .section-header h2 {
   margin: 0;
   font-size: 1.6rem;
-  background-image: linear-gradient(to right, #09a3b7 0%, #514A9D 51%, #187a87 100%);
-  /* background-image: linear-gradient(90deg, #514A9D, #24C6DC); */
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  /* background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%); */
+  background-image: linear-gradient(90deg, #514A9D, #24C6DC);
   background-size: 200% auto;
   -webkit-background-clip: text;
   font-weight: bold;

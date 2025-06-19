@@ -64,7 +64,7 @@ const router = createBrowserRouter(
       <Route path="/hr" element={<RootLayout />}>
         {HrRoutes}
         <Route path="about" element={<AboutUs />} />
-        {/* <Route path="contact" element={<Contact />} /> */}
+        <Route path="contact" element={<Contact />} />
         <Route path="*" element={<Error />} />
       </Route>
 
@@ -72,7 +72,7 @@ const router = createBrowserRouter(
       <Route path="/hr" element={<RootLayout />}>
         {HrRoutes}
         <Route path="about" element={<AboutUs />} />
-        {/* <Route path="contact" element={<Contact />} /> */}
+        <Route path="contact" element={<Contact />} />
         <Route path="*" element={<Error />} />
       </Route>
 
