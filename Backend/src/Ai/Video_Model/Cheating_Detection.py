@@ -7,7 +7,7 @@ class CheatingDetection:
     def __init__(self):
         pass
 
-    async def detect_gaze_cheating_async(video_path):
+    async def detect_gaze_cheating_async(self, video_path):
         mp_face_mesh = mp.solutions.face_mesh
         face_mesh = mp_face_mesh.FaceMesh(refine_landmarks=True, static_image_mode=False, max_num_faces=1)
 

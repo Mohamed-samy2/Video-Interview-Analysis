@@ -10,6 +10,7 @@ from Ai.Text_Model.Helper import HelperText
 from Ai.Text_Model.Gemini import Gemini
 from Ai.Text_Model.PredictPersonality import PredictPersonality
 from Ai.Audio_Model.English_Evaluation import AudioModel
+from Ai.Video_Model.Cheating_Detection import CheatingDetection
 import numpy as np
 import gc
 import torch
@@ -170,10 +171,11 @@ class HrService:
         relevance = []
         text_traits = []
         english_scores = []
+        cheating = []
         
         video_traits_model = Video_PersonalityTraits()
         video_emotion_model = VideoEmotionAnalyzer()
-        
+        CheatingDetection_model = CheatingDetection()
         print("debuggggg")
         for video_path in video_paths:
             gc.collect()
@@ -181,8 +183,10 @@ class HrService:
             video_traits.append(video_traits_model.process_new_video(video_path))
             emotions.append(video_emotion_model.analyze_video(video_path))
             audio_paths.append(HelperText.extract_audio(request.user_id, request.job_id, video_path.split("/")[-1].split(".")[0]))
-        print("Video processing loop completed. Video traits:", len(video_traits), "Emotions:", len(emotions), "Audio paths:", len(audio_paths))
-        
+            cheating.append(await CheatingDetection_model.detect_gaze_cheating_async(video_path))
+
+        print("Video processing loop completed. Video traits:", len(video_traits), "Emotions:", len(emotions), "Audio paths:", len(audio_paths), "Cheating:", len(cheating))
+
         del video_traits_model
         del video_emotion_model
         gc.collect()

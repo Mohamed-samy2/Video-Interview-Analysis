@@ -75,7 +75,7 @@ async def get_all_jobs(db: AsyncSession):
     jobs = result.scalars().all()  
 
     return [
-        JobListingResponse(id=job.id, title=job.title, company=job.company, salary=job.salary)
+        JobListingResponse(id=job.id, title=job.title, company=job.company, salary=job.salary, job_type=job.job_type, description=job.description)
         for job in jobs
     ]
 
@@ -90,7 +90,9 @@ async def get_all_jobs_HRId(HRId: int, db: AsyncSession):
             id=job.id,
             title=job.title,
             company=job.company,
-            salary=job.salary
+            salary=job.salary,
+            job_type=job.job_type,
+            description=job.description
         )
         for job in jobs
     ]
