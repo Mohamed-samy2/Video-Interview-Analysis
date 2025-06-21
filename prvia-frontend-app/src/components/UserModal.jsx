@@ -58,40 +58,40 @@ const UserModal = ({ show, onHide, userId, jobId, onStatusUpdate }) => {
     { name: "Openness", trait: "trait5", pos: "Imaginative", neg: "Practical", desc: "Creativity and openness." }
   ];
 
-const renderScorePopup = () => (
-  <Modal show={showScorePopup} onHide={() => setShowScorePopup(false)} centered>
-    <Modal.Header closeButton>
-      <Modal.Title>Total Score</Modal.Title>
-    </Modal.Header>
-    <Modal.Body className="text-center">
-      <div className="d-flex justify-content-center align-items-center gap-3">
-        <FaArrowCircleUp
-          size={64}
-          color={
-            details.total_score >= 8 ? 'green' :
-            details.total_score >= 5 ? 'orange' :
-            'red'
-          }
-        />
-        <h4 className="mb-0">
-          <strong>{details.total_score} / 10</strong>
-        </h4>
-      </div>
+  const renderScorePopup = () => (
+    <Modal show={showScorePopup} onHide={() => setShowScorePopup(false)} centered>
+      <Modal.Header closeButton>
+        <Modal.Title>Total Score</Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="text-center">
+        <div className="d-flex justify-content-center align-items-center gap-3">
+          <FaArrowCircleUp
+            size={64}
+            color={
+              details.total_score >= 8 ? 'green' :
+                details.total_score >= 5 ? 'orange' :
+                  'red'
+            }
+          />
+          <h4 className="mb-0">
+            <strong>{details.total_score} / 10</strong>
+          </h4>
+        </div>
 
-      <p className="mt-3">
-        {details.total_score >= 8
-          ? "Excellent performance!"
-          : details.total_score >= 5
-          ? "Moderate performance."
-          : "Needs improvement."}
-      </p>
-    </Modal.Body>
-    <Modal.Footer className="d-flex justify-content-center gap-3">
-      <Button className="btn-gradient-accept" onClick={() => handleStatusChange(ACCEPTED_STATUS)}>Accept</Button>
-      <Button className="btn-gradient-reject" onClick={() => handleStatusChange(REJECTED_STATUS)}>Reject</Button>
-    </Modal.Footer>
-  </Modal>
-);
+        <p className="mt-3">
+          {details.total_score >= 8
+            ? "Excellent performance!"
+            : details.total_score >= 5
+              ? "Moderate performance."
+              : "Needs improvement."}
+        </p>
+      </Modal.Body>
+      <Modal.Footer className="d-flex justify-content-center gap-3">
+        <Button className="btn-gradient-accept" onClick={() => handleStatusChange(ACCEPTED_STATUS)}>Accept</Button>
+        <Button className="btn-gradient-reject" onClick={() => handleStatusChange(REJECTED_STATUS)}>Reject</Button>
+      </Modal.Footer>
+    </Modal>
+  );
 
   return (
     <Modal show={show} onHide={onHide} size="xl" className="custom-modal wide-modal">
@@ -178,7 +178,7 @@ const renderScorePopup = () => (
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}>Close</Button>
+        {/* <Button variant="secondary" onClick={onHide}>Close</Button> */}
       </Modal.Footer>
 
       {showScorePopup && renderScorePopup()}

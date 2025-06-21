@@ -46,7 +46,8 @@
 
 .tab-button.active {
   color: #fff;
-  background-color: #007bff; /* Add background for visibility */
+  background-color: #007bff;
+  /* Add background for visibility */
   border-radius: 6px;
   border-bottom: none;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -129,7 +130,7 @@
 
 p strong {
   display: inline-block;
-  width: 180px;
+  width: 160px;
   color: #1f2937;
 }
 
@@ -194,6 +195,7 @@ a:hover {
   font-size: 15px;
   color: #2c3e50;
 }
+
 .view-score-btn {
   background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
   background-size: 200% auto;
@@ -202,7 +204,8 @@ a:hover {
   padding: 10px 20px;
   font-weight: 600;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(81, 74, 157, 0.3); /* similar to #514A9D */
+  box-shadow: 0 4px 10px rgba(81, 74, 157, 0.3);
+  /* similar to #514A9D */
   transition: all 0.3s ease-in-out;
 }
 
@@ -211,6 +214,7 @@ a:hover {
   box-shadow: 0 6px 14px rgba(81, 74, 157, 0.4);
   transform: translateY(-2px);
 }
+
 .btn-gradient-reject:hover,
 .btn-gradient-reject:focus,
 .btn-gradient-reject:active {

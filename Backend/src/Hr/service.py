@@ -105,14 +105,18 @@ class HrService:
         questions = []
         i=0
         for record in records:
+            if i%3==0:
+                question_data = {
+                    "question": record[1].question,
+                }
+                questions.append(question_data)
+            i+=1
+        i=0
+        for record in records:
             if i==3:
                 break
-            question_data = {
-                "question": record[1].question,
-                "video":record[3].videoPath
-            }
+            questions[i]['video'] = record[3].videoPath
             i+=1
-            questions.append(question_data)
         
         
         questions[0]["summary"] = records[0][0].summarized_text1

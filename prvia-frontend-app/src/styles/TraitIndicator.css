@@ -17,8 +17,8 @@
 .oval-bar-container {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 4px;
+  gap: 6px;
+  margin-bottom: 3px;
 }
 
 .oval {
