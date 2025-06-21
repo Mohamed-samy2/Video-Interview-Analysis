@@ -1,0 +1,45 @@
+.trait-indicator {
+  margin-bottom: 1.5rem;
+}
+
+.trait-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.trait-description {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.oval-bar-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.oval {
+  width: 80px;
+  height: 20px;
+  border-radius: 999px;
+  background-color: #e0e0e0;
+  transition: background-color 0.3s;
+}
+
+.active-positive {
+  background: linear-gradient(90deg, #007bff, #00bfff);
+}
+
+.active-negative {
+  background: linear-gradient(90deg, #ff4d4d, #ff6b6b);
+}
+
+.oval-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #444;
+}
