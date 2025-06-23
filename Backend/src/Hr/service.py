@@ -14,7 +14,6 @@ from Ai.Video_Model.Cheating_Detection import CheatingDetection
 import numpy as np
 import gc
 import torch
-import asyncio
 
 class HrService:
     async def create_hr(self, request: HrCreate, db: AsyncSession):
@@ -181,83 +180,82 @@ class HrService:
         video_traits_model = Video_PersonalityTraits()
         video_emotion_model = VideoEmotionAnalyzer()
         CheatingDetection_model = CheatingDetection()
-        print("debuggggg")
+        
         for video_path in video_paths:
             video_traits.append(video_traits_model.process_new_video(video_path))
             emotions.append(video_emotion_model.analyze_video(video_path))
             audio_paths.append(HelperText.extract_audio(request.user_id, request.job_id, video_path.split("\\")[-1].split(".")[0]))
             cheating.append(await CheatingDetection_model.detect_gaze_cheating_async(video_path))
 
-        print("Video processing loop completed. Video traits:", len(video_traits), "Emotions:", len(emotions), "Audio paths:", len(audio_paths), "Cheating:", len(cheating))
-
         del video_traits_model
         del video_emotion_model
         gc.collect()
         torch.cuda.empty_cache()
         
-        await asyncio.sleep(2)  # Allow time for garbage collection
-        
         # Process the audio files and transcribe them
         for audio_path in audio_paths:
             texts.append(await HelperText.transcribe_audio(audio_path))
-        print("Audio transcription loop completed. Texts generated:", len(texts))
         
         
         llm = Gemini()
         for text , question in zip(texts, questions):
             summarizations.append(llm.summarize(text))
             relevance.append(llm.relevance_check(text, question))
-        print("LLM processing loop completed. Summarizations:", len(summarizations), "Relevance scores:", len(relevance))
         
         del llm
         gc.collect()
         torch.cuda.empty_cache()
-        await asyncio.sleep(2)
-        
         text_traits_model = PredictPersonality()
         
         for text in texts:
-            text_traits.append(text_traits_model.predict(text))
-        print("Text traits prediction loop completed. Text traits:", len(text_traits))
+            text_traits.append(text_traits_model.predict(text))        
         
         del text_traits_model
         gc.collect()
         torch.cuda.empty_cache()
-        await asyncio.sleep(2)
-        
+
         english_model = AudioModel()
         
         for audio_path,text in zip(audio_paths,texts):
             english_scores.append(english_model.run(text,audio_path))
-        print("English scoring loop completed. English scores:", len(english_scores))
-        
-        print("English scores:", english_scores)
+
         total_english_score = english_model.get_total_applicant_score(english_scores)  
         
         del english_model
         gc.collect()
         torch.cuda.empty_cache()
         
-        
         trait_order = ['AGR', 'CONN', 'EXT', 'NEU', 'OPN']
 
-        combined_traits = []
-        for v_traits, t_traits in zip(video_traits, text_traits):
-            combined = [
+        combined_traits_all = []
+        video_total_scores = []
+        # Loop over each video (assumes all lists are aligned: same length)
+        for i in range(len(video_traits)):
+            v_traits = video_traits[i]
+            t_traits = text_traits[i]
+            rel_score = relevance[i]
+            eng_score = english_scores[i]
+            cheating_score = cheating[i]
+            # Combine video and text traits
+            
+            combined_traits = [
                 0.7 * v + 0.3 * t_traits[k]
                 for v, k in zip(v_traits, trait_order)
             ]
-            combined_traits.append(combined)
-        
-        combined_traits = np.mean(combined_traits, axis=0)
-        combined_traits = combined_traits.tolist()
+            
+            combined_traits_all.append(combined_traits)
+
+            # Average trait score for this video
+            avg_traits = sum(combined_traits) / len(combined_traits)
+            
+            # Total score per video
+            video_score = ((0.8 * rel_score) + (0.7 * avg_traits) + (0.6 * eng_score)) * cheating_score
+            video_total_scores.append(video_score)
         
         emotions = [e['Assessment'] for e in emotions]
-        
-        avg_relevance = sum(relevance) / len(relevance)
-        avg_traits = sum(combined_traits) / len(combined_traits)
-        
-        total_score = (0.8*avg_relevance) + (0.7*avg_traits)+ (0.6* total_english_score)
+        # Final scores
+        combined_traits = np.mean(combined_traits_all, axis=0).tolist()
+        total_score = sum(video_total_scores) / len(video_total_scores)
         
         video_processing = HrModel.VideoProcessing(
             hr_id=request.hr_id,
@@ -284,7 +282,7 @@ class HrService:
         db.add(video_processing)
         await db.commit()
         await db.refresh(video_processing)
-        
+
         return JSONResponse(
             content = {"response":'success'},
             status_code = status.HTTP_200_OK
