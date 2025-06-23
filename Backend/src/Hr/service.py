@@ -14,6 +14,7 @@ from Ai.Video_Model.Cheating_Detection import CheatingDetection
 import numpy as np
 import gc
 import torch
+import asyncio
 
 class HrService:
     async def create_hr(self, request: HrCreate, db: AsyncSession):
@@ -182,11 +183,9 @@ class HrService:
         CheatingDetection_model = CheatingDetection()
         print("debuggggg")
         for video_path in video_paths:
-            gc.collect()
-            torch.cuda.empty_cache()
             video_traits.append(video_traits_model.process_new_video(video_path))
             emotions.append(video_emotion_model.analyze_video(video_path))
-            audio_paths.append(HelperText.extract_audio(request.user_id, request.job_id, video_path.split("/")[-1].split(".")[0]))
+            audio_paths.append(HelperText.extract_audio(request.user_id, request.job_id, video_path.split("\\")[-1].split(".")[0]))
             cheating.append(await CheatingDetection_model.detect_gaze_cheating_async(video_path))
 
         print("Video processing loop completed. Video traits:", len(video_traits), "Emotions:", len(emotions), "Audio paths:", len(audio_paths), "Cheating:", len(cheating))
@@ -195,10 +194,11 @@ class HrService:
         del video_emotion_model
         gc.collect()
         torch.cuda.empty_cache()
+        
+        await asyncio.sleep(2)  # Allow time for garbage collection
+        
         # Process the audio files and transcribe them
         for audio_path in audio_paths:
-            gc.collect()
-            torch.cuda.empty_cache()
             texts.append(await HelperText.transcribe_audio(audio_path))
         print("Audio transcription loop completed. Texts generated:", len(texts))
         
@@ -210,18 +210,20 @@ class HrService:
         print("LLM processing loop completed. Summarizations:", len(summarizations), "Relevance scores:", len(relevance))
         
         del llm
+        gc.collect()
+        torch.cuda.empty_cache()
+        await asyncio.sleep(2)
         
         text_traits_model = PredictPersonality()
         
         for text in texts:
-            gc.collect()
-            torch.cuda.empty_cache()
             text_traits.append(text_traits_model.predict(text))
         print("Text traits prediction loop completed. Text traits:", len(text_traits))
         
         del text_traits_model
         gc.collect()
         torch.cuda.empty_cache()
+        await asyncio.sleep(2)
         
         english_model = AudioModel()
         
@@ -231,7 +233,7 @@ class HrService:
         
         print("English scores:", english_scores)
         total_english_score = english_model.get_total_applicant_score(english_scores)  
-         
+        
         del english_model
         gc.collect()
         torch.cuda.empty_cache()

@@ -32,14 +32,13 @@ class HelperText:
         try:
             video_dir = UPLOAD_DIR / str(jobId) / str(userId) / "videos"
             video_path = video_dir / f"{questionId}.mp4"
-
+            
             if not video_path.exists():
                 raise HTTPException(status_code=404, detail=f"Video file not found: {video_path}")
-
+            # Create audio directory if it doesn't exist
             audio_dir = UPLOAD_DIR / str(jobId) / str(userId) / "audios"
             audio_dir.mkdir(parents=True, exist_ok=True)
             audio_path = audio_dir / f"{questionId}.mp3"
-
             video = VideoFileClip(str(video_path))
             audio = video.audio
             audio.write_audiofile(str(audio_path))

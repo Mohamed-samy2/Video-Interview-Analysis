@@ -1,16 +1,16 @@
-.applicants-table-container{
+.applicants-table-container {
   width: 100vw;
   min-height: 74vh;
   max-width: 1400px;
-  margin:  auto; 
+  margin: auto;
   margin-top: 50px;
   display: flex;
   flex-direction: column;
   background-color: rgba(255, 255, 255, 0.7) !important;
-  backdrop-filter: blur(50px) !important; 
+  backdrop-filter: blur(50px) !important;
   flex-grow: 0.7;
   padding: 30px;
-  border-radius:20px;
+  border-radius: 20px;
   background: transparent;
 }
 
@@ -123,18 +123,18 @@
 
 /* Export Button */
 .export-button {
-    display: inline-block;
-    margin: 0 auto;
-    padding: 4px 10px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    background-color: #115b7d !important;  
-    color: white !important;
-    /* background-image: linear-gradient(to right, #4dd9fc 0%, #023555 51%, #44377e 100%); */
-    font-size: 16px;
-    padding: 7px 18px;       
-    font-size: 17px ; 
-    font-weight: 500;
+  display: inline-block;
+  margin: 0 auto;
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  background-color: #115b7d !important;
+  color: white !important;
+  /* background-image: linear-gradient(to right, #4dd9fc 0%, #023555 51%, #44377e 100%); */
+  font-size: 16px;
+  padding: 7px 18px;
+  font-size: 17px;
+  font-weight: 500;
 }
 
 
@@ -146,7 +146,7 @@
 .back-button {
   /* margin-top: 200px; */
   /* padding: 8px 16px; */
-  background-color: #06467d !important; 
+  background-color: #06467d !important;
   border: none;
   color: white;
   display: inline-block;
@@ -158,8 +158,8 @@
   background: linear-gradient(135deg, #362e91, #168d9d);
   width: 19%;
   font-size: 16px;
-  padding: 7px 18px;       
-  font-size: 17px ; 
+  padding: 7px 18px;
+  font-size: 17px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -169,4 +169,19 @@
   background-color: #3b5e83 !important;
   background-position: right center;
   transform: scale(1.001);
+}
+
+.view-details-button {
+  /* display: inline-block; */
+  margin: 0 auto;
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  background-color: #115b7d !important;
+  color: white !important;
+  /* background-image: linear-gradient(to right, #4dd9fc 0%, #023555 51%, #44377e 100%); */
+  font-size: 16px;
+  padding: 7px 18px;
+  font-size: 17px;
+  font-weight: 500;
 }

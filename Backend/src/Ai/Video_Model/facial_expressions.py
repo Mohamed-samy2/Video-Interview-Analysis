@@ -54,8 +54,8 @@ class VideoEmotionAnalyzer:
                     result = DeepFace.analyze(
                         frame,
                         actions=['emotion'],
-                        enforce_detection=True,
-                        detector_backend='retinaface'
+                        enforce_detection=False,
+                        detector_backend='mediapipe',
                     )
 
                     if isinstance(result, list):
