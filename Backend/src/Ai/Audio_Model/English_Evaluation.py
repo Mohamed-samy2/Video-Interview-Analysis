@@ -80,7 +80,7 @@ class AudioModel:
         print(f"Comp: {completeness}")
         print(f"Total: {total}")
 
-        weighted_score = (1*accuracy + 1*fluency + 0.8*prosodic + 0.2*completeness + 1*total) / (1+1+0.8+0.2+1)
+        weighted_score = (0.2 * accuracy + 0.2 * fluency + 0.25 * prosodic + 0.25 * completeness + 0.1 * total)
         return weighted_score
 
     def run(self, audio_transcript, audio_path):

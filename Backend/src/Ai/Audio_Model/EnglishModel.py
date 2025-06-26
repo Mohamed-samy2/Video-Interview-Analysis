@@ -139,7 +139,6 @@ class EnglishModel(nn.Module):
         
         self.llm = AutoModel.from_pretrained(llm_name)
         self.speech_encoder = AutoModel.from_pretrained(speech_encoder_name)
-        print([name for name, _ in self.speech_encoder.named_children()])
         if freeze_llm:
             for param in self.llm.parameters():
                 param.requires_grad = False

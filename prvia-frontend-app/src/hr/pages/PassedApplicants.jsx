@@ -49,8 +49,8 @@ const PassedApplicantsPage = () => {
   if (error) return <div className="text-danger text-center mt-5">{error}</div>;
 
   return (
-  <Container className="applicants-table-container">
-    <h2 className="applicants-heading">List of Interviewed Candidates</h2>
+    <Container className="applicants-table-container">
+      <h2 className="applicants-heading">List of Interviewed Candidates</h2>
 
     {applicants.length === 0 ? (
       <Alert variant="info" className="no-applicants-alert">
@@ -108,7 +108,7 @@ const PassedApplicantsPage = () => {
                 <td className="applicant-cell">{applicant.total_score || 'N/A'}</td>
                 <td className="applicant-cell">
                   <Button
-                    // variant="info"
+                    variant="info"
                     size="sm"
                     className="view-details-button"
                     onClick={() => handleViewDetails(applicant.userId)}
@@ -121,27 +121,27 @@ const PassedApplicantsPage = () => {
           </tbody>
         </Table>
 
-        <UserModal
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-          userId={selectedUserId}
-          jobId={id}
-          onStatusUpdate={handleStatusUpdate}
-        />
-      </>
-    )}
+          <UserModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            userId={selectedUserId}
+            jobId={id}
+            onStatusUpdate={handleStatusUpdate}
+          />
+        </>
+      )}
 
-    <div className="text-center mt-4 back-button-container">
-      <Button
-        variant="secondary"
-        onClick={() => navigate(`/hr/jobs/${id}`)}
-        className="back-button"
-      >
-        Back to Job Details
-      </Button>
-    </div>
-  </Container>
-);
+      <div className="text-center mt-4 back-button-container">
+        <Button
+          variant="secondary"
+          onClick={() => navigate(`/hr/jobs/${id}`)}
+          className="back-button"
+        >
+          Back to Job Details
+        </Button>
+      </div>
+    </Container>
+  );
 
 
 };

@@ -1,154 +1,187 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Button, Accordion, Alert, Spinner } from 'react-bootstrap';
-import { getUserScores, updateStatus } from '../services/api'
+import { Modal, Button, Alert, Spinner } from 'react-bootstrap';
+import { getUserScores, updateStatus } from '../services/api';
 import { toast } from 'react-toastify';
-import { ACCEPTED_STATUS, REJECTED_STATUS } from '../utilities/constants'
+import { ACCEPTED_STATUS, REJECTED_STATUS } from '../utilities/constants';
+import { FaUserCircle, FaFileAlt, FaArrowCircleUp } from 'react-icons/fa';
+import ScoreBar from './ScoreBar';
+import TraitIndicator from './TraitIndicator';
+import '../styles/UserModal.css';
 
 const UserModal = ({ show, onHide, userId, jobId, onStatusUpdate }) => {
   const [details, setDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [activeTab, setActiveTab] = useState('profile');
+  const [showScorePopup, setShowScorePopup] = useState(false);
 
   useEffect(() => {
     if (!show || !userId || !jobId) return;
 
     const fetchDetails = async () => {
       try {
-
-        console.log('UserID:', parseInt(userId));
-        console.log('JOB ID:', parseInt(jobId));
         const response = await getUserScores({
           user_id: parseInt(userId),
           job_id: parseInt(jobId)
         });
-
-        console.log('User details:', response.data);
         setDetails(response.data);
-      }
-      catch (err) {
-        const message = err.response?.data?.error || 'Failed to load details. Please try again.';
-        setError(message);
-      }
-      finally {
+      } catch (err) {
+        setError(err.response?.data?.error || 'Failed to load details.');
+      } finally {
         setLoading(false);
       }
     };
+
     fetchDetails();
   }, [show, userId, jobId]);
 
   const handleStatusChange = async (status) => {
     try {
-      const response = await updateStatus({ userId, jobId, status });
-      console.log('Update status response:', response.data);
-      toast.success(`Applicant ${status.toLowerCase()} updated to ${status} successfully!`);
+      await updateStatus({ userId, jobId, status });
+      toast.success(`Applicant status updated to ${status}`);
       onStatusUpdate(userId);
-    }
-    catch (err) {
-      const message = err.response?.data?.error || `Failed to update status to ${status}. Please try again.`;
-      console.log('Error updating status:', err, message);
-      toast.error(`Failed to update status to ${status}. Please try again.`);
+      setShowScorePopup(false);
+    } catch (err) {
+      toast.error(`Failed to update status to ${status}.`);
     }
   };
 
   if (!show) return null;
+  const currentQuestion = details?.questions?.[currentQuestionIndex];
+
+  const traitData = [
+    { name: "Agreeableness", trait: "trait1", pos: "Authentic", neg: "Self-Interested", desc: "Kindness and empathy." },
+    { name: "Conscientiousness", trait: "trait2", pos: "Organized", neg: "Sloppy", desc: "Reliability and discipline." },
+    { name: "Extraversion", trait: "trait3", pos: "Friendly", neg: "Reserved", desc: "Sociability and enthusiasm." },
+    { name: "Neuroticism", trait: "trait4", pos: "Comfortable", neg: "Uneasy", desc: "Emotional stability." },
+    { name: "Openness", trait: "trait5", pos: "Imaginative", neg: "Practical", desc: "Creativity and openness." }
+  ];
+
+  const renderScorePopup = () => (
+    <Modal show={showScorePopup} onHide={() => setShowScorePopup(false)} centered>
+      <Modal.Header closeButton>
+        <Modal.Title>Total Score</Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="text-center">
+        <div className="d-flex justify-content-center align-items-center gap-3">
+          <FaArrowCircleUp
+            size={64}
+            color={
+              details.total_score >= 8 ? 'green' :
+                details.total_score >= 5 ? 'orange' :
+                  'red'
+            }
+          />
+          <h4 className="mb-0">
+            <strong>{details.total_score} / 10</strong>
+          </h4>
+        </div>
+
+        <p className="mt-3">
+          {details.total_score >= 8
+            ? "Excellent performance!"
+            : details.total_score >= 5
+              ? "Moderate performance."
+              : "Needs improvement."}
+        </p>
+      </Modal.Body>
+      <Modal.Footer className="d-flex justify-content-center gap-3">
+        <Button className="btn-gradient-accept" onClick={() => handleStatusChange(ACCEPTED_STATUS)}>Accept</Button>
+        <Button className="btn-gradient-reject" onClick={() => handleStatusChange(REJECTED_STATUS)}>Reject</Button>
+      </Modal.Footer>
+    </Modal>
+  );
 
   return (
-    <Modal show={show} onHide={onHide} size="lg">
+    <Modal show={show} onHide={onHide} size="xl" className="custom-modal wide-modal">
       <Modal.Header closeButton>
-        <Modal.Title>Applicant Details</Modal.Title>
+        <Modal.Title className="modal-title-gradient w-100 text-center text-white py-2">
+          Applicant Details
+        </Modal.Title>
       </Modal.Header>
+
       <Modal.Body>
+        <div className="tab-header">
+          <Button className={`tab-button ${activeTab === 'profile' ? 'active' : ''}`} onClick={() => setActiveTab('profile')}>
+            <FaUserCircle className="me-2" /> Profile
+          </Button>
+          <Button className={`tab-button ${activeTab === 'resume' ? 'active' : ''}`} onClick={() => setActiveTab('resume')}>
+            <FaFileAlt className="me-2" /> Resume
+          </Button>
+        </div>
+
         {loading ? (
-          <div className="text-center">
-            <Spinner animation="border" />
-          </div>
+          <div className="text-center"><Spinner animation="border" /></div>
         ) : error ? (
           <Alert variant="danger">{error}</Alert>
-        ) : (
-          <>
-            <h5>Personal Information</h5>
-            <p><strong>First Name:</strong> {details.first_name}</p>
-            <p><strong>Last Name:</strong> {details.last_name}</p>
-            <p><strong>Email:</strong> {details.email}</p>
-            <p><strong>Phone Number:</strong> {details.phone}</p>
-            <p>
-              <strong>CV:</strong>{' '}
-              {details.cv ? (
-                <a href={`http://localhost:8000/${details.cv}`} target="_blank" rel="noopener noreferrer">
-                  View CV
-                </a>
-              ) : (
-                'N/A'
+        ) : activeTab === 'profile' ? (
+          <div className="modal-flex-container">
+            {/* Video + Navigation */}
+            <div className="video-column">
+              <video
+                key={currentQuestionIndex}
+                controls
+                src={`http://localhost:8000/${currentQuestion?.video}`}
+                className="video-player"
+              />
+              <div className="video-nav">
+                <Button variant="secondary" onClick={() => setCurrentQuestionIndex(i => i - 1)} disabled={currentQuestionIndex === 0}>Back</Button>
+                <Button variant="primary" onClick={() => setCurrentQuestionIndex(i => i + 1)} disabled={currentQuestionIndex >= details.questions.length - 1}>Next</Button>
+              </div>
+              <div className="question-info">
+                <p><strong>Current Question:</strong> {currentQuestion?.question}</p>
+                <p><strong>Summary:</strong> {currentQuestion?.summary}</p>
+                <ScoreBar label="Relevance Score" value={currentQuestion?.relevance} />
+                <p><strong>Emotion:</strong> {currentQuestion?.emotion}</p>
+              </div>
+              {currentQuestionIndex === 2 && (
+                <Button className="view-score-btn mt-3" onClick={() => setShowScorePopup(true)}>View Total Score</Button>
               )}
-            </p>
+            </div>
 
-            <h5>Personality Traits</h5>
-            <p><strong>Agreebleness:</strong> {details.trait1}</p>
-            <p><strong>Conscientiousness:</strong> {details.trait2}</p>
-            <p><strong>Extraversion:</strong> {details.trait3}</p>
-            <p><strong>Neutrocisim:</strong> {details.trait4}</p>
-            <p><strong>Openness:</strong> {details.trait5}</p>
-
-            {/* <h5>Personality Traits</h5> */}
-
-            {/* <p><strong>Facial Expressions Score:</strong> {details.facialExpressionsScore}</p> */}
-            <p><strong>English Proficiency Score:</strong> {details.total_english_score}</p>
-            {/* <p><strong>Cheated:</strong> {details.cheated ? 'Yes' : 'No'}</p> */}
-
-            <h5>Interview Questions</h5>
-            {details.questions && details.questions.length > 0 ? (
-              <Accordion>
-                {details.questions.map((q, index) => (
-                  <Accordion.Item eventKey={index.toString()} key={index}>
-                    <Accordion.Header>
-                      Question {index + 1}: {q.question}
-                    </Accordion.Header>
-                    <Accordion.Body>
-                      <p><strong>Summary:</strong> {q.summary}</p>
-                      <p><strong>Relevancy Score:</strong> {q.relevance}</p>
-                      <p><strong>Facial Expressions:</strong> {q.emotion}</p>
-                      {q.video ? (
-                        <video
-                          controls
-                          src={`http://localhost:8000/${q.video}`}
-
-                          // src={`../../../Backend/src/${q.video}`}
-                          style={{ maxWidth: '100%', maxHeight: '400px' }}
-                        />
-                      ) : (
-                        <p>No video available.</p>
-                      )}
-                    </Accordion.Body>
-                  </Accordion.Item>
-                ))}
-              </Accordion>
+            {/* Info Panel */}
+            <div className="info-column">
+              <h4>{details.first_name} {details.last_name}</h4>
+              <p><strong>Email:</strong> {details.email}</p>
+              <p><strong>Phone:</strong> {details.phone}</p>
+              <hr />
+              <ScoreBar label="English Score" value={details.total_english_score} />
+              <p><strong>Personality Traits:</strong></p>
+              {traitData.map(({ name, trait, pos, neg, desc }, idx) => (
+                <TraitIndicator
+                  key={idx}
+                  traitName={name}
+                  isPositive={details[trait] === pos}
+                  positiveLabel={pos}
+                  negativeLabel={neg}
+                  description={desc}
+                />
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="resume-section text-center">
+            {details.cv ? (
+              <iframe
+                title="Resume Viewer"
+                src={`http://localhost:8000/${details.cv}`}
+                width="100%"
+                height="500px"
+                style={{ border: 'none', borderRadius: '12px', boxShadow: '0 4px 16px rgba(0,0,0,0.1)' }}
+              />
             ) : (
-              <Alert variant="info">No questions available.</Alert>
+              <Alert variant="warning">No resume uploaded.</Alert>
             )}
-          </>
+          </div>
         )}
       </Modal.Body>
+
       <Modal.Footer>
-        {!loading && !error && (
-          <>
-            <Button
-              variant="success"
-              onClick={() => handleStatusChange(ACCEPTED_STATUS)}
-            >
-              Accept
-            </Button>
-            <Button
-              variant="danger"
-              onClick={() => handleStatusChange(REJECTED_STATUS)}
-            >
-              Reject
-            </Button>
-          </>
-        )}
-        <Button variant="secondary" onClick={onHide}>
-          Close
-        </Button>
+        {/* <Button variant="secondary" onClick={onHide}>Close</Button> */}
       </Modal.Footer>
+
+      {showScorePopup && renderScorePopup()}
     </Modal>
   );
 };
