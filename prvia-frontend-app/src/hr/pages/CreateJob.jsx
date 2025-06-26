@@ -57,12 +57,7 @@ const CreateJob = () => {
       };
       const response = await addJob(jobData);
       
-      // if (response.data.response !== "success") {
-      //   toast.error('Failed to create job');
-      //   return;
-      // }
       toast.success("Job created successfully!");
-      console.log("New Job created:",response.data);
 
       // Reset form fields
       setJobTitle("");

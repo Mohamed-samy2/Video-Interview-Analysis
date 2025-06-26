@@ -12,14 +12,9 @@ const Question2 = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  console.log('Question 2:')
-  console.log("Search params url ", searchParams);
 
   const userId = searchParams.get('userId') || localStorage.getItem('userId');
   const jobId = searchParams.get('jobId') || localStorage.getItem('jobId');
-
-  console.log("user id :", userId);
-  console.log("job id :", jobId);
 
   const [question, setQuestion] = useState('');
   const [loading, setLoading] = useState(true);
@@ -29,14 +24,12 @@ const Question2 = () => {
     const fetchQuestion = async () => {
       if (!jobId) {
         toast.error('Invalid job ID. Please start the application process again.');
-        console.log(jobId);
         navigate('/apply');
         return;
       }
 
       try {
         const response = await getJobById(jobId);
-        console.log("Job ID in Question 2 page is ", jobId);
         const job = response.data;
         // const q = job.questions.find((q) => q.id === 2);
         const q = job.questions[1];

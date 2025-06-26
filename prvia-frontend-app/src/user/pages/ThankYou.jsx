@@ -25,16 +25,14 @@ const ThankYou = () => {
         const hrId = parseInt(job.data.hrId);
 
         // Call computeScores
-        console.log('Computing scores for userId:', userId, 'jobId:', jobId, 'hrId:', hrId);
         const scoreResponse = await computeScores({
           hr_id: hrId,
           user_id: parseInt(userId), // ✅ Make sure userId is an int
           job_id: parseInt(jobId)    // ✅ Make sure jobId is an int
         });
 
-        console.log('Compute scores response:', scoreResponse.data);
         if (scoreResponse.data.response !== "success") {
-          console.log('Error in computing scores:', scoreResponse);
+          console.error('Error in computing scores:', scoreResponse);
           return
         }
         // toast.success('Scores computed successfully!');

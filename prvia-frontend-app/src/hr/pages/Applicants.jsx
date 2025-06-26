@@ -9,7 +9,6 @@ import '../../styles/Applicants.css'
 
 const ApplicantsPage = () => {
   const { id } = useParams();
-  // console.log(id)
   const navigate = useNavigate();
   const [applicants, setApplicants] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,7 +18,6 @@ const ApplicantsPage = () => {
     const fetchApplicants = async () => {
       try {
         const response = await getUsersByJobId(id, DEFAULT_STATUS);
-        console.log('Pending Applicants:', response.data);
         setApplicants(response.data);
       }
       catch (err) {
@@ -36,16 +34,9 @@ const ApplicantsPage = () => {
 
   const handleExportLink = async (userId) => {
     try {
-      console.log('Exporting interview link for userId:', userId, 'jobId:', id);
       const response = await updateStatus({ userId, jobId: id, status: INTERVIEW_PROCESS_STATUS });
-      console.log('Update status response:', response.data);
-
-  
-      console.log('Update status response:', response.data);
-      // const { interviewLink } = response.data;
 
       const interviewLink = `http://localhost:3000/question/1?userId=${userId}&jobId=${id}`;
-      console.log('Frontend-generated interview link:', interviewLink);
 
       navigator.clipboard.writeText(interviewLink)
         .then(() => {
@@ -151,67 +142,6 @@ const ApplicantsPage = () => {
   </Container>
 );
 
-
-  // return (
-  //   <Container className="applicants-table-container">
-  //     <h2 className="text-center mb-4">Pending Applicants </h2>
-  //     {applicants.length === 0 ? (
-  //       <Alert variant="info">No Applicants has applied for this job currently .</Alert>
-  //     ) : (
-  //       <Table striped bordered hover responsive className='applicants-table'>
-  //         <thead>
-  //           <tr>
-  //             <th>First Name</th>
-  //             <th>Last Name</th>
-  //             <th>Email</th>
-  //             <th>Phone Number</th>
-  //             <th>Gender</th>
-  //             <th>Education</th>
-  //             <th>CV URL</th>
-  //             <th>Status</th>
-  //             <th>Action</th>
-  //           </tr>
-  //         </thead>
-  //         <tbody>
-  //           {applicants.map(applicant => (
-  //             <tr key={applicant.userId}>
-  //               <td>{applicant.first_name}</td>
-  //               <td>{applicant.last_name}</td>
-  //               <td>{applicant.email || 'N/A'}</td>
-  //               <td>{applicant.phone || 'N/A'}</td>
-  //               <td>{applicant.gender || 'N/A'}</td>
-  //               <td>{applicant.degree || 'N/A'}</td>
-  //               <td>
-  //                 {applicant.CV_FilePath ? (
-  //                   <a href={`http://localhost:8000/${applicant.CV_FilePath}`} target="_blank" rel="noopener noreferrer">
-  //                     View CV
-  //                   </a>
-  //                 ) : (
-  //                   'N/A'
-  //                 )}
-  //               </td>
-  //               <td>{applicant.status}</td>
-  //               <td>
-  //                 <Button
-  //                   variant="primary" className='export-button'
-  //                   size="sm"
-  //                   onClick={() => handleExportLink(applicant.userId)}
-  //                 >
-  //                   Export Interview Link
-  //                 </Button>
-  //               </td>
-  //             </tr>
-  //           ))}
-  //         </tbody>
-  //       </Table>
-  //     )}
-  //     <div className="text-center mt-4">
-  //       <Button variant="secondary" className='back-button' onClick={() => navigate(`/hr/jobs/${id}`)}>
-  //         Back to Job Details
-  //       </Button>
-  //     </div>
-  //   </Container>
-  // );
 };
 
 export default ApplicantsPage;

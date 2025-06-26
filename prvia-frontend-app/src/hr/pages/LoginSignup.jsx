@@ -1,5 +1,5 @@
 import  { useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom"; // Add Link for navigation
+import { useNavigate, Link } from "react-router-dom"; 
 import { useAuth } from "../../context/AuthContext";
 import user_icon from "../../assets/person.png";
 import email_icon from "../../assets/email.png";
@@ -22,7 +22,7 @@ const validationSchema = Yup.object({
     )
     .required("Email is required"),
   password: Yup.string()
-    .min(1, "Password must be at least 8 characters long")
+    .min(8, "Password must be at least 8 characters long")
     .required("Password is required"),
 });
 
@@ -37,14 +37,12 @@ const LoginSignup = ({ initialAction = "Login" }) => {
 
   useEffect(() => {
     if (isLoggedIn && action === "Login") {
-      console.log("isLoggedIn changed to true, navigating to home");
       navigate("/hr");
     }
   }, [isLoggedIn, action, navigate]);
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      console.log("Submitted Data:", values);
 
       if (action === "Sign Up") {
         const response = await addHr(values);
@@ -72,7 +70,6 @@ const LoginSignup = ({ initialAction = "Login" }) => {
           setHrId(hrId);
           setRole('hr');
           toast.success("Login successful!");
-          console.log("Login here, hrId set to: ", hrId);
           localStorage.setItem("hrId", response.data.id);
           localStorage.setItem('hrDetails', JSON.stringify({
             id: hrId,

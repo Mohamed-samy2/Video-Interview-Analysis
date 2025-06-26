@@ -21,26 +21,51 @@
 
 }
 
-.job-card-container {
+/* .job-card-container {
   width: 70%;
-  min-height: 280px;
+  min-height: 400px;
   display: flex;
   flex-wrap: wrap;
   gap: 50px;
   backdrop-filter: blur(50px) !important; 
-  justify-content: flex-start; 
+  justify-content: center; 
+  max-width: 1600px; 
+  align-items: center;    
+  margin: 0 auto;
   padding: 20px;
+  border-radius: 10px;
+  background: transparent;
+} */
+
+ .job-card-container {
+  width: 70%;
+  min-height: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 120px; /* Increased gap between cards to 100px */
+  justify-content: flex-start; /* Center cards horizontally */
+  max-width: 1600px; /* Adjusted to fit ~4 cards (370px * 4 + 100px * 3 gaps) */
+  align-items: center; /* Center cards vertically */
+  margin: 0 auto;
+  padding: 30px 20px; /* Equal top and bottom padding (30px) */
   border-radius: 10px;
   background: transparent;
 }
 
-.job-card {
-  width: 370px; 
-  min-height: 300px !important; 
-  border-radius: 20px !important; 
+/* Ensure maximum 4 cards by limiting the container width and using flex */
+.job-card-container::after {
+  content: '';
+  flex-grow: 10; /* Pushes excess space to the end */
+}
+
+ .job-card {
+  width: 370px;
+  min-height: 380px !important;
+  border-radius: 20px !important;
+  margin-top: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(50px) !important; 
-  background-color: rgba(255, 255, 255, 0.3) !important; 
+  backdrop-filter: blur(50px) !important;
+  background-color: rgba(255, 255, 255, 0.3) !important;
   border: 1px solid rgba(255, 255, 255, 0.479) !important;
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -109,6 +134,7 @@
   margin-left: auto; 
   margin-right: auto; */
   margin: 0 auto;
+  
   display: block;
   font-size: 14px; 
   font-weight: 400;
@@ -122,6 +148,18 @@
   border-radius: 8px;
   cursor: pointer;
   transition: background-position 0.3s ease;
+  /* margin: 0 auto;
+  padding: 4px 10px;
+  font-size: 0.85rem;
+    font-weight: 500;
+    background-color: #115b7d !important;   */
+    /* background: #0d8da6; */
+    color: white !important;
+    /* background-image: linear-gradient(to right, #4dd9fc 0%, #023555 51%, #44377e 100%); */
+    /* font-size: 16px;
+    padding: 7px 18px;       
+    font-size: 17px ; 
+    font-weight: 500; */
 }
 
  .job-card .btn-custom2:hover,

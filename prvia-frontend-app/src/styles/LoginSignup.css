@@ -9,7 +9,7 @@ body {
   display: flex;
   flex-direction: column;
   margin: auto;
-  margin-top: 50px;
+  margin-top: 90px;
   background: #f3f8fc;
   border-radius: 15px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);

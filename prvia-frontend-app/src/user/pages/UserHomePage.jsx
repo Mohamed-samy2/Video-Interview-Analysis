@@ -28,7 +28,6 @@ const UserHome = () => {
       try {
         const response = await getAllJobs();
         setJobs(Array.isArray(response.data.jobs) ? response.data.jobs : []);
-        console.log('Fetched jobs:', response.data.jobs);
       } catch (err) {
         console.error('Error fetching jobs:', err);
         setJobs([]);

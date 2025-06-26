@@ -8,8 +8,6 @@ import { toast } from 'react-toastify';
 import { FaBuilding, FaTools } from 'react-icons/fa';
 import '../../styles/JobDetails.css'
 
-
-
 const JobDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -43,7 +41,7 @@ const JobDetails = () => {
         } 
         else {
           // For other errors, log but don't disrupt the user experience
-          console.log('Job details not available or other error occurred',err);
+          console.error('Job details not available or other error occurred',err);
           // Set a more user-friendly message
           setError('Job information is currently unavailable.');
           setJob(null)
@@ -103,7 +101,7 @@ const JobDetails = () => {
               variant="success"  className='view-button'
               onClick={() => navigate(`/hr/jobs/${id}/passed-applicants`)}
             >
-              View Passed Applications
+              View Interviewees
             </Button>
            </div>
   
@@ -111,49 +109,7 @@ const JobDetails = () => {
       </div>
     );
     }
-  
-  /* return (
-     <Container className="details-container">
-      <Card className="shadow-sm">
-        <Card.Body>
-          <Card.Title as="h1">{job.title}</Card.Title>
-          <Card.Text><strong>Company:</strong> {job.company}</Card.Text>
-          <Card.Text><strong>Description:</strong> {job.description}</Card.Text>
-          <Card.Text><strong>Salary:</strong> ${job.salary}</Card.Text>
-          <Card.Text><strong>Type:</strong> {job.job_type}</Card.Text>
-          <Card.Text><strong>Skills:</strong> {job.skills}</Card.Text>
-          <Card.Text><strong>ٌٌٌRequirements:</strong> {job.requirements}</Card.Text>
-          <div className="mb-3">
-            <h5>Interview Questions:</h5>
-            <ListGroup variant="flush">
-              {job.questions.map(q => (
-                <ListGroup.Item key={q.id}>{q.question}</ListGroup.Item>
-              ))}
-            </ListGroup>
-          </div>
-          <div className="mt-4 d-flex justify-content-center gap-3">
-            <Button
-              variant="primary"
-              onClick={() => navigate(`/hr/jobs/${id}/applicants`)}
-            >
-              View Applicants
-            </Button>
-            <Button
-              variant="success"
-              onClick={() => navigate(`/hr/jobs/${id}/passed-applicants`)}
-            >
-              View Passed Applications
-            </Button>
-          </div>
-        </Card.Body>
-      </Card>
-      <div className="text-center mt-4">
-        <Button variant="secondary" onClick={() => navigate('/hr')}>
-          Back to Home
-        </Button>
-      </div>
-    </Container>
-  ); */
+
   
 
 export default JobDetails;

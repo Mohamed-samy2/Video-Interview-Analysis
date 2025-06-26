@@ -11,14 +11,8 @@ const Question1 = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  console.log('Question 1:')
-  console.log("Search params url ", searchParams);
-
   const userId = searchParams.get('userId') || localStorage.getItem('userId');
   const jobId = searchParams.get('jobId') || localStorage.getItem('jobId');
-
-  console.log("user id :", userId);
-  console.log("job id :", jobId);
 
   const [question, setQuestion] = useState('');
   const [loading, setLoading] = useState(true);

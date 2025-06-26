@@ -15,7 +15,6 @@ import UserNavbar from './components/UserNavbar';
 const RootLayout = () => {
   const { hrId } = useAuth();
   const isLoggedIn = !!hrId;
-  console.log('isLoggedIn:', isLoggedIn);
   return (
     <>
       <CustomNavbar isLoggedIn={isLoggedIn} />
@@ -64,7 +63,7 @@ const router = createBrowserRouter(
       <Route path="/hr" element={<RootLayout />}>
         {HrRoutes}
         <Route path="about" element={<AboutUs />} />
-        <Route path="contact" element={<Contact />} />
+        {/* <Route path="contact" element={<Contact />} /> */}
         <Route path="*" element={<Error />} />
       </Route>
 
@@ -72,7 +71,7 @@ const router = createBrowserRouter(
       <Route path="/hr" element={<RootLayout />}>
         {HrRoutes}
         <Route path="about" element={<AboutUs />} />
-        <Route path="contact" element={<Contact />} />
+        {/* <Route path="contact" element={<Contact />} /> */}
         <Route path="*" element={<Error />} />
       </Route>
 
@@ -81,16 +80,9 @@ const router = createBrowserRouter(
       <Route element={<UserLayout />}>
       {UserRoutes}
         <Route path="/" element={<UserRoutes />} />
-        <Route path="/about" element={<AboutUs />} />
+        {/* <Route path="/about" element={<AboutUs />} /> */}
         <Route path="/contact" element={<Contact />} />
       </Route>
-
-      {/* <Route element={<UserLayout />}>
-      
-      <Route path="about" element={<AboutUs />} />
-      <Route path="contact" element={<Contact />} />
-      
-      </Route> */}
     </>
   )
 );

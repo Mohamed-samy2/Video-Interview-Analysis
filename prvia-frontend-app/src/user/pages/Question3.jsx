@@ -12,13 +12,8 @@ const Question3 = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  console.log('Question 3: Search params URL:', searchParams.toString());
-
   const userId = searchParams.get('userId') || localStorage.getItem('userId');
   const jobId = searchParams.get('jobId') || localStorage.getItem('jobId');
-
-  console.log("Question 3: userId:", userId);
-  console.log("Question 3: jobId:", jobId);
 
   const [question, setQuestion] = useState('');
   const [loading, setLoading] = useState(true);
@@ -55,13 +50,11 @@ const Question3 = () => {
 
   const handleSubmit = () => {
     // Pass userId and jobId via state instead of query parameters
-    console.log('Question 3: Navigating to thank-you page with state:', { userId, jobId });
     navigate('/thank-you', { state: { userId, jobId } });
   };
 
   const handleBack = () => {
     const query = userId ? `?userId=${userId}&jobId=${jobId}` : `?jobId=${jobId}`;
-    console.log('Question 3: Navigating back to Question 2 with query:', query);
     navigate(`/question/2${query}`);
   };
 

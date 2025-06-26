@@ -61,17 +61,8 @@ function App() {
           cv: values.cv,
         };
 
-        console.log('Submitting application data:', applicationData);
+    
         const { userId, cvResponse } = await submitApplication(applicationData);
-        console.log('Received userId:', userId);
-        console.log('CV upload response:', cvResponse.data);
-        console.log('CV upload response:', cvResponse.data);
-        console.log('CV upload :', cvResponse.data.response);
-        // if (cvResponse.data.response !== "success") {
-        //   toast.error('Failed to upload CV');
-        //   return
-        // }
-
         // Store userId in localStorage
         localStorage.setItem('userId', userId);
         localStorage.setItem('jobId', jobId);

@@ -5,7 +5,6 @@ import { FaBuilding } from 'react-icons/fa';
 
 function JobCard({ job, onClick }) {
   if (!job) return null;
-  console.log('Job Card Rendered:', job);
   const skillsArray = job.skills ? job.skills.split(',').map(skill => skill.trim()) : [];
 
   // Truncate description to 3 lines with ellipsis

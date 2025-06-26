@@ -26,8 +26,6 @@ const QuestionCard = ({
 
   useEffect(() => {
     const storedFileData = localStorage.getItem(`videoFile_${questionId}_${jobId}_${userId}`);
-    console.log("User id in Question Form:", userId);
-    console.log("Job id in Question Form:", jobId);
     if (storedFileData) {
       toast.info('A previously selected video file was found. Please re-upload if needed.');
     }
@@ -111,11 +109,8 @@ const QuestionCard = ({
     try {
       // Step 1: Upload the video
       const videoResponseData = { userId, questionId, jobId };
-      console.log('Uploading video for userId:', userId, 'questionId:', questionId);
-
 
       const videoResponse = await uploadVideo(videoResponseData, videoFile);
-      console.log('Video upload response:', videoResponse.data);
       toast.success('Video uploaded successfully!');
       localStorage.removeItem(`videoFile_${questionId}_${jobId}_${userId}`);
       setVideoFile(null);
@@ -123,11 +118,7 @@ const QuestionCard = ({
       
       // Step 2: If this is the last question, update status
       if (isLastQuestion) {
-        console.log('Updating status to PASSED for userId:', userId, 'jobId:', jobId);
         const statusResponse = await updateStatus({ userId, jobId, status: UPDATED_STATUS });
-        console.log('Update status response:', statusResponse.data);
-
-        console.log('Application status updated to PASSED!');
         toast.success('All your videos have been submitted successfully!');
       }
 

@@ -23,9 +23,7 @@ const Home = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        console.log('Fetching jobs for HR ID:', hrId);
         const response = await getJobs(hrId);
-        console.log('Jobs fetched successfully:', response.data);
         setJobs(response.data.jobs);
         setError(null);
       } 

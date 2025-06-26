@@ -28,7 +28,7 @@ const JobDetails = () => {
       try {
         const response = await getJobById(id);
         setJob(response.data);
-        console.log('Fetched job details:', response.data);
+        setJob(response.data);
       } 
       catch (err) {
         const message = err.response?.data?.error || 'Failed to fetch job details. Please try again.';
