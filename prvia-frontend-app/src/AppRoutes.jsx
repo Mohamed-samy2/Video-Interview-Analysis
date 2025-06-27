@@ -56,32 +56,32 @@ const router = createBrowserRouter(
       </Route>
       {/* <Route path="/hr/login" element={<LoginSignup initialAction="Login" />} />
       <Route path="/hr/register" element={<LoginSignup initialAction="Sign Up" />} /> */}
-      
-      
+
+
 
       Routes with navbar (HR routes, About, Contact, Error)
       <Route path="/hr" element={<RootLayout />}>
         {HrRoutes}
-        <Route path="about" element={<AboutUs />} />
+        {/* <Route path="about" element={<AboutUs />} /> */}
         {/* <Route path="contact" element={<Contact />} /> */}
         <Route path="*" element={<Error />} />
       </Route>
 
-       {/* Routes with HR Navbar (HR routes, About, Contact, Error) */}
+      {/* Routes with HR Navbar (HR routes, About, Contact, Error) */}
       <Route path="/hr" element={<RootLayout />}>
         {HrRoutes}
-        <Route path="about" element={<AboutUs />} />
+        {/* <Route path="about" element={<AboutUs />} /> */}
         {/* <Route path="contact" element={<Contact />} /> */}
         <Route path="*" element={<Error />} />
       </Route>
 
-   
+
       {/* Routes with UserNavbar (User routes) */}
       <Route element={<UserLayout />}>
-      {UserRoutes}
+        {UserRoutes}
         <Route path="/" element={<UserRoutes />} />
         {/* <Route path="/about" element={<AboutUs />} /> */}
-        <Route path="/contact" element={<Contact />} />
+        {/* <Route path="/contact" element={<Contact />} /> */}
       </Route>
     </>
   )

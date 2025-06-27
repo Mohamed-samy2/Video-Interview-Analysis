@@ -6,7 +6,7 @@ import '../styles/NavbarStyles.css';
 
 const UserNavbar = () => {
   return (
-    <Navbar  className="custom-navbar">
+    <Navbar className="custom-navbar">
       <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
         <img
           src={logo}
@@ -23,8 +23,8 @@ const UserNavbar = () => {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
           <Nav.Link as={Link} to="/">Home</Nav.Link>
-          <Nav.Link as={Link} to="/about">About</Nav.Link>
-          <Nav.Link as={Link} to="/contact">Contact Us</Nav.Link>
+          {/* <Nav.Link as={Link} to="/about">About</Nav.Link>
+          <Nav.Link as={Link} to="/contact">Contact Us</Nav.Link> */}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
