@@ -15,8 +15,8 @@ wget https://huggingface.co/mohamedsamyy/PRVIA_Video_Personality_Traits/resolve/
     -O Ai/Video_Model/X3D_Third_CheckPoint.pth
 
 # # Download Audio model
-# wget https://huggingface.co/your-username/video-model/resolve/main/x3d_model.pth \
-#     -O Ai/Audio_Model/EnglishModel_weights_best_epoch.pth
+wget https://huggingface.co/mohamedsamyy/PRVIA_English_Evalution/resolve/main/EnglishModel_weights_best_epoch.pth?download=true \
+    -O Ai/Audio_Model/EnglishModel_weights_best_epoch.pth
 
 # Download Text model
 wget https://huggingface.co/mohamedsamyy/PRVIA_Text_Personality_Traits/resolve/main/AGR.h5?download=true \
