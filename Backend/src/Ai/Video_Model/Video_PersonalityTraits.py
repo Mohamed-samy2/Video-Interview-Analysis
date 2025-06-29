@@ -16,7 +16,7 @@ class Video_PersonalityTraits:
         self.image_size = image_size
         self.face_detector = MTCNN(image_size=image_size, margin=margin, post_process=False, select_largest=True, device=self.device)
         self.model = x3d_model('x3d_s')
-        self.model.load_state_dict(torch.load(os.path.join(os.path.dirname(__file__), "X3D_Third_CheckPoint (1).pth")))
+        self.model.load_state_dict(torch.load(os.path.join(os.path.dirname(__file__), "X3D_Third_CheckPoint.pth")))
         self.model = self.model.to(self.device)
         self.model.eval()
         
