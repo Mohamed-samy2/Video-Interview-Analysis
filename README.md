@@ -18,34 +18,35 @@ PRVIA is an AI-powered system that automates the evaluation of pre-recorded job 
 
 1. **Clone the repository:**
 
-```
-git clone https://github.com/Mohamed-samy2/Video-Interview-Analysis.git
-cd Video-Interview-Analysis
-```
+    ```bash
+    git clone https://github.com/Mohamed-samy2/Video-Interview-Analysis.git
+    cd Video-Interview-Analysis
+    ```
 
 2. **Create Enviroment Files:**
 
-Inside `Backend/src`
+    Inside `Backend/src`
 
-```
-cp .env.example .env
-```
+    ```bash
+    cp .env.example .env
+    ```
 
-Add the following to `.env`
+    Add the following to `.env`
 
-```
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=yourpassword
-POSTGRES_DB=prvia
-POSTGRES_HOST=db
-POSTGRES_PORT=5432
-```
+    ```bash
+    GEMINI_API_KEY=
+    POSTGRES_USER=
+    POSTGRES_PASSWORD=
+    POSTGRES_DB=
+    POSTGRES_HOST=
+    POSTGRES_PORT=
+    ```
 
 3. **Run with Docker Compose:**
 
-```
-docker-compose up --build
-```
+    ```bash
+    docker-compose up --build
+    ```
 
 4. **Access the App:**
 
