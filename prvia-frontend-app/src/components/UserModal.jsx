@@ -122,6 +122,7 @@ const UserModal = ({ show, onHide, userId, jobId, onStatusUpdate }) => {
               <video
                 key={currentQuestionIndex}
                 controls
+                autoPlay
                 src={`http://localhost:8000/${currentQuestion?.video}`}
                 className="video-player"
               />
