@@ -1,0 +1,59 @@
+# Python cache and bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Logs and metadata
+*.log
+
+# Virtual environments
+venv/
+.env
+
+# Model files — these will be downloaded via script
+Ai/Audio_Model/*
+Ai/Video_Model/*
+Ai/Text_Model/Models/*
+
+# IDE/editor files
+.vscode/
+.idea/
+.DS_Store
+Data
+*.pyc
+__pycache__
+uploads
+__pycache__/
+fastapi-env
+tests
+server.js
+db.json
+node_modules
+.DS_Store
+*.pth
+*.mp3
+*.mp4
+*.h5
+*.pdf
+DB
+
+# Node modules & build output
+node_modules
+build
+dist
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS/Editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Environment files
+.env
+.env.local

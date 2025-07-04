@@ -1,0 +1,33 @@
+.create-job-form-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #5492bf;
+    margin-left: 450px;
+    /* font-family:Arial, Helvetica, sans-serif; */
+    font-weight: 600;
+  
+  }
+
+  .create-job-form-container h5 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #5860b5;
+    /* font-family:inherit; */
+    margin-top: 40px;
+  
+  }
+ .text-center .submit-button {
+    border-radius: 12px;
+    margin: 15px;
+    margin-top: 30px;
+    /* margin-left: 1000px; */
+    border: none;
+    color: white;
+    cursor: pointer;
+    background: linear-gradient(135deg, #362e91, #168d9d);
+    width: 14%;
+    font-size: 16px;
+    padding: 7px 18px;       
+    font-size: 17px ; 
+    font-weight: 500;
+  }

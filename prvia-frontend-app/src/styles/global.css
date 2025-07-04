@@ -1,0 +1,133 @@
+/* src/styles/global.css */
+html, body {
+  height: 100%;
+  overflow-x: hidden; /* prevent horizontal scroll */
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  min-height: 100vh; /* Ensure React app fills the viewport */
+  display: flex;
+  flex-direction: column;
+}
+
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #333333;
+  background: linear-gradient(180deg, #f8f9fa, #e4e4e2b3) !important;
+  size-adjust: 100%;
+
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: #93cff7 !important ;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  font-size: x-large;
+  color: #4206a3;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+p, span, div {
+  font-weight: 400;
+}
+
+.custom-logo {
+  height: 30px;
+  width: auto;
+  margin-right: 2px;
+  padding: 5px;
+}
+
+
+/* Button Styling */
+.custom-btn {
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 700;
+}
+
+
+.custom-btn:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+
+.btn-primary {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background 0.3s ease-in-out;
+}
+
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #0056b3, #004494);
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* min-height: 100vh; */
+  width: 50vw;
+  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+  font-family: 'Arial', sans-serif;
+  margin: 0 auto;
+  margin-top: 200px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.error-message404,
+.error-message-divider,
+.error-message-not-found {
+  margin: 0;
+  color: #0d71a0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-weight: bold;
+  display: inline-block;
+}
+
+.error-message404 {
+  font-size: 5rem;
+  font-weight: bold;
+  margin-right: 20px;
+  /* animation: pulse 2s infinite; */
+}
+
+.error-message-divider {
+  font-size: 6rem;
+  font-weight: 300;
+  margin: 0 20px;
+  opacity: 0.7;
+}
+
+.error-message-not-found {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-left: 20px;
+  letter-spacing: 1px;
+}
+
+/* @keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+} */
+

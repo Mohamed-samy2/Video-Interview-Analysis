@@ -1,0 +1,138 @@
+.question-card-container {
+    display: flex;
+    flex-direction: column;
+    /* width: 50vw !important; */
+    padding: 16px 24px;
+    margin-top: 50px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+   
+    transition: box-shadow 0.3s ease;
+  }
+
+.question-card{
+    background: transparent !important;
+    border: none !important;
+
+}
+
+.question-card-title {
+    display: block;
+    margin-bottom: 20px;
+    font-size: 1.76rem;
+    text-align: center;
+    font-weight: bold;
+    color: transparent;
+    background-image: linear-gradient(90deg, #514A9D, #24C6DC)  ;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .card-subtitle-custom {
+  text-align: center;
+  margin-bottom: 1.5rem; 
+  color: #6c757d !important;
+  font-size: 1rem; 
+  }
+
+
+.instructions-container {
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  /* margin: 0 auto; */
+  width: 26vw;
+  padding: 16px 24px;
+  margin-top: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); 
+}
+
+.instructions-heading {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #033054;
+ }
+
+
+.instructions-container ul {
+  padding-left: 1.2rem;
+  margin: 0;
+  list-style-type: disc;
+}
+
+.instructions-container li {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  color: #044586; /* slightly muted text */
+}
+
+
+.upload-group{
+    display: flex;
+    flex-direction: column;
+    width: 25vw;
+    gap: 9px;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+
+.upload-label {
+  font-weight: 800;
+  margin-top: 13px;
+  margin-bottom: 8px;
+  color: #043a66;
+}
+
+.upload-input {
+  border-radius: 5px;
+}
+
+.video-preview .video-player{
+    margin: 0 auto;
+     display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+  
+.video-preview .file-info {
+  font-size: 0.95rem;
+  color: #212529;
+  margin-top: 20px;
+}
+
+.next-button{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    width: 5.5vw;
+}
+.next-button:hover{
+    background-color: #022440 !important;
+    color: white !important;
+}
+
+.back-button2{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    width: 5.5vw;
+}
+
+.back-button2:hover{
+    background-color: #022440 !important;
+    color: white !important;
+}
+
+.finish-button{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    width: 5.5vw;
+}
+.finish-button:hover{
+    background-color: #02513f !important;
+    color: white !important;
+}

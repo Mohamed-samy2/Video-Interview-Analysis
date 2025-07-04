@@ -1,0 +1,164 @@
+/* src/styles/LoginSignup.css */
+
+body {
+  background-color: #0737d5 ;
+}
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 90px;
+  background: #f3f8fc;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  width: 100%;
+  max-width: 700px;
+ 
+}
+
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+  padding-top: 20px; /* Adjusted to account for the header */
+}
+
+
+.text {
+  color: #333333;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+
+.underline {
+  width: 61px;
+  height: 6px;
+  /* background: #007bff; */
+  background-image: linear-gradient(to right, #24C6DC 0%, #514A9D  51%, #24C6DC  100%);
+
+
+  border-radius: 9px;
+}
+
+
+.inputs {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+.input {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  width: 50%;
+  max-width: 100%;
+  height: 50px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+
+
+.input img {
+  margin: 0 10px;
+  width: 20px;
+  height: 20px;
+}
+
+
+.input input {
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #333;
+  font-size: 16px;
+}
+
+
+.forgot-password {
+  margin-top: 15px;
+  color: #797979;
+  font-size: 16px;
+  text-align: center;
+}
+
+
+.forgot-password span {
+  color: #007bff;
+  cursor: pointer;
+}
+
+
+.redirect-link {
+  margin-top: 15px;
+  color: #797979;
+  font-size: 16px;
+  text-align: center;
+}
+
+
+.redirect-link .link {
+  color: #007bff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+.redirect-link .link:hover {
+  text-decoration: underline;
+}
+
+
+button.submit {
+  width: 180px;
+  height: 45px;
+  margin: 20px auto;
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  /* background: linear-gradient(135deg, #007bff, #0056b3); Revert to blue */
+  background-image: linear-gradient(to right, #24C6DC 0%, #514A9D  51%, #24C6DC  100%);
+  background-size: 200% auto;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+
+button.submit:hover {
+  /* background: linear-gradient(135deg, #0056b3, #004494); */
+  background-position: right center !important; /* change the direction of the change here */
+            color: #fff;
+            text-decoration: none;
+}
+
+
+/* Error message styling */
+.error {
+  color: rgb(225, 26, 26);
+  font-size: 12px;
+  text-align: left;
+  margin-top: 3px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}

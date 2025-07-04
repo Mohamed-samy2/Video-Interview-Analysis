@@ -1,0 +1,358 @@
+/* src/styles/jobCardStyles.css */
+.custom-container {
+  max-width: 94% !important; 
+  padding: 0 !important; 
+}
+
+.job-cards-large-container {
+  width: 70vw;
+  min-height: 74vh;
+  max-width: 1400px;
+  margin:  auto; 
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(50px) !important; 
+  flex-grow: 0.7;
+  padding: 30px;
+  border-radius:20px;
+  background: transparent;
+
+}
+
+/* .job-card-container {
+  width: 70%;
+  min-height: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  backdrop-filter: blur(50px) !important; 
+  justify-content: center; 
+  max-width: 1600px; 
+  align-items: center;    
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+  background: transparent;
+} */
+
+ .job-card-container {
+  width: 70%;
+  min-height: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 120px; /* Increased gap between cards to 100px */
+  justify-content: flex-start; /* Center cards horizontally */
+  max-width: 1600px; /* Adjusted to fit ~4 cards (370px * 4 + 100px * 3 gaps) */
+  align-items: center; /* Center cards vertically */
+  margin: 0 auto;
+  padding: 30px 20px; /* Equal top and bottom padding (30px) */
+  border-radius: 10px;
+  background: transparent;
+}
+
+/* Ensure maximum 4 cards by limiting the container width and using flex */
+.job-card-container::after {
+  content: '';
+  flex-grow: 10; /* Pushes excess space to the end */
+}
+
+ .job-card {
+  width: 370px;
+  min-height: 380px !important;
+  border-radius: 20px !important;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(50px) !important;
+  background-color: rgba(255, 255, 255, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.479) !important;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  z-index: 1;
+  position: relative;
+}
+
+
+.job-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+
+.job-card .card-body {
+  padding: 15px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+
+.job-card .card-title {
+  font-size: 1.3rem; /* Reduced font size */
+  /* margin-bottom: 0.1rem; */
+  margin-left:0;
+  background-image: linear-gradient(to right, #053440 0%, #195d88 51%, #14045c 100%);
+  background-size: 200% auto; 
+  -webkit-background-clip: text;
+  background-clip: text; 
+  color: transparent;
+  /* color: #020309; */
+  font-weight: bold;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+  letter-spacing: -0.02em;
+  width: 100%; 
+  display: block; 
+}
+
+
+.job-card .card-subtitle {
+  font-size: 1rem;
+  /* margin-top: 0.4px; */
+  color: #7084d3 !important;
+  /* margin-bottom: 0.5rem; */
+  margin-left: 0;
+  text-align: center; 
+  width: 100%; 
+  display: block; 
+
+}
+
+.job-card .card-text {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Custom View Details Button */
+.job-card .btn-custom2 {
+  width: 100px; 
+  padding: 10px 3px;
+  height: 35px;
+  /* margin-top: auto;
+  margin-left: auto; 
+  margin-right: auto; */
+  margin: 0 auto;
+  
+  display: block;
+  font-size: 14px; 
+  font-weight: 400;
+  color: #fff;
+  text-align: center; 
+  line-height: 18px; 
+  background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
+  /* background: #38438e ; */
+  background-size: 200% auto;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-position 0.3s ease;
+  /* margin: 0 auto;
+  padding: 4px 10px;
+  font-size: 0.85rem;
+    font-weight: 500;
+    background-color: #115b7d !important;   */
+    /* background: #0d8da6; */
+    color: white !important;
+    /* background-image: linear-gradient(to right, #4dd9fc 0%, #023555 51%, #44377e 100%); */
+    /* font-size: 16px;
+    padding: 7px 18px;       
+    font-size: 17px ; 
+    font-weight: 500; */
+}
+
+ .job-card .btn-custom2:hover,
+.btn-custom:hover {
+  background-position: right center; 
+  background-color: #2fa3cd;
+  border-color: #1d76b1;
+
+}
+
+/* .custom-line {
+  width: 50%;
+  margin: 0 auto; 
+  align-items: center;
+  display: block;
+  height: 1px;
+  background-color: #b9b4b5;
+  margin-top: 80px; 
+  margin-bottom: 15px; 
+} */
+
+.custom-line {
+  width: 50%;
+  margin: 20px auto; /* Reduced top margin for better spacing */
+  height: 1px;
+  background-color: #b9b4b5;
+}
+
+
+/* Job Type and Salary Ovals */
+.job-top-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.job-type-oval {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #838181;
+  border: 1.5px solid #bcc2f4; /* Yellow border */
+  background-color: #fff;
+  display: inline-block;
+}
+
+.job-salary-oval {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #838181;
+  border: 1.5px solid #a4e6ec; /* Yellow border */
+  background-color: #fff;
+  display: inline-block;
+}
+
+/* Description with Line Limit */
+.job-description {
+  color: #626e78;
+  /* margin-bottom: 1rem; */
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; 
+   line-clamp: 2; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* Adjust Job Card Container for Dynamic Layout */
+.job-card-container {
+  width: 100%; 
+  min-height: 280px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); 
+  gap: 50px;
+  justify-content: flex-start;
+  padding: 20px;
+  border-radius: 10px;
+  background: transparent;
+}
+
+
+/* Section Header */
+.section-header {
+  background-size: 200% auto;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  
+  border: 1px solid #e2ddde;
+  position: relative;
+  overflow: visible;
+  max-width: 100%;
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: 1.6rem;
+  /* background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%); */
+  background-image: linear-gradient(90deg, #514A9D, #24C6DC);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  font-weight: bold;
+  color: transparent;
+  background-clip: text;
+  /* color: #2f3c8e; */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 10;
+}
+
+
+.section-header:hover {
+  background-position: right center;
+}
+
+.section-header .btn-custom:hover,
+.btn-custom:hover {
+  background-position: right center;
+}
+
+.section-header .btn-custom,
+.btn-custom {
+  width: 140px; 
+  padding: 10px;
+  height: 38px;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  display: block;
+  text-align: center; 
+  line-height: 18px;
+  font-weight: 600;
+  color: #fff;
+  background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
+  background-size: 200% auto;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-position 0.3s ease;
+  pointer-events: auto;
+  z-index: 100;
+}
+
+
+/* No Jobs Available Message */
+.no-jobs-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+  background: transparent;
+  box-shadow: none;
+}
+
+.no-jobs-message h1 {
+  font-size: 1.7rem;
+  background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 1rem;
+}
+
+
+.no-jobs-message p {
+  font-size: 1rem;
+  color: #506373;
+  margin-bottom: 1rem;
+}
+
+
+/* Custom No Results Icon */
+.custom-no-results-icon {
+  background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 1rem;
+}
+
